@@ -1,0 +1,44 @@
+\documentclass[14pt, aspectratio=169]{beamer}
+\usepackage{unicode}
+\usepackage{apacite}
+\usepackage{parskip}
+\usepackage{listings}
+\newcommand {\scaledimage}[1] {
+    \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{#1}
+}
+
+\setbeamertemplate{navigation symbols}{}
+\title{Especificación del Analizador Léxico}
+\author{Aramis E. Matos, Lenier Gerena, Angel Berrios}
+
+\usetheme{Berlin}
+\usecolortheme{beaver}
+
+\begin{document}
+\maketitle
+
+\begin{frame}[fragile=singleslide]
+    \frametitle{Code}
+    \small
+closeToZero = take 100 \$ map(\\x -> 1 / powerDouble 10 x)[1.0 ..]
+
+closeToDoubleLimit = [maxBound - 99 .. maxBound] :: [Int]
+
+turnToDouble x = read (filter (/= 'n') x) :: Double
+
+\end{frame}
+
+\begin{frame}{Big Chungus}
+    \cite{narciso_farias_gramatica_2012}
+
+    \cite{tapkeer_flex_2023}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+    \frametitle{Referencias}
+    \bibliography{../../report/References}
+    \bibliographystyle{apacite}
+\end{frame}
+
+
+\end{document}
