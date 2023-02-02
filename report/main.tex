@@ -1,0 +1,44 @@
+\documentclass[12pt]{report}
+\usepackage[acronym,automake]{glossaries-extra}
+\usepackage{unicode}
+\usepackage{times}
+\usepackage{apacite}
+
+\setabbreviationstyle[acronym]{long-short}
+\makeglossaries
+\title{Diseño e Implementación de un Analizador Léxico y Analizador Semántico para el Lenguaje AVISMO}
+\author{Aramis E. Matos \\ Lenier Gerena \\ Angel Berrios}
+\date{Segundo Semestre, 2022-2023}
+\begin{document}
+\renewcommand{\acronymname}{Acrónimos}
+\renewcommand{\bibname}{Referencias Bibliográficas}
+\renewcommand{\contentsname}{Tabla de Contenido}
+\renewcommand{\chaptername}{Capítulo}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabla}
+
+\maketitle
+\tableofcontents
+
+\chapter{Introducción}
+
+\input{chapters/intro.tex}
+
+\chapter{Analizador Léxico}
+
+\input{chapters/lex.tex}
+
+\chapter{Implementación del Analizador Sintáctico}
+
+\input{chapters/syntax.tex}
+
+\chapter{Conclusiones y Recomendaciones}
+
+\input{chapters/conlusion.tex}
+
+
+
+\bibliographystyle{apacite}
+\bibliography{References}
+\printglossary[type=\acronymtype]
+\end{document}
