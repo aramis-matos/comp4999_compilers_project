@@ -3,10 +3,11 @@
 \subsubsection{Gramatica a Expresiones Regulares}
 
 \begin{enumerate}
-    \item sentencias = sentencia fin\_de\_linea sentencias
-    \item find\_de\_linea = (;|:)
-    \item sentencia = \textit{defina} id \textit{como} tipo \textit{=}
-    \item id = (\textit{[A-Za-z]}|letra idcont)
+    \item SENTENCIAS = SENTENCIA FIN\_DE\_LINEA SENTENCIAS
+    \item FIN\_DE\_LINEA = (;|:)
+    \item SENTENCIA = \textit{defina} ID \textit{como} TIPO | ID \textit{=} MODELO\_MOLECULAR | OPERACION "(" ID ")"
+    \item ID = (\textit{[A-Za-z]} | LETRA IDCONT)
+    \item IDCONT = (\textit{[A-Za-z]} | LETRA IDCONT | \textit{[0-9]} | DIGITO IDCONT)
 \end{enumerate}
 
 \section{Implementación del Analizador Léxico}
