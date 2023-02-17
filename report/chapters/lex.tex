@@ -8,7 +8,7 @@
         ;      & <FIN\_DE\_ LINEA>     & ; | :                                                                 & Indica fin de Línea                               \\\hline
         defina & <PALABRA\_ RESERVADA> & defina | como                                                         & Indica declaración de una variable                \\\hline
         VaR1   & <ID>                  & [A-Za-z] | <LETRA> <IDCONT>                                           & Apuntador a la tabla de símbolos                  \\\hline
-        X1     & <IDCONT>              & \textit{[A-Za-z]} | LETRA IDCONT | \textit{[0-9]} | <DIGITO> <IDCONT> & Permite que los identificadores contengan números \\\hline
+        X1     & <IDCONT>              & \textit{[A-Za-z]} | <LETRA> <IDCONT> | \textit{[0-9]} | <DIGITO> <IDCONT> & Permite que los identificadores contengan números \\\hline
         =      & <ASIGNACION>          & =                                                                     & Asigna un <MODELO\_MOLECULAR a un identificador   \\\hline
         X1y2   & <ID>                  & [A-Za-z] | <LETRA> <IDCONT>                                           & Indica declaración de una variable                \\\hline
         A      & <LETRA>               & [A-Za-z]                                                              & Provee un terminal para <ID> y <IDCONT>           \\\hline
@@ -19,15 +19,118 @@
 
 \section{Diseño del del Analizador Léxico}
 
-\begin{center}
-    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
-        \node [state,initial] (q0) {$q_0$};
-        \node [state,accepting] [right=of q0] (q1) {$q_1$};
 
-        \path[-stealth, thick]
-        (q0) edge node {1} (q1);
-    \end{tikzpicture}
-\end{center}
+\begin{figure}[ht]
+    \footnotesize
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \begin{mdframed}
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+                \node [state,initial] (q0) {$0$};
+                \node [state,accepting] [right=of q0] (q1) {$1$};
+                \node [state,accepting] [below=of q1] (q2) {$2$};
 
+                \path[-stealth, thick]
+                (q0) edge node {;} (q1)
+                (q0) edge [bend right] node {:} (q2);
+            \end{tikzpicture}
+            \label{fig: finDeLineaAutomata}
+        \end{mdframed}
+        \caption{Automata del patrón para el token <FIN\_DE\_LINEA>}
+    \end{minipage}\hspace{1cm}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \begin{mdframed}
+            \begin{tikzpicture}[node distance = 2.5cm, on grid, auto]
+                \node [state, initial] (q0) {$0$};
+                \node [state, accepting] [right=of q0] (q1) {$1$};
+                \node [state, accepting] [below=of q1] {$1$};
+
+                \path[-stealth, thick]
+                (q0) edge node {defina} (q1)
+                (q0) edge [bend right] node {como} (q2);
+            \end{tikzpicture}
+        \end{mdframed}
+        \label{fig: palabraReservada}
+        \captionof{figure}{Automata del patrón para el token <PALABRAS\_RESERVADA>}
+    \end{minipage}
+\end{figure}
+
+
+\begin{figure}[ht]
+    \footnotesize
+    \begin{minipage}{0.5\textwidth}
+        \begin{mdframed}
+            \begin{tikzpicture}[node distance = 2.5cm, auto]
+                \node [state, initial] (q0) {0};
+                \node [state, accepting] [right=of q0] (q1) {$1$};
+                \node [state] [below=of q0] (q2) {$2$};
+                \node [state, accepting] [right=of q2] (q3) {$3$};
+
+                \path[-stealth, thick]
+                (q0) edge node {[A-Za-z]} (q1)
+                (q0) edge node {<LETRA>} (q2)
+                (q2) edge node {<IDCONT>} (q3);
+            \end{tikzpicture}
+        \end{mdframed}
+        \label{fig: idAutomata}
+        \caption{Automata del patrón para el token <ID>}
+    \end{minipage}\hspace{1cm}
+    \begin{minipage}{0.5\textwidth}
+        \begin{mdframed}
+            \begin{tikzpicture}[node distance = 1.5cm, auto]
+                \node [state, initial] (q0) {$0$};
+                \node [state, accepting] [right=of q0] (q1) {$1$};
+                \node [state] [below=of q1] (q2) {$2$};
+                \node [state, accepting] [below=of q2] (q3) {$3$};
+                \node [state, accepting] [above left=of q0] (q4) {$4$};
+                \node [state] [below left=of q0] (q5) {$5$};
+                
+
+                \path[-stealth, thick]
+                (q0) edge node {[A-Za-z]} (q1)
+                (q0) edge node {<LETRA>} (q2)
+                (q2) edge node [left] {<IDCONT>} (q3)
+                (q0) edge [bend right] node[right] {[0-9]} (q4)
+                (q0) edge [bend right] node [left] {<DIGITO>} (q5)
+                (q5) edge [bend right] node [below] {<IDCONT>} (q0);
+
+                
+            \end{tikzpicture}
+        \end{mdframed}
+        \label{fig: idContAutomata}
+        \caption{Automata del patrón para el token <IDCONT>}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[ht]
+    \footnotesize
+    \begin{minipage}{0.5\textwidth}
+        \begin{mdframed}
+            \begin{tikzpicture}[node distance = 1.5cm, on grid, auto]
+                \node [state,initial] (q0) {$0$};
+                \node [state,accepting] [right=of q1] (q1) {$1$};
+
+                \path[-stealth,thick]
+                (q0) edge node {=} (q1);
+            \end{tikzpicture}
+        \end{mdframed}
+        \label{fig: asigAutomata}
+        \caption{Automata del patrón para el token <ASIGNACION>}
+    \end{minipage}\hspace{1cm}
+    \begin{minipage}{0.5\linewidth}
+        \begin{mdframed}
+            \begin{tikzpicture}[node distance = 0cm, on grid ,auto]
+                \node [state,initial] (q0) {$0$};
+                \node [state,accepting] [right=of q1] (q1) {$1$};
+
+                \path[-stealth,thick]
+                (q0) edge node {[0-9]} (q1);
+            \end{tikzpicture}
+        \end{mdframed}
+        \label{fig: letraAutomata}
+        \caption{Automata del patrón para el token <LETRA>}
+    \end{minipage}
+\end{figure}
 
 \section{Implementación del Analizador Léxico}
