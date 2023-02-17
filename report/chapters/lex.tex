@@ -5,10 +5,28 @@
 \begin{enumerate}
     \item SENTENCIAS = SENTENCIA FIN\_DE\_LINEA SENTENCIAS
     \item FIN\_DE\_LINEA = (;|:)
-    \item SENTENCIA = \textit{defina} ID \textit{como} TIPO | ID \textit{=} MODELO\_MOLECULAR | OPERACION "(" ID ")"
-    \item ID = (\textit{[A-Za-z]} | LETRA IDCONT)
-    \item IDCONT = (\textit{[A-Za-z]} | LETRA IDCONT | \textit{[0-9]} | DIGITO IDCONT)
+    \item SENTENCIA = \textit{defina} ID \textit{como} TIPO | ID \textit{=} MODELO\_MOLECULAR | OPERACION \textit{(\textnormal{ID})}
+    \item ID = \textit{[A-Za-z]} | LETRA IDCONT
+    \item IDCONT = \textit{[A-Za-z]} | LETRA IDCONT | \textit{[0-9]} | DIGITO IDCONT
     \item LETRA = \textit{[A-Za-z]}
 \end{enumerate}
+
+\begin{table}
+    \footnotesize
+    \begin{tabularx}{\linewidth}{|X|X|X|X|}
+        \hline
+        Lexema & \textit{Token}        & Patrón                                                            & Atributo                                          \\\hline
+        ;      & <FIN\_DE\_ LINEA>     & ; | :                                                             & Indica fin de Línea                               \\\hline
+        defina & <PALABRA\_ RESERVADA> & defina | como                                                     & Indica declaración de una variable                \\\hline
+        VaR1   & <ID>                  & [A-Za-z] | <letra> <idcont>                                       & Apuntador a la tabla de símbolos                  \\\hline
+        X1     & <IDCONT>              & \textit{[A-Za-z]} | LETRA IDCONT | \textit{[0-9]} | DIGITO IDCONT & Permite que los identificadores contengan números \\\hline
+        =      & <ASIGNACION>          & =                                                                 & Asigna un <MODELO\_MOLECULAR a un identificador   \\\hline
+        X1y2   & <ID>                  & [A-Za-z] | <letra> <idcont>                                       & Indica declaración de una variable                \\\hline
+    \end{tabularx}
+    \label{table: lexTable}
+    \caption{Definición de Patrones}
+\end{table}
+
+
 
 \section{Implementación del Analizador Léxico}
