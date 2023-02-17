@@ -1,32 +1,33 @@
-\section{Especificación y Diseño del Analizador Léxico}
+\section{Especificación del Analizador Léxico}
 
-\subsubsection{Gramatica a Expresiones Regulares}
-
-\begin{enumerate}
-    \item SENTENCIAS = SENTENCIA FIN\_DE\_LINEA SENTENCIAS
-    \item FIN\_DE\_LINEA = (;|:)
-    \item SENTENCIA = \textit{defina} ID \textit{como} TIPO | ID \textit{=} MODELO\_MOLECULAR | OPERACION \textit{(\textnormal{ID})}
-    \item ID = \textit{[A-Za-z]} | LETRA IDCONT
-    \item IDCONT = \textit{[A-Za-z]} | LETRA IDCONT | \textit{[0-9]} | DIGITO IDCONT
-    \item LETRA = \textit{[A-Za-z]}
-\end{enumerate}
-
-\begin{table}
+\begin{table}[ht]
     \footnotesize
     \begin{tabularx}{\linewidth}{|X|X|X|X|}
         \hline
-        Lexema & \textit{Token}        & Patrón                                                            & Atributo                                          \\\hline
-        ;      & <FIN\_DE\_ LINEA>     & ; | :                                                             & Indica fin de Línea                               \\\hline
-        defina & <PALABRA\_ RESERVADA> & defina | como                                                     & Indica declaración de una variable                \\\hline
-        VaR1   & <ID>                  & [A-Za-z] | <letra> <idcont>                                       & Apuntador a la tabla de símbolos                  \\\hline
-        X1     & <IDCONT>              & \textit{[A-Za-z]} | LETRA IDCONT | \textit{[0-9]} | DIGITO IDCONT & Permite que los identificadores contengan números \\\hline
-        =      & <ASIGNACION>          & =                                                                 & Asigna un <MODELO\_MOLECULAR a un identificador   \\\hline
-        X1y2   & <ID>                  & [A-Za-z] | <letra> <idcont>                                       & Indica declaración de una variable                \\\hline
+        Lexema & \textit{Token}        & Patrones                                                              & Atributo                                          \\\hline
+        ;      & <FIN\_DE\_ LINEA>     & ; | :                                                                 & Indica fin de Línea                               \\\hline
+        defina & <PALABRA\_ RESERVADA> & defina | como                                                         & Indica declaración de una variable                \\\hline
+        VaR1   & <ID>                  & [A-Za-z] | <LETRA> <IDCONT>                                           & Apuntador a la tabla de símbolos                  \\\hline
+        X1     & <IDCONT>              & \textit{[A-Za-z]} | LETRA IDCONT | \textit{[0-9]} | <DIGITO> <IDCONT> & Permite que los identificadores contengan números \\\hline
+        =      & <ASIGNACION>          & =                                                                     & Asigna un <MODELO\_MOLECULAR a un identificador   \\\hline
+        X1y2   & <ID>                  & [A-Za-z] | <LETRA> <IDCONT>                                           & Indica declaración de una variable                \\\hline
+        A      & <LETRA>               & [A-Za-z]                                                              & Provee un terminal para <ID> y <IDCONT>           \\\hline
     \end{tabularx}
     \label{table: lexTable}
-    \caption{Definición de Patrones}
+    \caption{Definición Léxica del Lenguaje AVISMO}
 \end{table}
 
+\section{Diseño del del Analizador Léxico}
+
+\begin{center}
+    \begin{tikzpicture}[node distance = 4cm, on grid, auto]
+        \node [state,initial] (q0) {$q_0$};
+        \node [state,accepting] [right=of q0] (q1) {$q_1$};
+
+        \path[-stealth, thick]
+        (q0) edge node {1} (q1);
+    \end{tikzpicture}
+\end{center}
 
 
 \section{Implementación del Analizador Léxico}
