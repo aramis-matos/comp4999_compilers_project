@@ -1,0 +1,10 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Automata del patrón para el token <FIN\_DE\_LINEA>\relax }}{4}{}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Automata del patrón para el token <PALABRAS\_RESERVADA>\relax }}{4}{}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Automata del patrón para el token <ID>\relax }}{5}{}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Automata del patrón para el token <IDCONT>\relax }}{5}{}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Automata del patrón para el token <ASIGNACION>\relax }}{5}{}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Automata del patrón para el token <LETRA>\relax }}{5}{}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
