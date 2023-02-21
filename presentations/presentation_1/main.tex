@@ -16,13 +16,39 @@
 
 \setbeamertemplate{navigation symbols}{}
 \title{Especificación del Analizador Léxico}
-\author{Aramis E. Matos, Lenier Gerena, Angel Berrios}
+\author{Aramis E. Matos, Lenier Gerena, Angel Berrios Pellot}
 
 \usetheme{Berlin}
 \usecolortheme{beaver}
 
+
 \begin{document}
 \maketitle
+\begin{frame}{Introduccion}
+    \small Escribir Introduccion 
+\end{frame}
+
+\begin{frame}{Objetivo}
+    \small Escrirbir objetivos 
+\end{frame}
+
+\begin{frame}{Indice}
+    \item Tabla simbolos
+    \item Diseño de analizador lexico
+    \item Especificaciones  
+    \begin{itemize}
+        \item token
+        \item patron
+        \item lexema
+        \item atributos
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Indice}
+    \item Expreciones regulares / AFN
+    \item tabla de transiciones 
+    \item seguir añadiendo
+\end{frame}
 
 \begin{frame}[fragile=singleslide]
     \frametitle{Code}
@@ -61,6 +87,7 @@ turnToDouble x = read (filter (/= 'n') x) :: Double
         =      & <ASIGNACION>          & =                                                                     & Asigna un <MODELO\_MOLECULAR a un identificador   \\\hline
         X1y2   & <ID>                  & [A-Za-z] | <LETRA> <IDCONT>                                           & Indica declaración de una variable                \\\hline
         A      & <LETRA>               & [A-Za-z]                                                              & Provee un terminal para <ID> y <IDCONT>           \\\hline
+        1      & <DIGITO>              & [0-9]                                                                 & Escribir algo                                     \\\hline
     \end{tabularx}
     \label{table: lexTable2}
     \caption{Definición Léxica del Lenguaje AVISMO}
