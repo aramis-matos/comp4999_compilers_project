@@ -1,3 +1,14 @@
+\section{Gramatica del Lenguaje AVISMO}
+
+\begin{itemize}
+    \item <SENTENCIAS> ::= <FIN\_DE\_LINEA> <SENTENCIAS> | <SENTENCIA> <FIN\_DE\_LINEA>
+    \item <FIN\_DE\_LINEA> ::= ":" | ";"
+    \item <SENTENCIA> ::= "defina" <ID> "como" <TIPO> | <ID> "="  <MODELO\_MOLECULAR> | <OPERACION> "(" <ID> ")" 
+    \item <ID> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | <LETRA> <IDCONT>
+    \item <IDCONT> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | <LETRA> <IDCONT> | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | <DIGITO> <IDCONT>
+    \item <LETRA> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+\end{itemize}
+
 \section{Especificación del Analizador Léxico}
 
 \begin{table}[ht]
@@ -132,5 +143,9 @@
         \caption{Automata del patrón para el token <LETRA>}
     \end{minipage}
 \end{figure}
+
+\section{Tabla de Símbolos} 
+
+
 
 \section{Implementación del Analizador Léxico}
