@@ -7,7 +7,8 @@
 \usepackage{tikz}
 \usepackage{mdframed}
 \usepackage{caption}
-
+\usepackage{xcolor}
+\usepackage{pifont}
 
 \renewcommand{\bibname}{Referencias Bibliográficas}
 \renewcommand{\contentsname}{Tabla de Contenido}
@@ -41,13 +42,9 @@
 \section{Introduccion}
 
 \begin{frame}{Introduccion}
-    \small Escribir Introduccion
-\end{frame}
+    \cite{narciso_farias_gramatica_2012}
 
-\section{Objetivos}
-
-\begin{frame}{Objetivos}
-    \small Escrirbir objetivos
+    \cite{tapkeer_flex_2023}
 \end{frame}
 
 \section{Gramatica de AVISMO}
@@ -57,7 +54,7 @@
     \begin{itemize}
         \item $<$SENTENCIAS$>$ ::= <FIN\_DE\_LINEA> $<$SENTENCIAS$>$ | $<$SENTENCIA$>$ $<$FIN\_DE\_LINEA$>$
         \item $<$FIN\_DE\_LINEA$>$ ::= ":" | ";"
-        \item $<$SENTENCIA$>$ ::= "defina" $<$ID$>$ "como" $<$TIPO$>$ | $<$ID$>$ "="  $<$MODELO\_MOLECULAR$>$ | $<$OPERACION$>$ "(" $<$ID$>$ ")" 
+        \item $<$SENTENCIA$>$ ::= "defina" $<$ID$>$ "como" $<$TIPO$>$ | $<$ID$>$ "="  $<$MODELO\_MOLECULAR$>$ | $<$OPERACION$>$ "(" $<$ID$>$ ")"
         \item $<$ID$>$ ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | $<$LETRA$>$ $<$IDCONT$>$
         \item $<$IDCONT$>$ ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | $<$LETRA$>$ $<$IDCONT$>$ | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | $<$DIGITO$>$ $<$IDCONT$>$
         \item $<$LETRA$>$ ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
@@ -70,13 +67,13 @@
     \only<1> {
         \begin{table}[ht]
             \footnotesize
-            \begin{tabularx}{\linewidth}{|X|X|X|X|}
+            \begin{tabularx}{\linewidth}{|X|X|X|}
                 \hline
-                Lexema & \textit{Token}        & Patrones                                                                  & Atributo                                          \\\hline
-                ;      & <FIN\_DE\_ LINEA>     & ; | :                                                                     & Indica fin de Línea                               \\\hline
-                defina & <PALABRA\_ RESERVADA> & defina | como                                                             & Indica declaración de una variable                \\\hline
-                VaR1   & <ID>                  & [A-Za-z] | <LETRA> <IDCONT>                                               & Apuntador a la tabla de símbolos                  \\\hline
-                X1     & <IDCONT>              & \textit{[A-Za-z]} | <LETRA> <IDCONT> | \textit{[0-9]} | <DIGITO> <IDCONT> & Permite que los identificadores contengan números \\\hline
+                \textit{Token}        & Patrones                                                                  & Atributos                                         \\\hline
+                <FIN\_DE\_ LINEA>     & ; | :                                                                     & Indica fin de Línea                               \\\hline
+                <PALABRA\_ RESERVADA> & defina | como                                                             & Indica declaración de una variable                \\\hline
+                <ID>                  & [A-Za-z] | <LETRA> <IDCONT>                                               & Apuntador a la tabla de símbolos                  \\\hline
+                <IDCONT>              & \textit{[A-Za-z]} | <LETRA> <IDCONT> | \textit{[0-9]} | <DIGITO> <IDCONT> & Permite que los identificadores contengan números \\\hline
             \end{tabularx}
             \label{table: lexTable1}
             \caption{Definición Léxica del Lenguaje AVISMO}
@@ -85,12 +82,13 @@
     \only<2> {
         \begin{table}[ht]
             \footnotesize
-            \begin{tabularx}{\linewidth}{|X|X|X|X|}
+            \begin{tabularx}{\linewidth}{|X|X|X|}
                 \hline
-                =    & <ASIGNACION> & =                           & Asigna un <MODELO\_MOLECULAR a un identificador \\\hline
-                X1y2 & <ID>         & [A-Za-z] | <LETRA> <IDCONT> & Indica declaración de una variable              \\\hline
-                A    & <LETRA>      & [A-Za-z]                    & Provee un terminal para <ID> y <IDCONT>         \\\hline
-                1    & <DIGITO>     & [0-9]                       & Escribir algo                                   \\\hline
+                \textit{Token} & Patrones                    & Atributos                                       \\\hline
+                <ASIGNACION>   & =                           & Asigna un <MODELO\_MOLECULAR a un identificador \\\hline
+                <ID>           & [A-Za-z] | <LETRA> <IDCONT> & Indica declaración de una variable              \\\hline
+                <LETRA>        & [A-Za-z]                    & Provee un terminal para <ID> y <IDCONT>         \\\hline
+                <DIGITO>       & [0-9]                       & Escribir algo                                   \\\hline
             \end{tabularx}
             \label{table: lexTable2}
             \caption{Definición Léxica del Lenguaje AVISMO}
@@ -99,6 +97,8 @@
 \end{frame}
 
 \section{Diseño del Analizador Léxico}
+
+\subsection{Autómatas Finitos Deterministas}
 
 \begin{frame}{Diseño del Analizador Léxico}
     \only<1>{
@@ -223,16 +223,44 @@
     }
 \end{frame}
 
-\section{Tabla de Símbolos}
+\subsection{Estructura de Datos de la Tabla de Símbolos}
 
 \begin{frame}
-    \frametitle{Tabla de Símbolos}
+    \frametitle{Estructura de Datos de la Tabla de Símbolos}
+    \begin{figure}[H]
+        \begin{mdframed}
+            \textnormal{var1} $\rightarrow \left\{\textbf{tipo}: \textit{str},\textbf{valor}:\textit{"chungus",\textbf{esMutable} : false}\right\}$
+
+            \textnormal{Big} $\rightarrow \left\{\textbf{tipo}: \textit{int},\textbf{valor}:\textit{"12",\textbf{esMutable} : false}\right\}$
+            \begin{center}
+                $\vdots$
+            \end{center}
+
+            \textit{Identificador}  $\rightarrow \textbf{Atributos de Identificador}$
+        \end{mdframed}
+        \label{fig: symbolTableStruct}
+        \caption{Estructura de la Tabla de Símbolos, un Diccionario}
+    \end{figure}
 \end{frame}
 
-\begin{frame}{Big Chungus}
-    \cite{narciso_farias_gramatica_2012}
+\begin{frame}{Casos de Prueba}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            {\color{green} $\checkmark$} Programas Léxicamente Correctos
+            \begin{itemize}
+                \item 
+            \end{itemize}
+        \end{column}
 
-    \cite{tapkeer_flex_2023}
+        \begin{column}{0.5\textwidth}
+            {\color{red} \ding{55}} Programas Léxicamente Correctos
+            \begin{itemize}
+                \item 
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+
 \end{frame}
 
 \begin{frame}[allowframebreaks]
