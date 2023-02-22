@@ -3,7 +3,7 @@
 \begin{itemize}
     \item <SENTENCIAS> ::= <FIN\_DE\_LINEA> <SENTENCIAS> | <SENTENCIA> <FIN\_DE\_LINEA>
     \item <FIN\_DE\_LINEA> ::= ":" | ";"
-    \item <SENTENCIA> ::= "defina" <ID> "como" <TIPO> | <ID> "="  <MODELO\_MOLECULAR> | <OPERACION> "(" <ID> ")" 
+    \item <SENTENCIA> ::= "defina" <ID> "como" <TIPO> | <ID> "="  <MODELO\_MOLECULAR> | <OPERACION> "(" <ID> ")"
     \item <ID> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | <LETRA> <IDCONT>
     \item <IDCONT> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | <LETRA> <IDCONT> | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | <DIGITO> <IDCONT>
     \item <LETRA> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
@@ -11,18 +11,18 @@
 
 \section{Especificación del Analizador Léxico}
 
-\begin{table}[ht]
+
+\begin{table}[H]
     \footnotesize
-    \begin{tabularx}{\linewidth}{|X|X|X|X|}
+    \begin{tabularx}{\linewidth}{|X|X|X|}
         \hline
-        Lexema & \textit{Token}        & Patrón                                                              & Atributos                                          \\\hline
-        ;      & <FIN\_DE\_ LINEA>     & ; | :                                                                 & Indica fin de Línea                               \\\hline
-        defina & <PALABRA\_ RESERVADA> & defina | como                                                         & Indica declaración de una variable                \\\hline
-        VaR1   & <ID>                  & [A-Za-z] | <LETRA> <IDCONT>                                           & Apuntador a la tabla de símbolos                  \\\hline
-        X1     & <IDCONT>              & \textit{[A-Za-z]} | <LETRA> <IDCONT> | \textit{[0-9]} | <DIGITO> <IDCONT> & Permite que los identificadores contengan números \\\hline
-        =      & <ASIGNACION>          & =                                                                     & Asigna un <MODELO\_MOLECULAR a un identificador   \\\hline
-        X1y2   & <ID>                  & [A-Za-z] | <LETRA> <IDCONT>                                           & Indica declaración de una variable                \\\hline
-        A      & <LETRA>               & [A-Za-z]                                                              & Provee un terminal para <ID> y <IDCONT>           \\\hline
+        \textit{Token}       & Patrón                                                                    & Atributos                                         \\\hline
+        <FIN\_DE\_LINEA>     & ; | :                                                                     & Indica fin de Línea                               \\\hline
+        <PALABRA\_RESERVADA> & defina | como                                                             & Indica declaración de una variable                \\\hline
+        <ID>                 & [A-Za-z] | <LETRA> <IDCONT>                                               & Apuntador a la tabla de símbolos                  \\\hline
+        <IDCONT>             & \textit{[A-Za-z]} | <LETRA> <IDCONT> | \textit{[0-9]} | <DIGITO> <IDCONT> & Permite que los identificadores contengan números \\\hline
+        <ID>                 & [A-Za-z] | <LETRA> <IDCONT>                                               & Indica declaración de una variable                \\\hline
+        <LETRA>              & [A-Za-z]                                                                  & Provee un terminal para <ID> y <IDCONT>           \\\hline
     \end{tabularx}
     \label{table: lexTable}
     \caption{Definición Léxica del Lenguaje AVISMO}
@@ -30,8 +30,9 @@
 
 \section{Diseño del del Analizador Léxico}
 
+\subsection{Autómatas Finitos Deterministas}
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \footnotesize
     \begin{minipage}{.5\textwidth}
         \centering
@@ -68,7 +69,7 @@
 \end{figure}
 
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \footnotesize
     \begin{minipage}{0.5\textwidth}
         \begin{mdframed}
@@ -96,7 +97,7 @@
                 \node [state, accepting] [below=of q2] (q3) {$3$};
                 \node [state, accepting] [above left=of q0] (q4) {$4$};
                 \node [state] [below left=of q0] (q5) {$5$};
-                
+
 
                 \path[-stealth, thick]
                 (q0) edge node {[A-Za-z]} (q1)
@@ -106,7 +107,7 @@
                 (q0) edge [bend right] node [left] {<DIGITO>} (q5)
                 (q5.east) edge [bend right] node [below right] {<IDCONT>} (q0);
 
-                
+
             \end{tikzpicture}
         \end{mdframed}
         \label{fig: idContAutomata}
@@ -114,7 +115,7 @@
     \end{minipage}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \footnotesize
     \begin{minipage}{0.5\textwidth}
         \begin{mdframed}
@@ -144,8 +145,21 @@
     \end{minipage}
 \end{figure}
 
-\section{Tabla de Símbolos} 
+\subsection{Tabla de Símbolos}
 
+
+\begin{figure}[H]
+    \begin{mdframed}
+        \begin{align*}
+             & \textnormal{var1}                       \rightarrow \left\{\textbf{tipo}: \textit{str},\textbf{valor}:\textit{"chungus",                              \textbf{esMutable} : false}\right\} \\
+             & \textnormal{Big}                      \rightarrow \left\{\textbf{tipo}: \textit{int},\textbf{valor}:\textit{"12",\textbf{esMutable} : false}\right\}                                      \\
+             & \vdots                                                                                                                                                                                    \\
+             & \textit{Identificador}  \rightarrow \textbf{Atributos de Identificador}
+        \end{align*}
+    \end{mdframed}
+    \label{fig: symbolTableStruct}
+    \caption{Estructura de la Tabla de Símbolos, un Diccionario}
+\end{figure}
 
 
 \section{Implementación del Analizador Léxico}
