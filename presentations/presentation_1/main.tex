@@ -9,6 +9,7 @@
 \usepackage{caption}
 \usepackage{xcolor}
 \usepackage{pifont}
+\usepackage{multicol}
 
 \renewcommand{\bibname}{Referencias Bibliográficas}
 \renewcommand{\contentsname}{Tabla de Contenido}
@@ -33,9 +34,11 @@
 
 \begin{document}
 \maketitle
-\begin{frame}%[allowframebreaks]
+\begin{frame}[allowframebreaks]
     \frametitle{Índice}
-    \tableofcontents
+    \begin{multicols}{2}
+        \tableofcontents
+    \end{multicols}
 \end{frame}
 
 \section{Introduccion}
@@ -48,13 +51,13 @@
         \begin{column}{.5\textwidth}
             En específico, los siguientes aspectos:
             \begin{itemize}
-                \item Gramática del Lenguaje
+                \item Gramática del Lenguaje \textbf{(Reglas de producción para un lenguaje)}
                 \item Especificación del Analizador Léxico
                 \item Diseño del Analizador Léxico
             \end{itemize}
         \end{column}
     \end{columns}
-    
+
 \end{frame}
 
 \section{Gramática de AVISMO}
@@ -73,38 +76,102 @@
 
 \section{Especificación del Analizador Léxico}
 
-\begin{frame}{Especificación del Analizador Léxico}
-    \only<1> {
-        \begin{table}[ht]
-            \footnotesize
-            \begin{tabularx}{\linewidth}{|X|X|X|}
-                \hline
-                \textit{Token}        & Patrones                                                                  & Atributos                                         \\\hline
-                <FIN\_DE\_ LINEA>     & ; | :                                                                     & Indica fin de Línea                               \\\hline
-                <PALABRA\_ RESERVADA> & defina | como                                                             & Indica declaración de una variable                \\\hline
-                <ID>                  & [A-Za-z] | <LETRA> <IDCONT>                                               & Apuntador a la tabla de símbolos                  \\\hline
-                <IDCONT>              & \textit{[A-Za-z]} | <LETRA> <IDCONT> | \textit{[0-9]} | <DIGITO> <IDCONT> & Permite que los identificadores contengan números \\\hline
-            \end{tabularx}
-            \label{table: lexTable1}
-            \caption{Definición Léxica del Lenguaje AVISMO}
-        \end{table}
-    }
-    \only<2> {
-        \begin{table}[ht]
-            \footnotesize
-            \begin{tabularx}{\linewidth}{|X|X|X|}
-                \hline
-                \textit{Token} & Patrones                    & Atributos                                       \\\hline
-                <ASIGNACION>   & =                           & Asigna un <MODELO\_MOLECULAR a un identificador \\\hline
-                <ID>           & [A-Za-z] | <LETRA> <IDCONT> & Indica declaración de una variable              \\\hline
-                <LETRA>        & [A-Za-z]                    & Provee un terminal para <ID> y <IDCONT>         \\\hline
-                <DIGITO>       & [0-9]                       & Escribir algo                                   \\\hline
-            \end{tabularx}
-            \label{table: lexTable2}
-            \caption{Definición Léxica del Lenguaje AVISMO}
-        \end{table}
-    }
+\subsection{Tokens y Lexemas}
+
+\begin{frame}
+    \small
+    \frametitle{Tokens y Lexemas}
+    \begin{itemize}
+        \item Un lexema es una serie de caracteres que sigue un patrón
+        \item Un \textit{token} es un lexema que sigue un patrón y es asignado una categoría
+    \end{itemize}
+    \begin{tabularx}{\textwidth}{|X|X|}
+        \hline
+        \textit{Token}       & Lexema \\\hline
+        <FIN\_DE\_LINEA>     & ;      \\\hline
+        <PALABRA\_RESERVADA> & defina \\\hline
+        <ID>                 & var1   \\\hline
+        <IDCONT>             & 01A    \\\hline
+        <ASIGNACION>         & =      \\\hline
+        <LETRA>              & b      \\\hline
+        <DIGITO>             & 6      \\\hline
+    \end{tabularx}
 \end{frame}
+
+\subsection{Patrones}
+
+\begin{frame}
+    \frametitle{Patrones}
+    \small
+    \begin{itemize}
+        \item Un patrón es una descripción de la forma que los lexemas de un token pueden tomar \cite{aho_compilers_1986}
+    \end{itemize}
+    \begin{tabularx}{\textwidth}{|X|X|}
+        \hline
+        \textit{Token}       & Patrones                                                \\\hline
+        <FIN\_DE\_LINEA>     & ; | :                                                   \\\hline
+        <PALABRA\_RESERVADA> & defina | como                                           \\\hline
+        <ID>                 & [A-Za-z] | <LETRA> <IDCONT>                             \\\hline
+        <IDCONT>             & [A-Za-z] | <LETRA> <IDCONT> | [0-9] | <DIGITO> <IDCONT> \\\hline
+        <ASIGNACION>         & =                                                       \\\hline
+        <LETRA>              & [A-Za-z]                                                \\\hline
+        <DIGITO>             & [0-9]                                                   \\\hline
+    \end{tabularx}
+\end{frame}
+
+\subsection{Atributos}
+
+\begin{frame}
+    \frametitle{Atributos}
+    \footnotesize
+    \begin{itemize}
+        \item Atributos son información adicional que describen las propiedades a un token
+    \end{itemize}
+    \begin{tabularx}{\textwidth}{|X|X|}
+        \hline
+        \textit{Token}       & Atributos \\\hline
+        <FIN\_DE\_LINEA>     & Indica fin de Línea            \\\hline
+        <PALABRA\_RESERVADA> & Indica que el token no se puede utilizar como identificador \\\hline
+        <ID>                 & Apuntador a la tabla de símbolos    \\\hline
+        <IDCONT>             & Permite que los identificadores contengan números    \\\hline
+        <ASIGNACION>         & Asigna un <MODELO\_MOLECULAR> a un identificador      \\\hline
+        <LETRA>              & Provee un terminal para <ID> y <IDCONT>      \\\hline
+        <DIGITO>             & Provee un terminal para <ID>      \\\hline
+    \end{tabularx}
+\end{frame}
+
+% \begin{frame}{Especificación del Analizador Léxico}
+%     \only<1> {
+%         \begin{table}[ht]
+%             \footnotesize
+%             \begin{tabularx}{\linewidth}{|X|X|X|}
+%                 \hline
+%                 \textit{Token}        & Patrones                                                & Atributos                                         \\\hline
+%                 <FIN\_DE\_ LINEA>     & ; | :                                                   & Indica fin de línea                               \\\hline
+%                 <PALABRA\_ RESERVADA> & defina | como                                           & Indica declaración de una variable                \\\hline
+%                 <ID>                  & [A-Za-z] | <LETRA> <IDCONT>                             & Apuntador a la tabla de símbolos                  \\\hline
+%                 <IDCONT>              & [A-Za-z] | <LETRA> <IDCONT> | [0-9] | <DIGITO> <IDCONT> & Permite que los identificadores contengan números \\\hline
+%             \end{tabularx}
+%             \label{table: lexTable1}
+%             \caption{Definición Léxica del Lenguaje AVISMO}
+%         \end{table}
+%     }
+%     \only<2> {
+%         \begin{table}[ht]
+%             \footnotesize
+%             \begin{tabularx}{\linewidth}{|X|X|X|}
+%                 \hline
+%                 \textit{Token} & Patrones                    & Atributos                                       \\\hline
+%                 <ASIGNACION>   & =                           & Asigna un <MODELO\_MOLECULAR> a un identificador \\\hline
+%                 <ID>           & [A-Za-z] | <LETRA> <IDCONT> & Indica declaración de una variable              \\\hline
+%                 <LETRA>        & [A-Za-z]                    & Provee un terminal para <ID> y <IDCONT>         \\\hline
+%                 <DIGITO>       & [0-9]                       & Escribir algo                                   \\\hline
+%             \end{tabularx}
+%             \label{table: lexTable2}
+%             \caption{Definición Léxica del Lenguaje AVISMO}
+%         \end{table}
+%     }
+% \end{frame}
 
 \section{Diseño del Analizador Léxico}
 
@@ -253,23 +320,25 @@
     \end{figure}
 \end{frame}
 
+\section{Casos de Pruebas}
+
 \begin{frame}{Casos de Prueba}
     \begin{columns}
         \begin{column}{0.5\textwidth}
             {\color{red} \ding{55}} Programas Léxicamente Incorrectos
             \begin{itemize}
                 \only<1>{\item incio $\longrightarrow$  Error Léxico\\
-                    defina a1 como modelo;
-                    a1 = CH3CH(CH3)CH3;
-                    fin}
-                \only<2>{\item inicio
-                    defina a\_1 como modelo; $\longrightarrow$ Error Léxico\\
-                    a1 = CH3CH(CH3)CH3;
-                    fin}
-                \only<3>{\item inicio
-                    defina a1 como modelo $\longrightarrow$ Error Léxico\\
-                    a1 = CH3CH(CH3)CH3 $\longrightarrow$ Error Léxico\\
-                    fin}
+                      defina a1 como modelo;
+                      a1 = CH3CH(CH3)CH3;
+                      fin}
+                      \only<2>{\item inicio
+                      defina a\_1 como modelo; $\longrightarrow$ Error Léxico\\
+                      a1 = CH3CH(CH3)CH3;
+                      fin}
+                      \only<3>{\item inicio
+                      defina a1 como modelo $\longrightarrow$ Error Léxico\\
+                      a1 = CH3CH(CH3)CH3 $\longrightarrow$ Error Léxico\\
+                      fin}
             \end{itemize}
         \end{column}
 
@@ -277,21 +346,21 @@
             {\color{green} $\checkmark$} Programas Léxicamente Correctos
             \begin{itemize}
                 \only<1>{\item inicio $\longrightarrow$ ID inicio\\
-                    defina a1 como modelo;
-                    a1 = CH3CH(CH3)CH3;
-                    fin}
-                \only<2>{\item inicio
-                    defina a1 como modelo; $\longrightarrow$ ID a1\\
-                    a1 = CH3CH(CH3)CH3;
-                    fin}
-                \only<3>{\item inicio
-                    defina a1 como modelo; $\longrightarrow$ Fin de línea\\
-                    a1 = CH3CH(CH3)CH3; $\longrightarrow$ Fin de línea\\
-                    fin}
+                      defina a1 como modelo;
+                      a1 = CH3CH(CH3)CH3;
+                      fin}
+                      \only<2>{\item inicio
+                      defina a1 como modelo; $\longrightarrow$ ID a1\\
+                      a1 = CH3CH(CH3)CH3;
+                      fin}
+                      \only<3>{\item inicio
+                      defina a1 como modelo; $\longrightarrow$ Fin de línea\\
+                      a1 = CH3CH(CH3)CH3; $\longrightarrow$ Fin de línea\\
+                      fin}
             \end{itemize}
         \end{column}
     \end{columns}
-    
+
 
 \end{frame}
 \begin{frame}
