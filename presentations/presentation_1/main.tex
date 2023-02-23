@@ -151,9 +151,9 @@
     \only<2>{
         \begin{figure}[ht]
             \footnotesize
-            \begin{minipage}{0.41\textwidth}
+            \begin{minipage}{0.5\textwidth}
                 \begin{mdframed}
-                    \begin{tikzpicture}[node distance = 1.4cm, auto]
+                    \begin{tikzpicture}[node distance = 2cm, auto]
                         \node [state, initial] (q0) {0};
                         \node [state, accepting] [right=of q0] (q1) {$1$};
                         \node [state] [below=of q0] (q2) {$2$};
@@ -173,13 +173,13 @@
     \only<3>{
         \begin{figure}[ht]
             \footnotesize
-            \begin{minipage}{0.5\textwidth}
+            \begin{minipage}{0.6\textwidth}
                 \begin{mdframed}
-                    \begin{tikzpicture}[node distance = 24pt,auto]
+                    \begin{tikzpicture}[node distance = 30pt,auto]
                         \node [state, initial] (q0) {$0$};
                         \node [state, accepting] [right=of q0] (q1) {$1$};
                         \node [state] [below=of q1] (q2) {$2$};
-                        \node [state, accepting] [below=of q2] (q3) {$3$};
+                        \node [state, accepting] [right=of q1] (q3) {$3$};
                         \node [state, accepting] [above left=of q0] (q4) {$4$};
                         \node [state] [below left=of q0] (q5) {$5$};
 
@@ -187,7 +187,7 @@
                         \path[-stealth, very thin]
                         (q0) edge node {[A-Za-z]} (q1)
                         (q0) edge node {<LETRA>} (q2)
-                        (q2) edge node [left] {<IDCONT>} (q3)
+                        (q2) edge node [below right] {<IDCONT>} (q3)
                         (q0) edge [bend right] node[right] {[0-9]} (q4)
                         (q0) edge [bend right] node [left] {<DIGITO>} (q5)
                         (q5.east) edge [bend right] node [below] {<IDCONT>} (q0);
@@ -195,7 +195,7 @@
                 \end{mdframed}
                 \label{fig: idContAutomata}
             \end{minipage} \hspace{1cm}
-            \begin{minipage}{0.41\textwidth}
+            \begin{minipage}{0.3\textwidth}
                 \caption{Automata del patrón para el token <IDCONT>}
             \end{minipage}
         \end{figure}
