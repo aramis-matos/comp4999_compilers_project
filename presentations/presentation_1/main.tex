@@ -33,8 +33,7 @@
 
 \begin{document}
 \maketitle
-
-\begin{frame}[allowframebreaks]
+\begin{frame}%[allowframebreaks]
     \frametitle{Índice}
     \tableofcontents
 \end{frame}
@@ -42,15 +41,26 @@
 \section{Introduccion}
 
 \begin{frame}{Introduccion}
-    \cite{narciso_farias_gramatica_2012}
-
-    \cite{tapkeer_flex_2023}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            Se estará definiendo los fundamentos léxicos del lenguaje AVISMO \cite{narciso_farias_gramatica_2012}
+        \end{column}
+        \begin{column}{.5\textwidth}
+            En específico, los siguientes aspectos:
+            \begin{itemize}
+                \item Gramática del Lenguaje
+                \item Especificación del Analizador Léxico
+                \item Diseño del Analizador Léxico
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
 \end{frame}
 
-\section{Gramatica de AVISMO}
+\section{Gramática de AVISMO}
 
 \begin{frame}[allowframebreaks]
-    \frametitle{Gramatica de AVISMO}
+    \frametitle{Gramática de AVISMO}
     \begin{itemize}
         \item $<$SENTENCIAS$>$ ::= <FIN\_DE\_LINEA> $<$SENTENCIAS$>$ | $<$SENTENCIA$>$ $<$FIN\_DE\_LINEA$>$
         \item $<$FIN\_DE\_LINEA$>$ ::= ":" | ";"
@@ -284,7 +294,7 @@
     
 
 \end{frame}
-\begin{frame}[allowframebreaks]
+\begin{frame}
     \frametitle{Referencias}
     \bibliography{../../report/References}
     \bibliographystyle{apacite}
