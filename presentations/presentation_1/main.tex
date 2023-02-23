@@ -246,23 +246,44 @@
 \begin{frame}{Casos de Prueba}
     \begin{columns}
         \begin{column}{0.5\textwidth}
-            {\color{green} $\checkmark$} Programas Léxicamente Correctos
+            {\color{red} \ding{55}} Programas Léxicamente Incorrectos
             \begin{itemize}
-                \item 
+                \only<1>{\item incio $\longrightarrow$  Error Léxico\\
+                    defina a1 como modelo;
+                    a1 = CH3CH(CH3)CH3;
+                    fin}
+                \only<2>{\item inicio
+                    defina a\_1 como modelo; $\longrightarrow$ Error Léxico\\
+                    a1 = CH3CH(CH3)CH3;
+                    fin}
+                \only<3>{\item inicio
+                    defina a1 como modelo $\longrightarrow$ Error Léxico\\
+                    a1 = CH3CH(CH3)CH3 $\longrightarrow$ Error Léxico\\
+                    fin}
             \end{itemize}
         \end{column}
 
         \begin{column}{0.5\textwidth}
-            {\color{red} \ding{55}} Programas Léxicamente Correctos
+            {\color{green} $\checkmark$} Programas Léxicamente Correctos
             \begin{itemize}
-                \item 
+                \only<1>{\item inicio $\longrightarrow$ ID inicio\\
+                    defina a1 como modelo;
+                    a1 = CH3CH(CH3)CH3;
+                    fin}
+                \only<2>{\item inicio
+                    defina a1 como modelo; $\longrightarrow$ ID a1\\
+                    a1 = CH3CH(CH3)CH3;
+                    fin}
+                \only<3>{\item inicio
+                    defina a1 como modelo; $\longrightarrow$ Fin de línea\\
+                    a1 = CH3CH(CH3)CH3; $\longrightarrow$ Fin de línea\\
+                    fin}
             \end{itemize}
         \end{column}
     \end{columns}
     
 
 \end{frame}
-
 \begin{frame}[allowframebreaks]
     \frametitle{Referencias}
     \bibliography{../../report/References}
