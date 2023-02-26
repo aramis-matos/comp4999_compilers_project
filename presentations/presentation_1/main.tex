@@ -4,7 +4,7 @@
 \usepackage{parskip}
 \usepackage{times}
 \usepackage{tabularx}
-\usepackage{tikz}
+\usepackage{tikz, pgfplots}
 \usepackage{mdframed}
 \usepackage{caption}
 \usepackage{xcolor}
@@ -23,6 +23,8 @@
 }
 \usetikzlibrary{positioning,arrows,automata}
 \setbeamertemplate{navigation symbols}{}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{fit}
 
 \title{Especificación del Analizador Léxico}
 \author{Aramis E. Matos, Lenier Gerena, Angel Berrios}
@@ -304,20 +306,40 @@
 
 \begin{frame}
     \frametitle{Estructura de Datos de la Tabla de Símbolos}
-    \begin{figure}[H]
-        \begin{mdframed}
-            \textnormal{var1} $\rightarrow \left\{\textbf{tipo}: \textit{str},\textbf{valor}:\textit{"chungus",\textbf{esMutable} : false}\right\}$
+        \begin{tikzpicture}[
+            node distance=2cm and 3cm,
+            ID/.style={rectangle, rounded corners, draw=black, thick, minimum size=10mm},
+            ATT/.style={rectangle, rounded corners, draw=red!60, thick, minimum size=10mm},
+        ]
+            \draw node at (0,1.6)   {Identificador};
+            \draw node at (7.5, 1.6)  {Atributo};
 
-            \textnormal{Big} $\rightarrow \left\{\textbf{tipo}: \textit{int},\textbf{valor}:\textit{"12",\textbf{esMutable} : false}\right\}$
-            \begin{center}
-                $\vdots$
-            \end{center}
+            \node[ID]   (var1)                  {var1};
+            \node[ID]   (Big)   [below=of var1] {Big};
 
-            \textit{Identificador}  $\rightarrow \textbf{Atributos de Identificador}$
-        \end{mdframed}
-        \label{fig: symbolTableStruct}
-        \caption{Estructura de la Tabla de Símbolos, un Diccionario}
-    \end{figure}
+            \node[ATT]  (str1)  [right=of var1]  {str, val:"chungus", esMutable:false};
+            \node[ATT]  (int1)  [right=of Big]   {int, val:"12",      esMutable:false};
+
+            \draw[->, very thick] (var1.east) to (str1.west);
+            \draw[->, very thick] (Big.east) to (int1.west);
+
+            \node[draw=black, thick, fit={(var1) (Big)}, inner sep=10pt] (box) {};
+            \node[draw=black, thick, fit={(str1) (int1)}, inner sep=10pt] (box) {};
+        \end{tikzpicture}
+        % \begin{figure}[H]
+        %     \begin{mdframed}
+        %         \textnormal{var1} $\rightarrow \left\{\textbf{tipo}: \textit{str},\textbf{valor}:\textit{"chungus",\textbf{esMutable} : false}\right\}$
+
+        %         \textnormal{Big} $\rightarrow \left\{\textbf{tipo}: \textit{int},\textbf{valor}:\textit{"12",\textbf{esMutable} : false}\right\}$
+        %         \begin{center}
+        %             $\vdots$
+        %         \end{center}
+
+        %         \textit{Identificador}  $\rightarrow \textbf{Atributos de Identificador}$
+        %     \end{mdframed}
+        %     \label{fig: symbolTableStruct}
+        %     \caption{Estructura de la Tabla de Símbolos, un Diccionario}
+        % \end{figure}
 \end{frame}
 
 \section{Casos de Pruebas}
