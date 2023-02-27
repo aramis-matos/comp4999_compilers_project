@@ -131,14 +131,14 @@
     \end{itemize}
     \begin{tabularx}{\textwidth}{|X|X|}
         \hline
-        \textit{Token}       & Atributos \\\hline
-        <FIN\_DE\_LINEA>     & Indica fin de Línea            \\\hline
+        \textit{Token}       & Atributos                                                   \\\hline
+        <FIN\_DE\_LINEA>     & Indica fin de Línea                                         \\\hline
         <PALABRA\_RESERVADA> & Indica que el token no se puede utilizar como identificador \\\hline
-        <ID>                 & Apuntador a la tabla de símbolos    \\\hline
-        <IDCONT>             & Permite que los identificadores contengan números    \\\hline
-        <ASIGNACION>         & Asigna un <MODELO\_MOLECULAR> a un identificador      \\\hline
-        <LETRA>              & Provee un terminal para <ID> y <IDCONT>      \\\hline
-        <DIGITO>             & Provee un terminal para <ID>      \\\hline
+        <ID>                 & Apuntador a la tabla de símbolos                            \\\hline
+        <IDCONT>             & Permite que los identificadores contengan números           \\\hline
+        <ASIGNACION>         & Asigna un <MODELO\_MOLECULAR> a un identificador            \\\hline
+        <LETRA>              & Provee un terminal para <ID> y <IDCONT>                     \\\hline
+        <DIGITO>             & Provee un terminal para <IDCONT>                            \\\hline
     \end{tabularx}
 \end{frame}
 
@@ -205,7 +205,7 @@
                     \begin{tikzpicture}[node distance = 2.3cm, on grid, auto]
                         \node [state, initial] (q0) {$0$};
                         \node [state, accepting] [right=of q0] (q1) {$1$};
-                        \node [state, accepting] [below=of q1] {$1$};
+                        \node [state, accepting] [below=of q1] {$2$};
 
                         \path[-stealth, thick]
                         (q0) edge node {defina} (q1)
@@ -247,19 +247,19 @@
                     \begin{tikzpicture}[node distance = 30pt,auto]
                         \node [state, initial] (q0) {$0$};
                         \node [state, accepting] [right=of q0] (q1) {$1$};
-                        \node [state] [below=of q1] (q2) {$2$};
-                        \node [state, accepting] [right=of q1] (q3) {$3$};
-                        \node [state, accepting] [above left=of q0] (q4) {$4$};
-                        \node [state] [below left=of q0] (q5) {$5$};
+                        \node [state] [above right=of q1] (q2) {$2$};
+                        % \node [state, accepting] [right=of q1] (q3) {$3$};
+                        \node [state, accepting] [above left=of q0] (q3) {$3$};
+                        \node [state] [below left=of q0] (q4) {$4$};
 
 
                         \path[-stealth, very thin]
-                        (q0) edge node {[A-Za-z]} (q1)
-                        (q0) edge node {<LETRA>} (q2)
-                        (q2) edge node [below right] {<IDCONT>} (q3)
-                        (q0) edge [bend right] node[right] {[0-9]} (q4)
-                        (q0) edge [bend right] node [left] {<DIGITO>} (q5)
-                        (q5.east) edge [bend right] node [below] {<IDCONT>} (q0);
+                        (q0) edge [bend right] node [below] {[A-Za-z]} (q1)
+                        (q0) edge node [above left] {<IDCONT>} (q2)
+                        (q2) edge [bend right] node {<LETRA>} (q0)
+                        (q0) edge [bend right] node[left] {[0-9]} (q3)
+                        (q0) edge [bend right] node [left] {<DIGITO>} (q4)
+                        (q4.east) edge [bend right] node [below] {<IDCONT>} (q0);
                     \end{tikzpicture}
                 \end{mdframed}
                 \label{fig: idContAutomata}
@@ -292,10 +292,27 @@
                         \node [state,accepting] [right=of q1] (q1) {$1$};
 
                         \path[-stealth,thick]
-                        (q0) edge node {[0-9]} (q1);
+                        (q0) edge node {[A-Za-z]} (q1);
                     \end{tikzpicture}
                 \end{mdframed}
                 \label{fig: letraAutomata}
+                \caption{Automata del patrón para el token <LETRA>}
+            \end{minipage}
+        \end{figure}
+    }
+    \only<5> {
+        \begin{figure}
+            \begin{minipage}{0.6\linewidth}
+                \begin{mdframed}
+                    \begin{tikzpicture}[node distance = 1cm, on grid ,auto]
+                        \node [state,initial] (q0) {$0$};
+                        \node [state,accepting] [right=of q1] (q1) {$1$};
+
+                        \path[-stealth,thick]
+                        (q0) edge node {[0-9]} (q1);
+                    \end{tikzpicture}
+                \end{mdframed}
+                \label{fig: digitoAutomata}
                 \caption{Automata del patrón para el token <LETRA>}
             \end{minipage}
         \end{figure}
@@ -306,40 +323,40 @@
 
 \begin{frame}
     \frametitle{Estructura de Datos de la Tabla de Símbolos}
-        \begin{tikzpicture}[
+    \begin{tikzpicture}[
             node distance=2cm and 3cm,
             ID/.style={rectangle, rounded corners, draw=black, thick, minimum size=10mm},
             ATT/.style={rectangle, rounded corners, draw=red!60, thick, minimum size=10mm},
         ]
-            \draw node at (0,1.6)   {Identificador};
-            \draw node at (7.5, 1.6)  {Atributo};
+        \draw node at (0,1.6)   {Identificador};
+        \draw node at (7.5, 1.6)  {Atributo};
 
-            \node[ID]   (var1)                  {var1};
-            \node[ID]   (Big)   [below=of var1] {Big};
+        \node[ID]   (var1)                  {var1};
+        \node[ID]   (Big)   [below=of var1] {Big};
 
-            \node[ATT]  (str1)  [right=of var1]  {str, val:"chungus", esMutable:false};
-            \node[ATT]  (int1)  [right=of Big]   {int, val:"12",      esMutable:false};
+        \node[ATT]  (str1)  [right=of var1]  {str, val:"chungus", esMutable:false};
+        \node[ATT]  (int1)  [right=of Big]   {int, val:"12",      esMutable:false};
 
-            \draw[->, very thick] (var1.east) to (str1.west);
-            \draw[->, very thick] (Big.east) to (int1.west);
+        \draw[->, very thick] (var1.east) to (str1.west);
+        \draw[->, very thick] (Big.east) to (int1.west);
 
-            \node[draw=black, thick, fit={(var1) (Big)}, inner sep=10pt] (box) {};
-            \node[draw=black, thick, fit={(str1) (int1)}, inner sep=10pt] (box) {};
-        \end{tikzpicture}
-        % \begin{figure}[H]
-        %     \begin{mdframed}
-        %         \textnormal{var1} $\rightarrow \left\{\textbf{tipo}: \textit{str},\textbf{valor}:\textit{"chungus",\textbf{esMutable} : false}\right\}$
+        \node[draw=black, thick, fit={(var1) (Big)}, inner sep=10pt] (box) {};
+        \node[draw=black, thick, fit={(str1) (int1)}, inner sep=10pt] (box) {};
+    \end{tikzpicture}
+    % \begin{figure}[H]
+    %     \begin{mdframed}
+    %         \textnormal{var1} $\rightarrow \left\{\textbf{tipo}: \textit{str},\textbf{valor}:\textit{"chungus",\textbf{esMutable} : false}\right\}$
 
-        %         \textnormal{Big} $\rightarrow \left\{\textbf{tipo}: \textit{int},\textbf{valor}:\textit{"12",\textbf{esMutable} : false}\right\}$
-        %         \begin{center}
-        %             $\vdots$
-        %         \end{center}
+    %         \textnormal{Big} $\rightarrow \left\{\textbf{tipo}: \textit{int},\textbf{valor}:\textit{"12",\textbf{esMutable} : false}\right\}$
+    %         \begin{center}
+    %             $\vdots$
+    %         \end{center}
 
-        %         \textit{Identificador}  $\rightarrow \textbf{Atributos de Identificador}$
-        %     \end{mdframed}
-        %     \label{fig: symbolTableStruct}
-        %     \caption{Estructura de la Tabla de Símbolos, un Diccionario}
-        % \end{figure}
+    %         \textit{Identificador}  $\rightarrow \textbf{Atributos de Identificador}$
+    %     \end{mdframed}
+    %     \label{fig: symbolTableStruct}
+    %     \caption{Estructura de la Tabla de Símbolos, un Diccionario}
+    % \end{figure}
 \end{frame}
 
 \section{Casos de Pruebas}
