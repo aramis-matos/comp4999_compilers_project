@@ -131,14 +131,14 @@
     \end{itemize}
     \begin{tabularx}{\textwidth}{|X|X|}
         \hline
-        \textit{Token}       & Atributos                                                   \\\hline
-        <FIN\_DE\_LINEA>     & Indica fin de Línea                                         \\\hline
-        <PALABRA\_RESERVADA> & Indica que el token no se puede utilizar como identificador \\\hline
-        <ID>                 & Apuntador a la tabla de símbolos                            \\\hline
-        <IDCONT>             & Permite que los identificadores contengan números           \\\hline
-        <ASIGNACION>         & Asigna un <MODELO\_MOLECULAR> a un identificador            \\\hline
-        <LETRA>              & Provee un terminal para <ID> y <IDCONT>                     \\\hline
-        <DIGITO>             & Provee un terminal para <IDCONT>                            \\\hline
+        \textit{Token}       & Atributos                                                      \\\hline
+        <FIN\_DE\_LINEA>     & character especial, posición sintáctica, operaciones posibles  \\\hline
+        <PALABRA\_RESERVADA> & No es identificador, posición sintáctica                       \\\hline
+        <ID>                 & Apuntador a la tabla de símbolos                               \\\hline
+        <IDCONT>             & Serie de caracteres, posición sintáctica, operaciones posibles \\\hline
+        <ASIGNACION>         & character especial, posición sintáctica, operaciones posibles  \\\hline
+        <LETRA>              & character, posición sintáctica, operaciones posibles           \\\hline
+        <DIGITO>             & numero entero, posición sintáctica, operaciones posibles       \\\hline
     \end{tabularx}
 \end{frame}
 
