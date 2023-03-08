@@ -52,13 +52,12 @@ assignments:
 assignment:
   "identifier" ":=" exp { drv.variables[$1] = $3; };
 
-%left "+" "-";
-%left "*" "/";
+
 exp:
-  exp "+" exp   { $$ = $1 + $3; }
-| exp "-" exp   { $$ = $1 - $3; }
-| exp "*" exp   { $$ = $1 * $3; }
+exp "*" exp   { $$ = $1 * $3; }
 | exp "/" exp   { $$ = $1 / $3; }
+|  exp "+" exp   { $$ = $1 + $3; }
+| exp "-" exp   { $$ = $1 - $3; }
 | "(" exp ")"   { std::swap ($$, $2); }
 | "identifier"  { $$ = drv.variables[$1]; }
 | "number"      { std::swap ($$, $1); };
