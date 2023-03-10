@@ -16,6 +16,8 @@ class driver
 public:
   driver ();
 
+  std::map<std::string, std::string> parsed_values;
+
   std::map<std::string, int> variables;
 
   int result;
