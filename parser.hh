@@ -416,6 +416,7 @@ namespace yy {
       // "elemento_quimico"
       // "identificador"
       // "fin_de_linea"
+      // exps
       // exp
       char dummy2[sizeof (std::string)];
     };
@@ -505,7 +506,8 @@ namespace yy {
         S_DIGITO = 8,                            // "digito"
         S_YYACCEPT = 9,                          // $accept
         S_unit = 10,                             // unit
-        S_exp = 11                               // exp
+        S_exps = 11,                             // exps
+        S_exp = 12                               // exp
       };
     };
 
@@ -549,6 +551,7 @@ namespace yy {
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_exps: // exps
       case symbol_kind::S_exp: // exp
         value.move< std::string > (std::move (that.value));
         break;
@@ -635,6 +638,7 @@ switch (yykind)
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_exps: // exps
       case symbol_kind::S_exp: // exp
         value.template destroy< std::string > ();
         break;
@@ -1277,9 +1281,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 2,     ///< Last index in yytable_.
-      yynnts_ = 3,  ///< Number of nonterminal symbols.
-      yyfinal_ = 5 ///< Termination state number.
+      yylast_ = 3,     ///< Last index in yytable_.
+      yynnts_ = 4,  ///< Number of nonterminal symbols.
+      yyfinal_ = 3 ///< Termination state number.
     };
 
 
@@ -1353,6 +1357,7 @@ switch (yykind)
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_exps: // exps
       case symbol_kind::S_exp: // exp
         value.copy< std::string > (YY_MOVE (that.value));
         break;
@@ -1395,6 +1400,7 @@ switch (yykind)
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_exps: // exps
       case symbol_kind::S_exp: // exp
         value.move< std::string > (YY_MOVE (s.value));
         break;
@@ -1465,7 +1471,7 @@ switch (yykind)
 
 
 } // yy
-#line 1469 "parser.hh"
+#line 1475 "parser.hh"
 
 
 

@@ -37,12 +37,15 @@
 %token <std::string> FIN_DE_LINEA "fin_de_linea"
 %token <int> DIGITO "digito"
 %type  <std::string> exp
+%type <std::string> exps
 
 %printer { yyoutput << $$; } <*>;
 
 %%
 %start unit;
-unit: exp  { drv.result = $1; };
+unit: exps exp { drv.result = $2; };
+
+exps: %empty | exps exp {$$ = $1;};
 
 
 //assignment:
@@ -60,7 +63,6 @@ drv.parsed_values.push_back(std::make_pair("elemento_quimico",std::string($$)));
 | "identificador" {
 drv.parsed_values.push_back(std::make_pair("indentificador",std::string($$)));
 }
-| exp
 %%
 
 void
