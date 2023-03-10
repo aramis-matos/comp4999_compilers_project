@@ -50,7 +50,8 @@
   # include <string>
   class driver;
 
-#line 54 "parser.hh"
+
+#line 55 "parser.hh"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -190,7 +191,7 @@
 #endif
 
 namespace yy {
-#line 194 "parser.hh"
+#line 195 "parser.hh"
 
 
 
@@ -1507,7 +1508,7 @@ switch (yykind)
 
 
 } // yy
-#line 1511 "parser.hh"
+#line 1512 "parser.hh"
 
 
 

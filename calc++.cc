@@ -11,8 +11,12 @@ main (int argc, char *argv[])
       drv.trace_parsing = true;
     else if (argv[i] == std::string ("-s"))
       drv.trace_scanning = true;
-    else if (!drv.parse (argv[i]))
-      std::cout << drv.result << '\n';
+    else if (!drv.parse (argv[i])) {
+      // std::cout << drv.result << '\n';
+      for (int i = 0; i < drv.parsed_values.size(); i++) {
+        std::cout << drv.parsed_values[i].first  << ": " << drv.parsed_values[i].second << std::endl;
+      }
+    }
     else
       res = 1;
   return res;

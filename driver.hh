@@ -2,6 +2,8 @@
 # define DRIVER_HH
 # include <string>
 # include <map>
+#include <vector>
+#include <utility>
 # include "parser.hh"
 
 // Tell Flex the lexer's prototype ...
@@ -16,7 +18,7 @@ class driver
 public:
   driver ();
 
-  std::map<std::string, std::string> parsed_values;
+  std::vector<std::pair<std::string,std::string>> parsed_values;
 
   std::map<std::string, int> variables;
 
