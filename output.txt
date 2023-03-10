@@ -1,0 +1,17 @@
+(<ELEMENTO_QUIMICO>,H,test.txt:1.1)
+(<ELEMENTO_QUIMICO>,Li,test.txt:2.1-2)
+(<ELEMENTO_QUIMICO>,Pd,test.txt:3.1-2)
+(<ID>,Hello,test.txt:4.1-5)
+(<ID>,hello,test.txt:5.1-5)
+(<DIGITO>,192,test.txt:5.7-9)
+(<FIN_DE_LINEA>,;,test.txt:6.1)
+(<FIN_DE_LINEA>,:,test.txt:7.1)
+
+
+Tabla de Simbolos
+(como,)
+(defina,)
+(graficar2d,)
+(graficar3d,)
+(modelo,)
+(pesomolecular,)

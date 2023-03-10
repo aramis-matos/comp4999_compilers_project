@@ -416,7 +416,6 @@ namespace yy {
       // "elemento_quimico"
       // "identificador"
       // "fin_de_linea"
-      // exps
       // exp
       char dummy2[sizeof (std::string)];
     };
@@ -551,7 +550,6 @@ namespace yy {
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_exps: // exps
       case symbol_kind::S_exp: // exp
         value.move< std::string > (std::move (that.value));
         break;
@@ -638,7 +636,6 @@ switch (yykind)
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_exps: // exps
       case symbol_kind::S_exp: // exp
         value.template destroy< std::string > ();
         break;
@@ -1281,7 +1278,7 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 3,     ///< Last index in yytable_.
+      yylast_ = 4,     ///< Last index in yytable_.
       yynnts_ = 4,  ///< Number of nonterminal symbols.
       yyfinal_ = 3 ///< Termination state number.
     };
@@ -1357,7 +1354,6 @@ switch (yykind)
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_exps: // exps
       case symbol_kind::S_exp: // exp
         value.copy< std::string > (YY_MOVE (that.value));
         break;
@@ -1400,7 +1396,6 @@ switch (yykind)
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_exps: // exps
       case symbol_kind::S_exp: // exp
         value.move< std::string > (YY_MOVE (s.value));
         break;
@@ -1471,7 +1466,7 @@ switch (yykind)
 
 
 } // yy
-#line 1475 "parser.hh"
+#line 1470 "parser.hh"
 
 
 

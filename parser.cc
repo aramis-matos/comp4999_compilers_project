@@ -213,7 +213,6 @@ namespace yy {
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_exps: // exps
       case symbol_kind::S_exp: // exp
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
@@ -240,7 +239,6 @@ namespace yy {
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_exps: // exps
       case symbol_kind::S_exp: // exp
         value.move< std::string > (YY_MOVE (that.value));
         break;
@@ -267,7 +265,6 @@ namespace yy {
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_exps: // exps
       case symbol_kind::S_exp: // exp
         value.copy< std::string > (that.value);
         break;
@@ -293,7 +290,6 @@ namespace yy {
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_exps: // exps
       case symbol_kind::S_exp: // exp
         value.move< std::string > (that.value);
         break;
@@ -335,39 +331,33 @@ namespace yy {
         switch (yykind)
     {
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
-#line 42 "parser.yy"
+#line 41 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 341 "parser.cc"
+#line 337 "parser.cc"
         break;
 
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
-#line 42 "parser.yy"
+#line 41 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 347 "parser.cc"
+#line 343 "parser.cc"
         break;
 
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-#line 42 "parser.yy"
+#line 41 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 353 "parser.cc"
+#line 349 "parser.cc"
         break;
 
       case symbol_kind::S_DIGITO: // "digito"
-#line 42 "parser.yy"
+#line 41 "parser.yy"
                  { yyoutput << yysym.value.template as < int > (); }
-#line 359 "parser.cc"
-        break;
-
-      case symbol_kind::S_exps: // exps
-#line 42 "parser.yy"
-                 { yyoutput << yysym.value.template as < std::string > (); }
-#line 365 "parser.cc"
+#line 355 "parser.cc"
         break;
 
       case symbol_kind::S_exp: // exp
-#line 42 "parser.yy"
+#line 41 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 371 "parser.cc"
+#line 361 "parser.cc"
         break;
 
       default:
@@ -604,7 +594,6 @@ namespace yy {
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_exps: // exps
       case symbol_kind::S_exp: // exp
         yylhs.value.emplace< std::string > ();
         break;
@@ -629,36 +618,49 @@ namespace yy {
         {
           switch (yyn)
             {
-  case 2: // unit: exps exp
-#line 46 "parser.yy"
-               { drv.result = yystack_[0].value.as < std::string > (); }
-#line 636 "parser.cc"
+  case 2: // unit: exps
+#line 45 "parser.yy"
+           {}
+#line 625 "parser.cc"
     break;
 
   case 4: // exps: exps exp
-#line 48 "parser.yy"
-                        {yylhs.value.as < std::string > () = yystack_[1].value.as < std::string > ();}
-#line 642 "parser.cc"
+#line 47 "parser.yy"
+                        {}
+#line 631 "parser.cc"
     break;
 
   case 5: // exp: "elemento_quimico"
-#line 60 "parser.yy"
+#line 50 "parser.yy"
                      {
-drv.parsed_values.push_back(std::make_pair("elemento_quimico",std::string(yylhs.value.as < std::string > ())));
+
 }
-#line 650 "parser.cc"
+#line 639 "parser.cc"
     break;
 
   case 6: // exp: "identificador"
-#line 63 "parser.yy"
+#line 53 "parser.yy"
                   {
-drv.parsed_values.push_back(std::make_pair("indentificador",std::string(yylhs.value.as < std::string > ())));
+
 }
-#line 658 "parser.cc"
+#line 647 "parser.cc"
+    break;
+
+  case 7: // exp: "fin_de_linea"
+#line 56 "parser.yy"
+                 {
+}
+#line 654 "parser.cc"
+    break;
+
+  case 8: // exp: "digito"
+#line 58 "parser.yy"
+           {}
+#line 660 "parser.cc"
     break;
 
 
-#line 662 "parser.cc"
+#line 664 "parser.cc"
 
             default:
               break;
@@ -1012,18 +1014,18 @@ drv.parsed_values.push_back(std::make_pair("indentificador",std::string(yylhs.va
 
   const signed char parser::yypact_ninf_ = -6;
 
-  const signed char parser::yytable_ninf_ = -3;
+  const signed char parser::yytable_ninf_ = -1;
 
   const signed char
   parser::yypact_[] =
   {
-      -6,     2,    -5,    -6,    -6,    -6,     3
+      -6,     4,    -5,    -6,    -6,    -6,    -6,    -6,    -6
   };
 
   const signed char
   parser::yydefact_[] =
   {
-       3,     0,     0,     1,     5,     6,     4
+       3,     0,     2,     1,     5,     6,     7,     8,     4
   };
 
   const signed char
@@ -1035,37 +1037,37 @@ drv.parsed_values.push_back(std::make_pair("indentificador",std::string(yylhs.va
   const signed char
   parser::yydefgoto_[] =
   {
-       0,     1,     2,     6
+       0,     1,     2,     8
   };
 
   const signed char
   parser::yytable_[] =
   {
-       4,     5,     3,    -2
+       4,     5,     6,     7,     3
   };
 
   const signed char
   parser::yycheck_[] =
   {
-       5,     6,     0,     0
+       5,     6,     7,     8,     0
   };
 
   const signed char
   parser::yystos_[] =
   {
-       0,    10,    11,     0,     5,     6,    12
+       0,    10,    11,     0,     5,     6,     7,     8,    12
   };
 
   const signed char
   parser::yyr1_[] =
   {
-       0,     9,    10,    11,    11,    12,    12
+       0,     9,    10,    11,    11,    12,    12,    12,    12
   };
 
   const signed char
   parser::yyr2_[] =
   {
-       0,     2,     2,     0,     2,     1,     1
+       0,     2,     1,     0,     2,     1,     1,     1,     1
   };
 
 
@@ -1086,7 +1088,7 @@ drv.parsed_values.push_back(std::make_pair("indentificador",std::string(yylhs.va
   const signed char
   parser::yyrline_[] =
   {
-       0,    46,    46,    48,    48,    60,    63
+       0,    45,    45,    47,    47,    50,    53,    56,    58
   };
 
   void
@@ -1118,9 +1120,9 @@ drv.parsed_values.push_back(std::make_pair("indentificador",std::string(yylhs.va
 
 
 } // yy
-#line 1122 "parser.cc"
+#line 1124 "parser.cc"
 
-#line 66 "parser.yy"
+#line 59 "parser.yy"
 
 
 void

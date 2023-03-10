@@ -1,8 +1,9 @@
 #include "driver.hh"
 #include "parser.hh"
 #include <fstream>
+#include <iostream>
 
-void add_keywords (std::map<std::string,std::string>& list) {
+std::map<std::string,std::string> add_keywords (std::map<std::string,std::string>& list) {
     std::ifstream keywords;
     std::string val;
 
@@ -11,12 +12,13 @@ void add_keywords (std::map<std::string,std::string>& list) {
         list[val] = "";
     }
     keywords.close();
+    return list;
 }
 
 
 driver::driver ()
 {
-  add_keywords(this->variables);
+  this->variables = add_keywords(this->variables);
 }
 
 int
