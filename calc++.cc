@@ -13,8 +13,8 @@ main (int argc, char *argv[])
       drv.trace_scanning = true;
     else if (!drv.parse (argv[i])) {
       // std::cout << drv.result << '\n';
-      for (int i = 0; i < drv.parsed_values.size(); i++) {
-        std::cout << drv.parsed_values[i].first  << ": " << drv.parsed_values[i].second << std::endl;
+      for (long unsigned int i = 0; i < drv.parsed_values.size(); i++) {
+//       std::cout << drv.parsed_values[i].first  << ": " << drv.parsed_values[i].second << std::endl;
       }
     }
     else

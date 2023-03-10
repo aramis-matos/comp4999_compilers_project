@@ -13,6 +13,9 @@
 YY_DECL;
 
 // Conducting the whole scanning and parsing of Calc++.
+
+
+
 class driver
 {
 public:
@@ -20,9 +23,9 @@ public:
 
   std::vector<std::pair<std::string,std::string>> parsed_values;
 
-  std::map<std::string, int> variables;
+  std::map<std::string,std::string> variables;
 
-  int result;
+  std::string result;
 
   // Run the parser on file F.  Return 0 on success.
   int parse (const std::string& f);

@@ -410,11 +410,13 @@ namespace yy {
     /// An auxiliary type to compute the largest semantic type.
     union union_type
     {
-      // "number"
-      // exp
+      // "digito"
       char dummy1[sizeof (int)];
 
-      // "identifier"
+      // "elemento_quimico"
+      // "identificador"
+      // "fin_de_linea"
+      // exp
       char dummy2[sizeof (std::string)];
     };
 
@@ -468,15 +470,12 @@ namespace yy {
     TOK_END = 0,                   // "end of file"
     TOK_YYerror = 256,             // error
     TOK_YYUNDEF = 257,             // "invalid token"
-    TOK_ASSIGN = 258,              // ":="
-    TOK_MINUS = 259,               // "-"
-    TOK_PLUS = 260,                // "+"
-    TOK_STAR = 261,                // "*"
-    TOK_SLASH = 262,               // "/"
-    TOK_LPAREN = 263,              // "("
-    TOK_RPAREN = 264,              // ")"
-    TOK_IDENTIFIER = 265,          // "identifier"
-    TOK_NUMBER = 266               // "number"
+    TOK_LPAREN = 258,              // "("
+    TOK_RPAREN = 259,              // ")"
+    TOK_ELEMENTO_QUIMICO = 260,    // "elemento_quimico"
+    TOK_IDENTIFICADOR = 261,       // "identificador"
+    TOK_FIN_DE_LINEA = 262,        // "fin_de_linea"
+    TOK_DIGITO = 263               // "digito"
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -493,25 +492,20 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 12, ///< Number of tokens.
+        YYNTOKENS = 9, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
         S_YYUNDEF = 2,                           // "invalid token"
-        S_ASSIGN = 3,                            // ":="
-        S_MINUS = 4,                             // "-"
-        S_PLUS = 5,                              // "+"
-        S_STAR = 6,                              // "*"
-        S_SLASH = 7,                             // "/"
-        S_LPAREN = 8,                            // "("
-        S_RPAREN = 9,                            // ")"
-        S_IDENTIFIER = 10,                       // "identifier"
-        S_NUMBER = 11,                           // "number"
-        S_YYACCEPT = 12,                         // $accept
-        S_unit = 13,                             // unit
-        S_assignments = 14,                      // assignments
-        S_assignment = 15,                       // assignment
-        S_exp = 16                               // exp
+        S_LPAREN = 3,                            // "("
+        S_RPAREN = 4,                            // ")"
+        S_ELEMENTO_QUIMICO = 5,                  // "elemento_quimico"
+        S_IDENTIFICADOR = 6,                     // "identificador"
+        S_FIN_DE_LINEA = 7,                      // "fin_de_linea"
+        S_DIGITO = 8,                            // "digito"
+        S_YYACCEPT = 9,                          // $accept
+        S_unit = 10,                             // unit
+        S_exp = 11                               // exp
       };
     };
 
@@ -548,12 +542,14 @@ namespace yy {
       {
         switch (this->kind ())
     {
-      case symbol_kind::S_NUMBER: // "number"
-      case symbol_kind::S_exp: // exp
+      case symbol_kind::S_DIGITO: // "digito"
         value.move< int > (std::move (that.value));
         break;
 
-      case symbol_kind::S_IDENTIFIER: // "identifier"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_IDENTIFICADOR: // "identificador"
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_exp: // exp
         value.move< std::string > (std::move (that.value));
         break;
 
@@ -632,12 +628,14 @@ namespace yy {
         // Value type destructor.
 switch (yykind)
     {
-      case symbol_kind::S_NUMBER: // "number"
-      case symbol_kind::S_exp: // exp
+      case symbol_kind::S_DIGITO: // "digito"
         value.template destroy< int > ();
         break;
 
-      case symbol_kind::S_IDENTIFIER: // "identifier"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_IDENTIFICADOR: // "identificador"
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_exp: // exp
         value.template destroy< std::string > ();
         break;
 
@@ -751,7 +749,7 @@ switch (yykind)
 #endif
       {
 #if !defined _MSC_VER || defined __clang__
-        YY_ASSERT (tok == token::TOK_NUMBER);
+        YY_ASSERT (tok == token::TOK_DIGITO);
 #endif
       }
 #if 201103L <= YY_CPLUSPLUS
@@ -763,7 +761,7 @@ switch (yykind)
 #endif
       {
 #if !defined _MSC_VER || defined __clang__
-        YY_ASSERT (tok == token::TOK_IDENTIFIER);
+        YY_ASSERT ((token::TOK_ELEMENTO_QUIMICO <= tok && tok <= token::TOK_FIN_DE_LINEA));
 #endif
       }
     };
@@ -862,81 +860,6 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_ASSIGN (location_type l)
-      {
-        return symbol_type (token::TOK_ASSIGN, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_ASSIGN (const location_type& l)
-      {
-        return symbol_type (token::TOK_ASSIGN, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_MINUS (location_type l)
-      {
-        return symbol_type (token::TOK_MINUS, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_MINUS (const location_type& l)
-      {
-        return symbol_type (token::TOK_MINUS, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_PLUS (location_type l)
-      {
-        return symbol_type (token::TOK_PLUS, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_PLUS (const location_type& l)
-      {
-        return symbol_type (token::TOK_PLUS, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_STAR (location_type l)
-      {
-        return symbol_type (token::TOK_STAR, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_STAR (const location_type& l)
-      {
-        return symbol_type (token::TOK_STAR, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_SLASH (location_type l)
-      {
-        return symbol_type (token::TOK_SLASH, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_SLASH (const location_type& l)
-      {
-        return symbol_type (token::TOK_SLASH, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
       make_LPAREN (location_type l)
       {
         return symbol_type (token::TOK_LPAREN, std::move (l));
@@ -967,31 +890,61 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_IDENTIFIER (std::string v, location_type l)
+      make_ELEMENTO_QUIMICO (std::string v, location_type l)
       {
-        return symbol_type (token::TOK_IDENTIFIER, std::move (v), std::move (l));
+        return symbol_type (token::TOK_ELEMENTO_QUIMICO, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_IDENTIFIER (const std::string& v, const location_type& l)
+      make_ELEMENTO_QUIMICO (const std::string& v, const location_type& l)
       {
-        return symbol_type (token::TOK_IDENTIFIER, v, l);
+        return symbol_type (token::TOK_ELEMENTO_QUIMICO, v, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_NUMBER (int v, location_type l)
+      make_IDENTIFICADOR (std::string v, location_type l)
       {
-        return symbol_type (token::TOK_NUMBER, std::move (v), std::move (l));
+        return symbol_type (token::TOK_IDENTIFICADOR, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_NUMBER (const int& v, const location_type& l)
+      make_IDENTIFICADOR (const std::string& v, const location_type& l)
       {
-        return symbol_type (token::TOK_NUMBER, v, l);
+        return symbol_type (token::TOK_IDENTIFICADOR, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_FIN_DE_LINEA (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_FIN_DE_LINEA, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_FIN_DE_LINEA (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_FIN_DE_LINEA, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_DIGITO (int v, location_type l)
+      {
+        return symbol_type (token::TOK_DIGITO, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_DIGITO (const int& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_DIGITO, v, l);
       }
 #endif
 
@@ -1324,9 +1277,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 24,     ///< Last index in yytable_.
-      yynnts_ = 5,  ///< Number of nonterminal symbols.
-      yyfinal_ = 3 ///< Termination state number.
+      yylast_ = 2,     ///< Last index in yytable_.
+      yynnts_ = 3,  ///< Number of nonterminal symbols.
+      yyfinal_ = 5 ///< Termination state number.
     };
 
 
@@ -1371,10 +1324,10 @@ switch (yykind)
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11
+       5,     6,     7,     8
     };
     // Last valid token kind.
-    const int code_max = 266;
+    const int code_max = 263;
 
     if (t <= 0)
       return symbol_kind::S_YYEOF;
@@ -1393,12 +1346,14 @@ switch (yykind)
   {
     switch (this->kind ())
     {
-      case symbol_kind::S_NUMBER: // "number"
-      case symbol_kind::S_exp: // exp
+      case symbol_kind::S_DIGITO: // "digito"
         value.copy< int > (YY_MOVE (that.value));
         break;
 
-      case symbol_kind::S_IDENTIFIER: // "identifier"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_IDENTIFICADOR: // "identificador"
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_exp: // exp
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
@@ -1433,12 +1388,14 @@ switch (yykind)
     super_type::move (s);
     switch (this->kind ())
     {
-      case symbol_kind::S_NUMBER: // "number"
-      case symbol_kind::S_exp: // exp
+      case symbol_kind::S_DIGITO: // "digito"
         value.move< int > (YY_MOVE (s.value));
         break;
 
-      case symbol_kind::S_IDENTIFIER: // "identifier"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_IDENTIFICADOR: // "identificador"
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_exp: // exp
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
@@ -1508,7 +1465,7 @@ switch (yykind)
 
 
 } // yy
-#line 1512 "parser.hh"
+#line 1469 "parser.hh"
 
 
 

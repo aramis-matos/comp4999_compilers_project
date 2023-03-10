@@ -1,11 +1,22 @@
 #include "driver.hh"
 #include "parser.hh"
+#include <fstream>
+
+void add_keywords (std::map<std::string,std::string>& list) {
+    std::ifstream keywords;
+    std::string val;
+
+    keywords.open("keywords.txt");
+    while (getline(keywords,val)) {
+        list[val] = "";
+    }
+    keywords.close();
+}
+
 
 driver::driver ()
-  : trace_parsing (false), trace_scanning (false)
 {
-  variables["one"] = 1;
-  variables["two"] = 2;
+  add_keywords(this->variables);
 }
 
 int

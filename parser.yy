@@ -27,69 +27,40 @@
 %define api.token.prefix {TOK_}
 %token
   END  0  "end of file"
-  ASSIGN  ":="
-  MINUS   "-"
-  PLUS    "+"
-  STAR    "*"
-  SLASH   "/"
   LPAREN  "("
   RPAREN  ")"
 ;
 
-%token <std::string> IDENTIFIER "identifier"
-%token <int> NUMBER "number"
-%type  <int> exp
+
+%token <std::string> ELEMENTO_QUIMICO "elemento_quimico"
+%token <std::string> IDENTIFICADOR "identificador"
+%token <std::string> FIN_DE_LINEA "fin_de_linea"
+%token <int> DIGITO "digito"
+%type  <std::string> exp
 
 %printer { yyoutput << $$; } <*>;
 
 %%
 %start unit;
-unit: assignments exp  { drv.result = $2; };
+unit: exp  { drv.result = $1; };
 
-assignments:
-  %empty                 {}
-| assignments assignment {};
 
-assignment:
-  "identifier" ":=" exp { drv.variables[$1] = $3; 
-  drv.parsed_values.push_back(std::make_pair("ID",std::string($1)));
-  drv.parsed_values.push_back(std::make_pair("ASSIGN",std::string(":=")));
-  drv.parsed_values.push_back(std::make_pair("INT",std::to_string($3)));
-  };
+//assignment:
+//  "identifier" ":=" exp { drv.variables[$1] = $3;
+//  drv.parsed_values.push_back(std::make_pair("ID",std::string($1)));
+//  drv.parsed_values.push_back(std::make_pair("ASSIGN",std::string(":=")));
+//  drv.parsed_values.push_back(std::make_pair("INT",std::to_string($3)));
+//  };
 
 
 exp:
-exp "*" exp   { $$ = $1 * $3; 
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string($1)));
-drv.parsed_values.push_back(std::make_pair("TIMES","*"));
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string($3)));
+"elemento_quimico"   {
+drv.parsed_values.push_back(std::make_pair("elemento_quimico",std::string($$)));
 }
-| exp "/" exp   { $$ = $1 / $3;
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string($1)));
-drv.parsed_values.push_back(std::make_pair("SLASH","/"));
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string($3)));
+| "identificador" {
+drv.parsed_values.push_back(std::make_pair("indentificador",std::string($$)));
 }
-| exp "+" exp   { $$ = $1 + $3;
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string($1)));
-drv.parsed_values.push_back(std::make_pair("PLUS","+"));
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string($3)));
-}
-| exp "-" exp   { $$ = $1 - $3;
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string($1)));
-drv.parsed_values.push_back(std::make_pair("MINUS","-"));
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string($3)));
-}
-| "(" exp ")"   { std::swap ($$, $2); 
-drv.parsed_values.push_back(std::make_pair("LPAREN","("));
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string($$)));
-drv.parsed_values.push_back(std::make_pair("RPAREN",")"));
-}
-| "identifier"  { $$ = drv.variables[$1]; 
-drv.parsed_values.push_back(std::make_pair("ID",std::string($1)));
-}
-| "number"      { std::swap ($$, $1); 
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string($$)));
-}
+| exp
 %%
 
 void

@@ -22,8 +22,10 @@
 
 %option noyywrap nounput batch debug noinput
 
-id    [a-zA-Z][a-zA-Z_0-9]*
-int   [0-9]+
+digito   [0-9]+
+fin_de_linea (";"|";")
+elemento_quimico ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn")
+id    [a-zA-Z][a-zA-Z0-9]*
 blank [ \t]
 
 %{
@@ -40,27 +42,32 @@ blank [ \t]
 {blank}+   loc.step ();
 [\n]+      loc.lines (yyleng); loc.step ();
 
-"-"      return yy::parser::make_MINUS  (loc);
-"+"      return yy::parser::make_PLUS   (loc);
-"*"      return yy::parser::make_STAR   (loc);
-"/"      return yy::parser::make_SLASH  (loc);
 "("      return yy::parser::make_LPAREN (loc);
 ")"      return yy::parser::make_RPAREN (loc);
-":="     return yy::parser::make_ASSIGN (loc);
 
-{int}      {
+{digito}      {
   errno = 0;
   long n = strtol (yytext, NULL, 10);
   if (! (INT_MIN <= n && n <= INT_MAX && errno != ERANGE))
     throw yy::parser::syntax_error (loc, "integer is out of range: "
                                     + std::string(yytext));
-  return yy::parser::make_NUMBER (n, loc);
+  return yy::parser::make_DIGITO (n, loc);
 }
-{id}       return yy::parser::make_IDENTIFIER (yytext, loc);
+
+{elemento_quimico} {
+  return yy::parser::make_ELEMENTO_QUIMICO(yytext,loc);
+}
+
+{id}       return yy::parser::make_IDENTIFICADOR (yytext, loc);
 .          {
              throw yy::parser::syntax_error
                (loc, "invalid character: " + std::string(yytext));
 }
+
+{fin_de_linea} {
+  return yy::parser::make_FIN_DE_LINEA(yytext,loc);
+}
+
 <<EOF>>    return yy::parser::make_END (loc);
 %%
 

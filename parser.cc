@@ -206,12 +206,14 @@ namespace yy {
   {
     switch (that.kind ())
     {
-      case symbol_kind::S_NUMBER: // "number"
-      case symbol_kind::S_exp: // exp
+      case symbol_kind::S_DIGITO: // "digito"
         value.YY_MOVE_OR_COPY< int > (YY_MOVE (that.value));
         break;
 
-      case symbol_kind::S_IDENTIFIER: // "identifier"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_IDENTIFICADOR: // "identificador"
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_exp: // exp
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
@@ -230,12 +232,14 @@ namespace yy {
   {
     switch (that.kind ())
     {
-      case symbol_kind::S_NUMBER: // "number"
-      case symbol_kind::S_exp: // exp
+      case symbol_kind::S_DIGITO: // "digito"
         value.move< int > (YY_MOVE (that.value));
         break;
 
-      case symbol_kind::S_IDENTIFIER: // "identifier"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_IDENTIFICADOR: // "identificador"
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_exp: // exp
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
@@ -254,12 +258,14 @@ namespace yy {
     state = that.state;
     switch (that.kind ())
     {
-      case symbol_kind::S_NUMBER: // "number"
-      case symbol_kind::S_exp: // exp
+      case symbol_kind::S_DIGITO: // "digito"
         value.copy< int > (that.value);
         break;
 
-      case symbol_kind::S_IDENTIFIER: // "identifier"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_IDENTIFICADOR: // "identificador"
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_exp: // exp
         value.copy< std::string > (that.value);
         break;
 
@@ -277,12 +283,14 @@ namespace yy {
     state = that.state;
     switch (that.kind ())
     {
-      case symbol_kind::S_NUMBER: // "number"
-      case symbol_kind::S_exp: // exp
+      case symbol_kind::S_DIGITO: // "digito"
         value.move< int > (that.value);
         break;
 
-      case symbol_kind::S_IDENTIFIER: // "identifier"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_IDENTIFICADOR: // "identificador"
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_exp: // exp
         value.move< std::string > (that.value);
         break;
 
@@ -322,22 +330,34 @@ namespace yy {
             << yysym.location << ": ";
         switch (yykind)
     {
-      case symbol_kind::S_IDENTIFIER: // "identifier"
-#line 43 "parser.yy"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+#line 41 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 329 "parser.cc"
+#line 337 "parser.cc"
         break;
 
-      case symbol_kind::S_NUMBER: // "number"
-#line 43 "parser.yy"
+      case symbol_kind::S_IDENTIFICADOR: // "identificador"
+#line 41 "parser.yy"
+                 { yyoutput << yysym.value.template as < std::string > (); }
+#line 343 "parser.cc"
+        break;
+
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+#line 41 "parser.yy"
+                 { yyoutput << yysym.value.template as < std::string > (); }
+#line 349 "parser.cc"
+        break;
+
+      case symbol_kind::S_DIGITO: // "digito"
+#line 41 "parser.yy"
                  { yyoutput << yysym.value.template as < int > (); }
-#line 335 "parser.cc"
+#line 355 "parser.cc"
         break;
 
       case symbol_kind::S_exp: // exp
-#line 43 "parser.yy"
-                 { yyoutput << yysym.value.template as < int > (); }
-#line 341 "parser.cc"
+#line 41 "parser.yy"
+                 { yyoutput << yysym.value.template as < std::string > (); }
+#line 361 "parser.cc"
         break;
 
       default:
@@ -567,12 +587,14 @@ namespace yy {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case symbol_kind::S_NUMBER: // "number"
-      case symbol_kind::S_exp: // exp
+      case symbol_kind::S_DIGITO: // "digito"
         yylhs.value.emplace< int > ();
         break;
 
-      case symbol_kind::S_IDENTIFIER: // "identifier"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_IDENTIFICADOR: // "identificador"
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_exp: // exp
         yylhs.value.emplace< std::string > ();
         break;
 
@@ -596,102 +618,36 @@ namespace yy {
         {
           switch (yyn)
             {
-  case 2: // unit: assignments exp
-#line 47 "parser.yy"
-                       { drv.result = yystack_[0].value.as < int > (); }
-#line 603 "parser.cc"
-    break;
-
-  case 3: // assignments: %empty
-#line 50 "parser.yy"
-                         {}
-#line 609 "parser.cc"
-    break;
-
-  case 4: // assignments: assignments assignment
-#line 51 "parser.yy"
-                         {}
-#line 615 "parser.cc"
-    break;
-
-  case 5: // assignment: "identifier" ":=" exp
-#line 54 "parser.yy"
-                        { drv.variables[yystack_[2].value.as < std::string > ()] = yystack_[0].value.as < int > (); 
-  drv.parsed_values.push_back(std::make_pair("ID",std::string(yystack_[2].value.as < std::string > ())));
-  drv.parsed_values.push_back(std::make_pair("ASSIGN",std::string(":=")));
-  drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yystack_[0].value.as < int > ())));
-  }
+  case 2: // unit: exp
+#line 45 "parser.yy"
+           { drv.result = yystack_[0].value.as < std::string > (); }
 #line 625 "parser.cc"
     break;
 
-  case 6: // exp: exp "*" exp
-#line 62 "parser.yy"
-              { yylhs.value.as < int > () = yystack_[2].value.as < int > () * yystack_[0].value.as < int > (); 
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yystack_[2].value.as < int > ())));
-drv.parsed_values.push_back(std::make_pair("TIMES","*"));
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yystack_[0].value.as < int > ())));
+  case 3: // exp: "elemento_quimico"
+#line 57 "parser.yy"
+                     {
+drv.parsed_values.push_back(std::make_pair("elemento_quimico",std::string(yylhs.value.as < std::string > ())));
 }
-#line 635 "parser.cc"
+#line 633 "parser.cc"
     break;
 
-  case 7: // exp: exp "/" exp
-#line 67 "parser.yy"
-                { yylhs.value.as < int > () = yystack_[2].value.as < int > () / yystack_[0].value.as < int > ();
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yystack_[2].value.as < int > ())));
-drv.parsed_values.push_back(std::make_pair("SLASH","/"));
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yystack_[0].value.as < int > ())));
+  case 4: // exp: "identificador"
+#line 60 "parser.yy"
+                  {
+drv.parsed_values.push_back(std::make_pair("indentificador",std::string(yylhs.value.as < std::string > ())));
 }
-#line 645 "parser.cc"
+#line 641 "parser.cc"
     break;
 
-  case 8: // exp: exp "+" exp
-#line 72 "parser.yy"
-                { yylhs.value.as < int > () = yystack_[2].value.as < int > () + yystack_[0].value.as < int > ();
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yystack_[2].value.as < int > ())));
-drv.parsed_values.push_back(std::make_pair("PLUS","+"));
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yystack_[0].value.as < int > ())));
-}
-#line 655 "parser.cc"
-    break;
-
-  case 9: // exp: exp "-" exp
-#line 77 "parser.yy"
-                { yylhs.value.as < int > () = yystack_[2].value.as < int > () - yystack_[0].value.as < int > ();
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yystack_[2].value.as < int > ())));
-drv.parsed_values.push_back(std::make_pair("MINUS","-"));
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yystack_[0].value.as < int > ())));
-}
-#line 665 "parser.cc"
-    break;
-
-  case 10: // exp: "(" exp ")"
-#line 82 "parser.yy"
-                { std::swap (yylhs.value.as < int > (), yystack_[1].value.as < int > ()); 
-drv.parsed_values.push_back(std::make_pair("LPAREN","("));
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yylhs.value.as < int > ())));
-drv.parsed_values.push_back(std::make_pair("RPAREN",")"));
-}
-#line 675 "parser.cc"
-    break;
-
-  case 11: // exp: "identifier"
-#line 87 "parser.yy"
-                { yylhs.value.as < int > () = drv.variables[yystack_[0].value.as < std::string > ()]; 
-drv.parsed_values.push_back(std::make_pair("ID",std::string(yystack_[0].value.as < std::string > ())));
-}
-#line 683 "parser.cc"
-    break;
-
-  case 12: // exp: "number"
-#line 90 "parser.yy"
-                { std::swap (yylhs.value.as < int > (), yystack_[0].value.as < int > ()); 
-drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yylhs.value.as < int > ())));
-}
-#line 691 "parser.cc"
+  case 5: // exp: exp
+#line 63 "parser.yy"
+  { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
+#line 647 "parser.cc"
     break;
 
 
-#line 695 "parser.cc"
+#line 651 "parser.cc"
 
             default:
               break;
@@ -1043,74 +999,62 @@ drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yylhs.value.as <
   }
 
 
-  const signed char parser::yypact_ninf_ = -5;
+  const signed char parser::yypact_ninf_ = -6;
 
   const signed char parser::yytable_ninf_ = -1;
 
   const signed char
   parser::yypact_[] =
   {
-      -5,     5,     9,    -5,    13,    15,    -5,    -5,     8,    -5,
-      -3,    13,    13,    13,    13,    13,    -5,     8,     8,     8,
-       8,     8
+      -5,    -6,    -6,     2,    -6,    -6
   };
 
   const signed char
   parser::yydefact_[] =
   {
-       3,     0,     0,     1,     0,    11,    12,     4,     2,    11,
-       0,     0,     0,     0,     0,     0,    10,     5,     9,     8,
-       6,     7
+       0,     3,     4,     0,     2,     1
   };
 
   const signed char
   parser::yypgoto_[] =
   {
-      -5,    -5,    -5,    -5,    -4
+      -6,    -6,    -6
   };
 
   const signed char
   parser::yydefgoto_[] =
   {
-       0,     1,     2,     7,     8
+       0,     3,     4
   };
 
   const signed char
   parser::yytable_[] =
   {
-      10,    12,    13,    14,    15,     3,    16,    17,    18,    19,
-      20,    21,    12,    13,    14,    15,     0,     4,    11,     5,
-       6,     4,     0,     9,     6
+       1,     2,     5
   };
 
   const signed char
   parser::yycheck_[] =
   {
-       4,     4,     5,     6,     7,     0,     9,    11,    12,    13,
-      14,    15,     4,     5,     6,     7,    -1,     8,     3,    10,
-      11,     8,    -1,    10,    11
+       5,     6,     0
   };
 
   const signed char
   parser::yystos_[] =
   {
-       0,    13,    14,     0,     8,    10,    11,    15,    16,    10,
-      16,     3,     4,     5,     6,     7,     9,    16,    16,    16,
-      16,    16
+       0,     5,     6,    10,    11,     0
   };
 
   const signed char
   parser::yyr1_[] =
   {
-       0,    12,    13,    14,    14,    15,    16,    16,    16,    16,
-      16,    16,    16
+       0,     9,    10,    11,    11,    11
   };
 
   const signed char
   parser::yyr2_[] =
   {
-       0,     2,     2,     0,     2,     3,     3,     3,     3,     3,
-       3,     1,     1
+       0,     2,     1,     1,     1,     1
   };
 
 
@@ -1120,9 +1064,9 @@ drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yylhs.value.as <
   const char*
   const parser::yytname_[] =
   {
-  "\"end of file\"", "error", "\"invalid token\"", "\":=\"", "\"-\"",
-  "\"+\"", "\"*\"", "\"/\"", "\"(\"", "\")\"", "\"identifier\"",
-  "\"number\"", "$accept", "unit", "assignments", "assignment", "exp", YY_NULLPTR
+  "\"end of file\"", "error", "\"invalid token\"", "\"(\"", "\")\"",
+  "\"elemento_quimico\"", "\"identificador\"", "\"fin_de_linea\"",
+  "\"digito\"", "$accept", "unit", "exp", YY_NULLPTR
   };
 #endif
 
@@ -1131,8 +1075,7 @@ drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yylhs.value.as <
   const signed char
   parser::yyrline_[] =
   {
-       0,    47,    47,    50,    51,    54,    62,    67,    72,    77,
-      82,    87,    90
+       0,    45,    45,    57,    60,    63
   };
 
   void
@@ -1164,9 +1107,9 @@ drv.parsed_values.push_back(std::make_pair("INT",std::to_string(yylhs.value.as <
 
 
 } // yy
-#line 1168 "parser.cc"
+#line 1111 "parser.cc"
 
-#line 93 "parser.yy"
+#line 64 "parser.yy"
 
 
 void
