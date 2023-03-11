@@ -36,6 +36,7 @@ blank [ \t]
   // Code run each time a pattern is matched.
   # define YY_USER_ACTION  loc.columns (yyleng);
 
+
   
 %}
 %%
@@ -122,11 +123,12 @@ return yy::parser::make_RCOR (loc);
 
 <<EOF>>    {
   std:: cout << "\n" << "\n" << "Tabla de Simbolos" << std::endl;
-  for (auto & [first,second] : drv.parsed_values) {
+  for (auto & [first,second] : drv.variables) {
     std::cout << "(" << first << "," << second << ")" << std::endl;
   }
   return yy::parser::make_END (loc);
   }
+
 %%
 
 void

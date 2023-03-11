@@ -13,10 +13,6 @@ int main(int argc, char *argv[])
     else if (!drv.parse(argv[i]))
     {
       // std::cout << drv.result << '\n';
-      for (auto &[first, second] : drv.variables)
-      {
-        std::cout << "(" << first << "," << second << ")" << std::endl;
-      }
     }
     else
       res = 1;
