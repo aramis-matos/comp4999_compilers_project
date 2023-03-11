@@ -5,7 +5,16 @@
 (<ID>,hello,test.txt:5.1-5)
 (<DIGITO>,192,test.txt:5.7-9)
 (<FIN_DE_LINEA>,;,test.txt:6.1)
-(<FIN_DE_LINEA>,:,test.txt:7.1)
+(<VALENCIA>,:,test.txt:7.1)
+(<ELEMENTO>,LiK4,test.txt:8.1-4)
+(<VALENCIA>,-,test.txt:9.1)
+(<ASIG>,=,test.txt:10.1)
+(<VALENCIA>,:,test.txt:11.1)
+(<VALENCIA>,::,test.txt:12.1-2)
+(<LPAREN>,(,test.txt:13.1)
+(<RPAREN>,),test.txt:13.2)
+(<LCOR>,[,test.txt:13.3)
+(<RCOR>,],test.txt:13.4)
 
 
 Tabla de Simbolos

@@ -27,15 +27,21 @@
 %define api.token.prefix {TOK_}
 %token
   END  0  "end of file"
+  ASIG  "="
   LPAREN  "("
   RPAREN  ")"
+  LCOR "["
+  RCOR "]"
 ;
 
 
 %token <std::string> ELEMENTO_QUIMICO "elemento_quimico"
+%token <std::string> ELEMENTO "elemento"
 %token <std::string> IDENTIFICADOR "identificador"
 %token <std::string> FIN_DE_LINEA "fin_de_linea"
+%token <std::string> ENLACE "enlace"
 %token <int> DIGITO "digito"
+%token <int> VALENCIA "valencia"
 %type  <std::string> exp
 
 %printer { yyoutput << $$; } <*>;
@@ -46,8 +52,13 @@ unit: exps {};
 
 exps: %empty | exps exp {};
 
+////assignment: "identificador" "="
+
 exp:
-"elemento_quimico"   {
+"elemento_quimico" {
+
+}
+| "elemento" {
 
 }
 | "identificador" {
@@ -55,7 +66,14 @@ exp:
 }
 | "fin_de_linea" {
 }
+| "valencia" {}
 | "digito" {}
+| "enlace" {}
+| "=" {}
+| "[" {}
+| "]" {}
+| "(" {}
+| ")" {}
 %%
 
 void

@@ -207,12 +207,15 @@ namespace yy {
     switch (that.kind ())
     {
       case symbol_kind::S_DIGITO: // "digito"
+      case symbol_kind::S_VALENCIA: // "valencia"
         value.YY_MOVE_OR_COPY< int > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_ELEMENTO: // "elemento"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_ENLACE: // "enlace"
       case symbol_kind::S_exp: // exp
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
@@ -233,12 +236,15 @@ namespace yy {
     switch (that.kind ())
     {
       case symbol_kind::S_DIGITO: // "digito"
+      case symbol_kind::S_VALENCIA: // "valencia"
         value.move< int > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_ELEMENTO: // "elemento"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_ENLACE: // "enlace"
       case symbol_kind::S_exp: // exp
         value.move< std::string > (YY_MOVE (that.value));
         break;
@@ -259,12 +265,15 @@ namespace yy {
     switch (that.kind ())
     {
       case symbol_kind::S_DIGITO: // "digito"
+      case symbol_kind::S_VALENCIA: // "valencia"
         value.copy< int > (that.value);
         break;
 
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_ELEMENTO: // "elemento"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_ENLACE: // "enlace"
       case symbol_kind::S_exp: // exp
         value.copy< std::string > (that.value);
         break;
@@ -284,12 +293,15 @@ namespace yy {
     switch (that.kind ())
     {
       case symbol_kind::S_DIGITO: // "digito"
+      case symbol_kind::S_VALENCIA: // "valencia"
         value.move< int > (that.value);
         break;
 
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_ELEMENTO: // "elemento"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_ENLACE: // "enlace"
       case symbol_kind::S_exp: // exp
         value.move< std::string > (that.value);
         break;
@@ -331,33 +343,51 @@ namespace yy {
         switch (yykind)
     {
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
-#line 41 "parser.yy"
-                 { yyoutput << yysym.value.template as < std::string > (); }
-#line 337 "parser.cc"
-        break;
-
-      case symbol_kind::S_IDENTIFICADOR: // "identificador"
-#line 41 "parser.yy"
-                 { yyoutput << yysym.value.template as < std::string > (); }
-#line 343 "parser.cc"
-        break;
-
-      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-#line 41 "parser.yy"
+#line 47 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
 #line 349 "parser.cc"
         break;
 
-      case symbol_kind::S_DIGITO: // "digito"
-#line 41 "parser.yy"
-                 { yyoutput << yysym.value.template as < int > (); }
+      case symbol_kind::S_ELEMENTO: // "elemento"
+#line 47 "parser.yy"
+                 { yyoutput << yysym.value.template as < std::string > (); }
 #line 355 "parser.cc"
         break;
 
-      case symbol_kind::S_exp: // exp
-#line 41 "parser.yy"
+      case symbol_kind::S_IDENTIFICADOR: // "identificador"
+#line 47 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
 #line 361 "parser.cc"
+        break;
+
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+#line 47 "parser.yy"
+                 { yyoutput << yysym.value.template as < std::string > (); }
+#line 367 "parser.cc"
+        break;
+
+      case symbol_kind::S_ENLACE: // "enlace"
+#line 47 "parser.yy"
+                 { yyoutput << yysym.value.template as < std::string > (); }
+#line 373 "parser.cc"
+        break;
+
+      case symbol_kind::S_DIGITO: // "digito"
+#line 47 "parser.yy"
+                 { yyoutput << yysym.value.template as < int > (); }
+#line 379 "parser.cc"
+        break;
+
+      case symbol_kind::S_VALENCIA: // "valencia"
+#line 47 "parser.yy"
+                 { yyoutput << yysym.value.template as < int > (); }
+#line 385 "parser.cc"
+        break;
+
+      case symbol_kind::S_exp: // exp
+#line 47 "parser.yy"
+                 { yyoutput << yysym.value.template as < std::string > (); }
+#line 391 "parser.cc"
         break;
 
       default:
@@ -588,12 +618,15 @@ namespace yy {
       switch (yyr1_[yyn])
     {
       case symbol_kind::S_DIGITO: // "digito"
+      case symbol_kind::S_VALENCIA: // "valencia"
         yylhs.value.emplace< int > ();
         break;
 
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_ELEMENTO: // "elemento"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_ENLACE: // "enlace"
       case symbol_kind::S_exp: // exp
         yylhs.value.emplace< std::string > ();
         break;
@@ -619,48 +652,98 @@ namespace yy {
           switch (yyn)
             {
   case 2: // unit: exps
-#line 45 "parser.yy"
+#line 51 "parser.yy"
            {}
-#line 625 "parser.cc"
+#line 658 "parser.cc"
     break;
 
   case 4: // exps: exps exp
-#line 47 "parser.yy"
+#line 53 "parser.yy"
                         {}
-#line 631 "parser.cc"
+#line 664 "parser.cc"
     break;
 
   case 5: // exp: "elemento_quimico"
-#line 50 "parser.yy"
-                     {
+#line 58 "parser.yy"
+                   {
 
 }
-#line 639 "parser.cc"
+#line 672 "parser.cc"
     break;
 
-  case 6: // exp: "identificador"
-#line 53 "parser.yy"
+  case 6: // exp: "elemento"
+#line 61 "parser.yy"
+             {
+
+}
+#line 680 "parser.cc"
+    break;
+
+  case 7: // exp: "identificador"
+#line 64 "parser.yy"
                   {
 
 }
-#line 647 "parser.cc"
+#line 688 "parser.cc"
     break;
 
-  case 7: // exp: "fin_de_linea"
-#line 56 "parser.yy"
+  case 8: // exp: "fin_de_linea"
+#line 67 "parser.yy"
                  {
 }
-#line 654 "parser.cc"
+#line 695 "parser.cc"
     break;
 
-  case 8: // exp: "digito"
-#line 58 "parser.yy"
+  case 9: // exp: "valencia"
+#line 69 "parser.yy"
+             {}
+#line 701 "parser.cc"
+    break;
+
+  case 10: // exp: "digito"
+#line 70 "parser.yy"
            {}
-#line 660 "parser.cc"
+#line 707 "parser.cc"
+    break;
+
+  case 11: // exp: "enlace"
+#line 71 "parser.yy"
+           {}
+#line 713 "parser.cc"
+    break;
+
+  case 12: // exp: "="
+#line 72 "parser.yy"
+      {}
+#line 719 "parser.cc"
+    break;
+
+  case 13: // exp: "["
+#line 73 "parser.yy"
+      {}
+#line 725 "parser.cc"
+    break;
+
+  case 14: // exp: "]"
+#line 74 "parser.yy"
+      {}
+#line 731 "parser.cc"
+    break;
+
+  case 15: // exp: "("
+#line 75 "parser.yy"
+      {}
+#line 737 "parser.cc"
+    break;
+
+  case 16: // exp: ")"
+#line 76 "parser.yy"
+      {}
+#line 743 "parser.cc"
     break;
 
 
-#line 664 "parser.cc"
+#line 747 "parser.cc"
 
             default:
               break;
@@ -1012,62 +1095,69 @@ namespace yy {
   }
 
 
-  const signed char parser::yypact_ninf_ = -6;
+  const signed char parser::yypact_ninf_ = -4;
 
   const signed char parser::yytable_ninf_ = -1;
 
   const signed char
   parser::yypact_[] =
   {
-      -6,     4,    -5,    -6,    -6,    -6,    -6,    -6,    -6
+      -4,    12,    -3,    -4,    -4,    -4,    -4,    -4,    -4,    -4,
+      -4,    -4,    -4,    -4,    -4,    -4,    -4
   };
 
   const signed char
   parser::yydefact_[] =
   {
-       3,     0,     2,     1,     5,     6,     7,     8,     4
+       3,     0,     2,     1,    12,    15,    16,    13,    14,     5,
+       6,     7,     8,    11,    10,     9,     4
   };
 
   const signed char
   parser::yypgoto_[] =
   {
-      -6,    -6,    -6,    -6
+      -4,    -4,    -4,    -4
   };
 
   const signed char
   parser::yydefgoto_[] =
   {
-       0,     1,     2,     8
+       0,     1,     2,    16
   };
 
   const signed char
   parser::yytable_[] =
   {
-       4,     5,     6,     7,     3
+       4,     5,     6,     7,     8,     9,    10,    11,    12,    13,
+      14,    15,     3
   };
 
   const signed char
   parser::yycheck_[] =
   {
-       5,     6,     7,     8,     0
+       3,     4,     5,     6,     7,     8,     9,    10,    11,    12,
+      13,    14,     0
   };
 
   const signed char
   parser::yystos_[] =
   {
-       0,    10,    11,     0,     5,     6,     7,     8,    12
+       0,    16,    17,     0,     3,     4,     5,     6,     7,     8,
+       9,    10,    11,    12,    13,    14,    18
   };
 
   const signed char
   parser::yyr1_[] =
   {
-       0,     9,    10,    11,    11,    12,    12,    12,    12
+       0,    15,    16,    17,    17,    18,    18,    18,    18,    18,
+      18,    18,    18,    18,    18,    18,    18
   };
 
   const signed char
   parser::yyr2_[] =
   {
-       0,     2,     1,     0,     2,     1,     1,     1,     1
+       0,     2,     1,     0,     2,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1
   };
 
 
@@ -1077,9 +1167,10 @@ namespace yy {
   const char*
   const parser::yytname_[] =
   {
-  "\"end of file\"", "error", "\"invalid token\"", "\"(\"", "\")\"",
-  "\"elemento_quimico\"", "\"identificador\"", "\"fin_de_linea\"",
-  "\"digito\"", "$accept", "unit", "exps", "exp", YY_NULLPTR
+  "\"end of file\"", "error", "\"invalid token\"", "\"=\"", "\"(\"",
+  "\")\"", "\"[\"", "\"]\"", "\"elemento_quimico\"", "\"elemento\"",
+  "\"identificador\"", "\"fin_de_linea\"", "\"enlace\"", "\"digito\"",
+  "\"valencia\"", "$accept", "unit", "exps", "exp", YY_NULLPTR
   };
 #endif
 
@@ -1088,7 +1179,8 @@ namespace yy {
   const signed char
   parser::yyrline_[] =
   {
-       0,    45,    45,    47,    47,    50,    53,    56,    58
+       0,    51,    51,    53,    53,    58,    61,    64,    67,    69,
+      70,    71,    72,    73,    74,    75,    76
   };
 
   void
@@ -1120,9 +1212,9 @@ namespace yy {
 
 
 } // yy
-#line 1124 "parser.cc"
+#line 1216 "parser.cc"
 
-#line 59 "parser.yy"
+#line 77 "parser.yy"
 
 
 void
