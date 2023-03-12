@@ -17,7 +17,7 @@ std::map<std::string,std::string> add_keywords (std::map<std::string,std::string
 }
 
 
-driver::driver ()
+driver::driver () : trace_parsing (false), trace_scanning (false)
 {
   this->variables = add_keywords(this->variables);
 }

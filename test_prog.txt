@@ -1,4 +1,4 @@
-inició 
+inicio 
 defina a1 como modelo;
 a1 = CH3CH(CH3)CH3;
 fin

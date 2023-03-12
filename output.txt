@@ -1,20 +1,18 @@
-(<ID>,inici,test_prog.txt:1.1-5)
-CARACTER INVALIDO Ã,test_prog.txt:1.6
-CARACTER INVALIDO ³,test_prog.txt:1.6-7
+(<PALABRA_RESERVADA>,inicio,test_prog.txt:1.1-6)
 (<PALABRA_RESERVADA>,defina,test_prog.txt:2.1-6)
-(<ID>,a1,test_prog.txt:2.8-9)
+(<IDENTIFICADOR>,a1,test_prog.txt:2.8-9)
 (<PALABRA_RESERVADA>,como,test_prog.txt:2.11-14)
 (<PALABRA_RESERVADA>,modelo,test_prog.txt:2.16-21)
 (<FIN_DE_LINEA>,;,test_prog.txt:2.22)
-(<ID>,a1,test_prog.txt:3.1-2)
+(<IDENTIFICADOR>,a1,test_prog.txt:3.1-2)
 (<ASIG>,=,test_prog.txt:3.4)
-(<ID>,CH3CH,test_prog.txt:3.6-10)
+(<IDENTIFICADOR>,CH3CH,test_prog.txt:3.6-10)
 (<LPAREN>,(,test_prog.txt:3.11)
 (<ELEMENTO>,CH3,test_prog.txt:3.12-14)
-(<RPAREN>,),test_prog.txt:3.12-15)
+(<RPAREN>,),test_prog.txt:3.15)
 (<ELEMENTO>,CH3,test_prog.txt:3.16-18)
-(<FIN_DE_LINEA>,;,test_prog.txt:3.16-19)
-(<ID>,fin,test_prog.txt:4.1-3)
+(<FIN_DE_LINEA>,;,test_prog.txt:3.19)
+(<IDENTIFICADOR>,fin,test_prog.txt:4.1-3)
 
 
 Tabla de Simbolos
@@ -23,5 +21,6 @@ Tabla de Simbolos
 (<PALABRA_RESERVADA>,graficar2d)
 (<PALABRA_RESERVADA>,graficar3d)
 (<ID>,guh)
+(<PALABRA_RESERVADA>,inicio)
 (<PALABRA_RESERVADA>,modelo)
 (<PALABRA_RESERVADA>,pesomolecular)

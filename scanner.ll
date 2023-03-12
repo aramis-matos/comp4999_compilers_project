@@ -18,6 +18,10 @@
 #if defined __GNUC__ && 7 <= __GNUC__
 # pragma GCC diagnostic ignored "-Wnull-dereference"
 #endif
+
+void format_output (std::string token,const char* yytext, yy::location& loc) {
+  std::cout << "(" << "<" << token << ">," << std::string(yytext) << "," << loc << ")" << std::endl;
+}
 %}
 
 %option noyywrap nounput batch debug noinput
@@ -50,39 +54,38 @@ blank [ \t]
 [\n]+      loc.lines (yyleng); loc.step ();
 
 "("      {
-
-    std::cout << "(" << "<LPAREN>," << std::string(yytext) << "," << loc << ")" << std::endl;
+    format_output("LPAREN",yytext,loc);
     return yy::parser::make_LPAREN (loc);
 };
 ")"      {
-    std::cout << "(" << "<RPAREN>," << std::string(yytext) << "," << loc << ")" << std::endl;
+    format_output("RPAREN",yytext,loc);
     return yy::parser::make_RPAREN (loc);
 };
 
 
 "="      {
-    std::cout << "(" << "<ASIG>," << std::string(yytext) << "," << loc << ")" << std::endl;
-     return yy::parser::make_ASIG (loc);
+    format_output("ASIG",yytext,loc);
+    return yy::parser::make_ASIG (loc);
 };
 
 {enlace} {
-    std::cout << "(" << "<VALENCIA>," << std::string(yytext) << "," << loc << ")" << std::endl;
+    format_output("ENLACE",yytext,loc);
     return yy::parser::make_ENLACE (yytext,loc);
 }
 
 "["      {
-    std::cout << "(" << "<LCOR>," << std::string(yytext) << "," << loc << ")" << std::endl;
+    format_output("LCOR",yytext,loc);
     return yy::parser::make_LCOR (loc);}
 
 "]"      {
-    std::cout << "(" << "<RCOR>," << std::string(yytext) << "," << loc << ")" << std::endl;
-return yy::parser::make_RCOR (loc);
+    format_output("RCOR",yytext,loc);
+    return yy::parser::make_RCOR (loc);
 };
 
 
 {valencia} {
     long n = std::stol(yytext);
-    std::cout << "(" << "<VALENCIA>," << std::string(yytext) << "," << loc << ")" << std::endl;
+    format_output("VALENCIA",yytext,loc);
     return yy::parser::make_VALENCIA(n,loc);
 }
 
@@ -92,22 +95,23 @@ return yy::parser::make_RCOR (loc);
   if (! (INT_MIN <= n && n <= INT_MAX && errno != ERANGE))
     throw yy::parser::syntax_error (loc, "integer is out of range: "
                                     + std::string(yytext));
-  std::cout << "(" << "<DIGITO>," << std::string(yytext) << "," << loc << ")" << std::endl;
+  format_output("DIGITO",yytext,loc);
   return yy::parser::make_DIGITO (n, loc);
 }
 
 {elemento_quimico} {
-  std::cout << "(" << "<ELEMENTO_QUIMICO>," << std::string(yytext) << "," << loc << ")" << std::endl;
+  format_output("ELEMENTO_QUIMICO",yytext,loc);
   return yy::parser::make_ELEMENTO_QUIMICO(yytext,loc);
 }
 
 {elemento} {
-  std::cout << "(" << "<ELEMENTO>," << std::string(yytext) << "," << loc << ")" << std::endl;
+  format_output("ELEMENTO",yytext,loc);
+  return yy::parser::make_ELEMENTO(yytext,loc);
 }
 
 
 {fin_de_linea} {
-  std::cout << "(" << "<FIN_DE_LINEA>," << std::string(yytext) << "," << loc << ")" << std::endl;
+  format_output("FIN_DE_LINEA",yytext,loc);
   return yy::parser::make_FIN_DE_LINEA(yytext,loc);
 }
 
@@ -115,11 +119,11 @@ return yy::parser::make_RCOR (loc);
     std::string text(yytext);
     if (drv.variables.find(text) != drv.variables.end() && drv.variables[text] == "") {
       if (drv.variables[text] == "") {
-        std::cout << "(<PALABRA_RESERVADA>," << text << "," << loc << ")\n";
+        format_output("PALABRA_RESERVADA",yytext,loc);
         return yy::parser::make_PALABRA_RESERVADA (yytext,loc);
       }
     }
-    std::cout << "(<ID>," << text << "," << loc << ")\n";
+    format_output("IDENTIFICADOR",yytext,loc);
     return yy::parser::make_IDENTIFICADOR (yytext, loc);
   };
 

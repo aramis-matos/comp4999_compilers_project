@@ -1,1 +1,2 @@
-./calc++ test.txt > output.txt 2> /dev/null
+./avismo $1 > output.txt
+cat output.txt
