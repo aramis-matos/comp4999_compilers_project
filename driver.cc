@@ -11,6 +11,7 @@ std::map<std::string,std::string> add_keywords (std::map<std::string,std::string
     while (getline(keywords,val)) {
         list[val] = "";
     }
+    list["guh"] = "chungus";
     keywords.close();
     return list;
 }

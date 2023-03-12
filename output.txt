@@ -22,9 +22,10 @@ CARACTER INVALIDO @,test.txt:14.1-3
 
 
 Tabla de Simbolos
-(como,)
-(defina,)
-(graficar2d,)
-(graficar3d,)
-(modelo,)
-(pesomolecular,)
+(<PALABRA_RESERVADA>,como)
+(<PALABRA_RESERVADA>,defina)
+(<PALABRA_RESERVADA>,graficar2d)
+(<PALABRA_RESERVADA>,graficar3d)
+(<ID>,guh)
+(<PALABRA_RESERVADA>,modelo)
+(<PALABRA_RESERVADA>,pesomolecular)

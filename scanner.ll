@@ -121,7 +121,14 @@ return yy::parser::make_RCOR (loc);
 <<EOF>>    {
   std:: cout << "\n" << "\n" << "Tabla de Simbolos" << std::endl;
   for (auto & [first,second] : drv.variables) {
-    std::cout << "(" << first << "," << second << ")" << std::endl;
+    std::cout << "(<";
+    if (second == "") {
+      std::cout << "PALABRA_RESERVADA";
+    }
+    else {
+      std::cout << "ID";
+    }
+    std::cout << ">," << first << ")" << std::endl;
   }
   return yy::parser::make_END (loc);
   }
