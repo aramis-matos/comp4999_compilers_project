@@ -115,11 +115,11 @@ return yy::parser::make_RCOR (loc);
     std::string text(yytext);
     if (drv.variables.find(text) != drv.variables.end() && drv.variables[text] == "") {
       if (drv.variables[text] == "") {
-        std::cout << "(<PALABRA_RESERVADA>," << text << ")\n";
+        std::cout << "(<PALABRA_RESERVADA>," << text << "," << loc << ")\n";
         return yy::parser::make_PALABRA_RESERVADA (yytext,loc);
       }
     }
-    std::cout << "(<ID>," << text << ")\n";
+    std::cout << "(<ID>," << text << "," << loc << ")\n";
     return yy::parser::make_IDENTIFICADOR (yytext, loc);
   };
 

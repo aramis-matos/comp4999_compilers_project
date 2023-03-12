@@ -5,7 +5,7 @@ BISON = bison
 CXX = g++
 FLEX = flex
 
-all: calc++
+all: avismo
 
 %.cc %.hh: %.yy
 	$(BISON) $(BISONFLAGS) -o $*.cc $<
@@ -16,12 +16,12 @@ all: calc++
 %.o: %.cc
 	$(CXX) $(CXXFLAGS) -c -o$@ $<
 
-calc++: calc++.o driver.o parser.o scanner.o
+avismo: avismo.o driver.o parser.o scanner.o
 	$(CXX) -o $@ $^
 
-calc++.o: parser.hh
+avismo.o: parser.hh
 parser.o: parser.hh
 scanner.o: parser.hh
 
 clean:
-	rm -f calc++ *.o parser.hh parser.cc scanner.cc
+	rm -f avismo *.o parser.hh parser.cc scanner.cc
