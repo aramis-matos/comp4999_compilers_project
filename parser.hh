@@ -417,6 +417,7 @@ namespace yy {
       // "elemento_quimico"
       // "elemento"
       // "identificador"
+      // "palabra_reservada"
       // "fin_de_linea"
       // "enlace"
       // exp
@@ -481,10 +482,11 @@ namespace yy {
     TOK_ELEMENTO_QUIMICO = 263,    // "elemento_quimico"
     TOK_ELEMENTO = 264,            // "elemento"
     TOK_IDENTIFICADOR = 265,       // "identificador"
-    TOK_FIN_DE_LINEA = 266,        // "fin_de_linea"
-    TOK_ENLACE = 267,              // "enlace"
-    TOK_DIGITO = 268,              // "digito"
-    TOK_VALENCIA = 269             // "valencia"
+    TOK_PALABRA_RESERVADA = 266,   // "palabra_reservada"
+    TOK_FIN_DE_LINEA = 267,        // "fin_de_linea"
+    TOK_ENLACE = 268,              // "enlace"
+    TOK_DIGITO = 269,              // "digito"
+    TOK_VALENCIA = 270             // "valencia"
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -501,7 +503,7 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 15, ///< Number of tokens.
+        YYNTOKENS = 16, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -514,14 +516,15 @@ namespace yy {
         S_ELEMENTO_QUIMICO = 8,                  // "elemento_quimico"
         S_ELEMENTO = 9,                          // "elemento"
         S_IDENTIFICADOR = 10,                    // "identificador"
-        S_FIN_DE_LINEA = 11,                     // "fin_de_linea"
-        S_ENLACE = 12,                           // "enlace"
-        S_DIGITO = 13,                           // "digito"
-        S_VALENCIA = 14,                         // "valencia"
-        S_YYACCEPT = 15,                         // $accept
-        S_unit = 16,                             // unit
-        S_exps = 17,                             // exps
-        S_exp = 18                               // exp
+        S_PALABRA_RESERVADA = 11,                // "palabra_reservada"
+        S_FIN_DE_LINEA = 12,                     // "fin_de_linea"
+        S_ENLACE = 13,                           // "enlace"
+        S_DIGITO = 14,                           // "digito"
+        S_VALENCIA = 15,                         // "valencia"
+        S_YYACCEPT = 16,                         // $accept
+        S_unit = 17,                             // unit
+        S_exps = 18,                             // exps
+        S_exp = 19                               // exp
       };
     };
 
@@ -566,6 +569,7 @@ namespace yy {
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_ELEMENTO: // "elemento"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
+      case symbol_kind::S_PALABRA_RESERVADA: // "palabra_reservada"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
       case symbol_kind::S_ENLACE: // "enlace"
       case symbol_kind::S_exp: // exp
@@ -655,6 +659,7 @@ switch (yykind)
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_ELEMENTO: // "elemento"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
+      case symbol_kind::S_PALABRA_RESERVADA: // "palabra_reservada"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
       case symbol_kind::S_ENLACE: // "enlace"
       case symbol_kind::S_exp: // exp
@@ -997,6 +1002,21 @@ switch (yykind)
       make_IDENTIFICADOR (const std::string& v, const location_type& l)
       {
         return symbol_type (token::TOK_IDENTIFICADOR, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_PALABRA_RESERVADA (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_PALABRA_RESERVADA, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_PALABRA_RESERVADA (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_PALABRA_RESERVADA, v, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1389,7 +1409,7 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 12,     ///< Last index in yytable_.
+      yylast_ = 13,     ///< Last index in yytable_.
       yynnts_ = 4,  ///< Number of nonterminal symbols.
       yyfinal_ = 3 ///< Termination state number.
     };
@@ -1436,10 +1456,11 @@ switch (yykind)
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12,    13,    14
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15
     };
     // Last valid token kind.
-    const int code_max = 269;
+    const int code_max = 270;
 
     if (t <= 0)
       return symbol_kind::S_YYEOF;
@@ -1466,6 +1487,7 @@ switch (yykind)
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_ELEMENTO: // "elemento"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
+      case symbol_kind::S_PALABRA_RESERVADA: // "palabra_reservada"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
       case symbol_kind::S_ENLACE: // "enlace"
       case symbol_kind::S_exp: // exp
@@ -1511,6 +1533,7 @@ switch (yykind)
       case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
       case symbol_kind::S_ELEMENTO: // "elemento"
       case symbol_kind::S_IDENTIFICADOR: // "identificador"
+      case symbol_kind::S_PALABRA_RESERVADA: // "palabra_reservada"
       case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
       case symbol_kind::S_ENLACE: // "enlace"
       case symbol_kind::S_exp: // exp
@@ -1583,7 +1606,7 @@ switch (yykind)
 
 
 } // yy
-#line 1587 "parser.hh"
+#line 1610 "parser.hh"
 
 
 

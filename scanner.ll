@@ -111,9 +111,16 @@ return yy::parser::make_RCOR (loc);
   return yy::parser::make_FIN_DE_LINEA(yytext,loc);
 }
 
-{id}       {
-  std::cout << "(" << "<ID>," << std::string(yytext) << "," << loc << ")" << std::endl; 
-  return yy::parser::make_IDENTIFICADOR (yytext, loc);
+{id} {
+    std::string text(yytext);
+    if (drv.variables.find(text) != drv.variables.end() && drv.variables[text] == "") {
+      if (drv.variables[text] == "") {
+        std::cout << "(<PALABRA_RESERVADA>," << text << ")\n";
+        return yy::parser::make_PALABRA_RESERVADA (yytext,loc);
+      }
+    }
+    std::cout << "(<ID>," << text << ")\n";
+    return yy::parser::make_IDENTIFICADOR (yytext, loc);
   };
 
 

@@ -38,6 +38,7 @@
 %token <std::string> ELEMENTO_QUIMICO "elemento_quimico"
 %token <std::string> ELEMENTO "elemento"
 %token <std::string> IDENTIFICADOR "identificador"
+%token <std::string> PALABRA_RESERVADA "palabra_reservada"
 %token <std::string> FIN_DE_LINEA "fin_de_linea"
 %token <std::string> ENLACE "enlace"
 %token <int> DIGITO "digito"
@@ -74,6 +75,7 @@ exp:
 | "]" {}
 | "(" {}
 | ")" {}
+| "palabra_reservada" {}
 %%
 
 void
