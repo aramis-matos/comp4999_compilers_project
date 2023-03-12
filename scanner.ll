@@ -115,10 +115,7 @@ return yy::parser::make_RCOR (loc);
   std::cout << "(" << "<ID>," << std::string(yytext) << "," << loc << ")" << std::endl; 
   return yy::parser::make_IDENTIFICADOR (yytext, loc);
   };
-.          {
-             throw yy::parser::syntax_error
-               (loc, "invalid character: " + std::string(yytext));
-}
+
 
 
 <<EOF>>    {
@@ -129,6 +126,9 @@ return yy::parser::make_RCOR (loc);
   return yy::parser::make_END (loc);
   }
 
+. {
+  std::cout << "CARACTER INVALIDO " << std::string(yytext) << "," << loc << std::endl;
+}
 %%
 
 void
