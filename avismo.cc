@@ -1,5 +1,7 @@
 #include <iostream>
 #include "driver.hh"
+#include <fstream>
+#include <string>
 
 int main(int argc, char *argv[])
 {
@@ -16,5 +18,13 @@ int main(int argc, char *argv[])
     }
     else
       res = 1;
+  
+  std::ifstream file;
+  std::string val;
+  file.open("output.txt");
+  while (getline(file,val)) {
+    std::cout << val << std::endl;
+  }
+  file.close();
   return res;
 }
