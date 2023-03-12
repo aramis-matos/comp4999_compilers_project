@@ -3,6 +3,7 @@
 # include <climits>
 # include <cstdlib>
 # include <string>
+# include <fstream>
 # include "driver.hh"
 # include "parser.hh"
 
@@ -19,8 +20,9 @@
 # pragma GCC diagnostic ignored "-Wnull-dereference"
 #endif
 
+std::ofstream file("output.txt");
 void format_output (std::string token,const char* yytext, yy::location& loc) {
-  std::cout << "(" << "<" << token << ">," << std::string(yytext) << "," << loc << ")" << std::endl;
+  file << "(" << "<" << token << ">," << std::string(yytext) << "," << loc << ")" << std::endl;
 }
 %}
 
@@ -130,22 +132,23 @@ blank [ \t]
 
 
 <<EOF>>    {
-  std:: cout << "\n" << "\n" << "Tabla de Simbolos" << std::endl;
+  file << "\n" << "\n" << "Tabla de Simbolos" << std::endl;
   for (auto & [first,second] : drv.variables) {
-    std::cout << "(<";
+    file << "(<";
     if (second == "") {
-      std::cout << "PALABRA_RESERVADA";
+      file << "PALABRA_RESERVADA";
     }
     else {
-      std::cout << "ID";
+      file << "ID";
     }
-    std::cout << ">," << first << ")" << std::endl;
+    file << ">," << first << ")" << std::endl;
   }
+  file.close();
   return yy::parser::make_END (loc);
   }
 
 . {
-  std::cout << "CARACTER INVALIDO " << std::string(yytext) << "," << loc << std::endl;
+  file << "CARACTER INVALIDO " << std::string(yytext) << "," << loc << std::endl;
 }
 %%
 
