@@ -1,0 +1,10 @@
+\beamer@sectionintoc {1}{Introducción}{3}{0}{1}
+\beamer@sectionintoc {2}{Gramática de AVISMO}{4}{0}{2}
+\beamer@sectionintoc {3}{Especificación del Analizador Léxico}{7}{0}{3}
+\beamer@subsectionintoc {3}{1}{Tokens y Lexemas}{7}{0}{3}
+\beamer@subsectionintoc {3}{2}{Patrones}{8}{0}{3}
+\beamer@subsectionintoc {3}{3}{Atributos}{9}{0}{3}
+\beamer@sectionintoc {4}{Diseño del Analizador Léxico}{10}{0}{4}
+\beamer@subsectionintoc {4}{1}{Autómatas Finitos Deterministas}{10}{0}{4}
+\beamer@subsectionintoc {4}{2}{Estructura de Datos de la Tabla de Símbolos}{15}{0}{4}
+\beamer@sectionintoc {5}{Casos de Pruebas}{16}{0}{5}

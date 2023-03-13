@@ -1,0 +1,11 @@
+\BOOKMARK [2][]{Outline0.1}{Introducci\363n}{}% 1
+\BOOKMARK [2][]{Outline0.2}{Gram\341tica de AVISMO}{}% 2
+\BOOKMARK [2][]{Outline0.3}{Especificaci\363n del Analizador L\351xico}{}% 3
+\BOOKMARK [3][]{Outline0.3.1.7}{Tokens y Lexemas}{Outline0.3}% 4
+\BOOKMARK [3][]{Outline0.3.2.8}{Patrones}{Outline0.3}% 5
+\BOOKMARK [3][]{Outline0.3.3.9}{Atributos}{Outline0.3}% 6
+\BOOKMARK [2][]{Outline0.4}{Dise\361o del Analizador L\351xico}{}% 7
+\BOOKMARK [3][]{Outline0.4.1.10}{Aut\363matas Finitos Deterministas}{Outline0.4}% 8
+\BOOKMARK [3][]{Outline0.4.2.15}{Estructura de Datos de la Tabla de S\355mbolos}{Outline0.4}% 9
+\BOOKMARK [2][]{Outline0.5}{Casos de Pruebas}{}% 10
+\BOOKMARK [2][]{Outline0.6}{References}{}% 11
