@@ -1,5 +1,3 @@
-S "inicio" {SENTENCIAS} "fin"
-
 FIN_DE_LINEA (":",";") 
 
 LETRA [A-Za-z]
@@ -38,11 +36,6 @@ GRUPO_FUNCIONAL_SUPERIOR ("(" {MODELO_GRUPO_FUNCIONAL} ")")
 
 MODELO_GRUPO_FUNCIONAL ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn"| {ELEMENTO_QUIMICO} {VALENCIA} | {ELEMENTO} {GRUPO_FUNCIONAL} | {COMPUESTO} {ELEMENTO} {COMPUESTO} {ELEMENTO} {GRUPO_FUNCIONAL} | {COMPUESTO} {COMPUESTO} {COMPUESTOS})
 
-
-{S} {
-	format_output("S",yytext,loc);
-	return yy::parser::make_FIN_DE_LINEA(yytext,loc);
-}
 
 {FIN_DE_LINEA} {
 	format_output("FIN_DE_LINEA",yytext,loc);
@@ -128,3 +121,47 @@ MODELO_GRUPO_FUNCIONAL ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba
 	format_output("MODELO_GRUPO_FUNCIONAL",yytext,loc);
 	return yy::parser::make_MODELO_GRUPO_FUNCIONAL(yytext,loc);
 }
+
+%token <std::string> FIN_DE_LINEA FIN_DE_LINEA
+%token <std::string> letra LETRA
+%token <std::string> digito DIGITO
+%token <std::string> tipo TIPO
+%token <std::string> operacion OPERACION
+%token <std::string> valencia VALENCIA
+%token <std::string> elemen ELEMEN
+%token <std::string> enlace ENLACE
+%token <std::string> id ID
+%token <std::string> idcont IDCONT
+%token <std::string> sentencias SENTENCIAS
+%token <std::string> sentencia SENTENCIA
+%token <std::string> modelo_molecular MODELO_MOLECULAR
+%token <std::string> compuesto COMPUESTO>
+%token <std::string> compuestos COMPUESTOS
+%token <std::string> elemento ELEMENTO
+%token <std::string> elemento_quimico ELEMENTO_QUIMICO
+%token <std::string> grupo_funcional GRUPO_FUNCIONAL
+%token <std::string> grupo_funcional_inferior GRUPO_FUNCIONAL_INFERIOR
+%token <std::string> grupo_funcional_superior GRUPO_FUNCIONAL_SUPERIOR
+%token <std::string> modelo_grupo_funcional MODELO_GRUPO_FUNCIONAL
+
+fin_de_linea {}
+| letra {}
+| digito {}
+| tipo {}
+| operacion {}
+| valencia {}
+| elemento_quimico {}
+| enlace {}
+| id {}
+| idcont {}
+| sentencias {}
+| sentencia {}
+| modelo_molecular {}
+| compuesto {}
+| compuestos {}
+| elemento {}
+| elemento_quimico {}
+| grupo_funcional {}
+| grupo_funcional_inferior {}
+| grupo_funcional_superior {}
+| modelo_grupo_funcional {}
