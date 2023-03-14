@@ -122,27 +122,27 @@ MODELO_GRUPO_FUNCIONAL ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba
 	return yy::parser::make_MODELO_GRUPO_FUNCIONAL(yytext,loc);
 }
 
-%token <std::string> FIN_DE_LINEA FIN_DE_LINEA
-%token <std::string> letra LETRA
-%token <std::string> digito DIGITO
-%token <std::string> tipo TIPO
-%token <std::string> operacion OPERACION
-%token <std::string> valencia VALENCIA
-%token <std::string> elemen ELEMEN
-%token <std::string> enlace ENLACE
-%token <std::string> id ID
-%token <std::string> idcont IDCONT
-%token <std::string> sentencias SENTENCIAS
-%token <std::string> sentencia SENTENCIA
-%token <std::string> modelo_molecular MODELO_MOLECULAR
-%token <std::string> compuesto COMPUESTO>
-%token <std::string> compuestos COMPUESTOS
-%token <std::string> elemento ELEMENTO
-%token <std::string> elemento_quimico ELEMENTO_QUIMICO
-%token <std::string> grupo_funcional GRUPO_FUNCIONAL
-%token <std::string> grupo_funcional_inferior GRUPO_FUNCIONAL_INFERIOR
-%token <std::string> grupo_funcional_superior GRUPO_FUNCIONAL_SUPERIOR
-%token <std::string> modelo_grupo_funcional MODELO_GRUPO_FUNCIONAL
+%token <std::string> FIN_DE_LINEA "fin_de_linea"
+%token <std::string> LETRA "letra"
+%token <int> DIGITO "digito"
+%token <std::string> TIPO "tipo"
+%token <std::string> OPERACION "operacion"
+%token <int> VALENCIA "valencia"
+%token <std::string> ELEMEN "elemen"
+%token <std::string> ENLACE "enlace"
+%token <std::string> ID "id"
+%token <std::string> IDCONT "idcont"
+%token <std::string> SENTENCIAS "sentencias"
+%token <std::string> SENTENCIA "sentencia"
+%token <std::string> MODELO_MOLECULAR "modelo_molecular"
+%token <std::string> COMPUESTO "compuesto>"
+%token <std::string> COMPUESTOS "compuestos"
+%token <std::string> ELEMENTO "elemento"
+%token <std::string> ELEMENTO_QUIMICO "elemento_quimico"
+%token <std::string> GRUPO_FUNCIONAL "grupo_funcional"
+%token <std::string> GRUPO_FUNCIONAL_INFERIOR "grupo_funcional_inferior"
+%token <std::string> GRUPO_FUNCIONAL_SUPERIOR "grupo_funcional_superior"
+%token <std::string> MODELO_GRUPO_FUNCIONAL "modelo_grupo_funcional"
 
 fin_de_linea {}
 | letra {}
