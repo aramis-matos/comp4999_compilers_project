@@ -28,16 +28,47 @@ void format_output (std::string token,const char* yytext, yy::location& loc) {
 
 %option noyywrap nounput batch debug noinput
 
-digito   [0-9]
-valencia [1-9]
-fin_de_linea (";"|":")
-elemento_quimico ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn")
-elemento  {elemento_quimico}{valencia}
-id    [a-zA-Z][a-zA-Z0-9]*
-enlace ([-=]|:{1,2})
+FIN_DE_LINEA (":",";") 
+
+LETRA [A-Za-z]
+
+DIGITO [0-9]
+
+TIPO "modelo" 
+
+OPERACION ("graficar2d"|"graficar3d"|"pesomolecular")
+
+VALENCIA [1-9]
+
+ENLACE ("-"|"="|":"|"::")
+
+IDCONT ([A-Za-z] | {DIGITO} {IDCONT} | [0-9] | {DIGITO} {IDCONT})
+
+ID [A-Za-z]|{LETRA}{IDCONT}
+
+SENTENCIAS ({SENTENCIA} {FIN_DE_LINEA} {SENTENCIAS} | {SENTENCIA} {FIN_DE_LINEA})
+
+SENTENCIA  ("defina" {ID} "como" {TIPO} | {ID} "=" {MODELO_MOLECULAR} | {OPERACION} "(" {ID} ")")
+
+MODELO_MOLECULAR ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn"|{ELEMENTO_QUIMICO} {VALENCIA} | {ELEMENTO} {GRUPO_FUNCIONAL} | {COMPUESTO} {ELEMENTO} | {COMPUESTO} {ELEMENTO} {GRUPO_FUNCIONAL} | {COMPUESTO} {COMPUESTO} {COMPUESTOS})
+
+COMPUESTO ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn" | {ELEMENTO_QUIMICO} {VALENCIA} | {ELEMENTO} {GRUPO_FUNCIONAL} | {ELEMENTO} {GRUPO_FUNCIONAL} {ENLACE} | {ELEMENTO} {ENLACE}) 
+
+COMPUESTOS ({COMPUESTO} {COMPUESTOS} | {COMPUESTO})
+
+ELEMENTO ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn" | {ELEMENTO_QUIMICO} {VALENCIA})
+
+ELEMENTO_QUIMICO ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn")
+
+GRUPO_FUNCIONAL ({GRUPO_FUNCIONAL_INFERIOR} {GRUPO_FUNCIONAL_SUPERIOR} | {GRUPO_FUNCIONAL_SUPERIOR} {GRUPO_FUNCIONAL_INFERIOR} | "(" {MODELO_GRUPO_FUNCIONAL} ")" | "[" {MODELO_GRUPO_FUNCIONAL} "]")
+
+GRUPO_FUNCIONAL_INFERIOR ("[" {MODELO_GRUPO_FUNCIONAL} "]")
+
+GRUPO_FUNCIONAL_SUPERIOR ("(" {MODELO_GRUPO_FUNCIONAL} ")")
+
+MODELO_GRUPO_FUNCIONAL ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn"| {ELEMENTO_QUIMICO} {VALENCIA} | {ELEMENTO} {GRUPO_FUNCIONAL} | {COMPUESTO} {ELEMENTO} {COMPUESTO} {ELEMENTO} {GRUPO_FUNCIONAL} | {COMPUESTO} {COMPUESTO} {COMPUESTOS})
+
 blank [ \t]
-
-
 %{
   // Code run each time a pattern is matched.
   # define YY_USER_ACTION  loc.columns (yyleng);
@@ -55,80 +86,94 @@ blank [ \t]
 {blank}+   loc.step ();
 [\n]+      loc.lines (yyleng); loc.step ();
 
-"("      {
-    format_output("LPAREN",yytext,loc);
-    return yy::parser::make_LPAREN (loc);
-};
-")"      {
-    format_output("RPAREN",yytext,loc);
-    return yy::parser::make_RPAREN (loc);
-};
 
-
-"="      {
-    format_output("ASIG",yytext,loc);
-    return yy::parser::make_ASIG (loc);
-};
-
-{enlace} {
-    format_output("ENLACE",yytext,loc);
-    return yy::parser::make_ENLACE (yytext,loc);
+{FIN_DE_LINEA} {
+	format_output("FIN_DE_LINEA",yytext,loc);
+	return yy::parser::make_FIN_DE_LINEA(yytext,loc);
+}
+{LETRA} {
+	format_output("LETRA",yytext,loc);
+	return yy::parser::make_LETRA(yytext,loc);
+}
+{DIGITO} {
+  long n = std::stol(yytext);
+	format_output("DIGITO",yytext,loc);
+	return yy::parser::make_DIGITO(n,loc);
+}
+{TIPO} {
+	format_output("TIPO",yytext,loc);
+	return yy::parser::make_TIPO(yytext,loc);
+}
+{OPERACION} {
+	format_output("OPERACION",yytext,loc);
+	return yy::parser::make_OPERACION(yytext,loc);
+}
+{VALENCIA} {
+  	long n = std::stol(yytext);
+	format_output("VALENCIA",yytext,loc);
+	return yy::parser::make_VALENCIA(n,loc);
+}
+{ELEMENTO_QUIMICO} {
+	format_output("ELEMENTO_QUIMICO",yytext,loc);
+	return yy::parser::make_ELEMENTO_QUIMICO(yytext,loc);
+}
+{ENLACE} {
+	format_output("ENLACE",yytext,loc);
+	return yy::parser::make_ENLACE(yytext,loc);
 }
 
-"["      {
-    format_output("LCOR",yytext,loc);
-    return yy::parser::make_LCOR (loc);}
-
-"]"      {
-    format_output("RCOR",yytext,loc);
-    return yy::parser::make_RCOR (loc);
-};
-
-
-{valencia} {
-    long n = std::stol(yytext);
-    format_output("VALENCIA",yytext,loc);
-    return yy::parser::make_VALENCIA(n,loc);
+{ID} {
+	format_output("ID",yytext,loc);
+	return yy::parser::make_ID(yytext,loc);
 }
-
-{digito}      {
-  errno = 0;
-  long n = strtol (yytext, NULL, 10);
-  if (! (INT_MIN <= n && n <= INT_MAX && errno != ERANGE))
-    throw yy::parser::syntax_error (loc, "integer is out of range: "
-                                    + std::string(yytext));
-  format_output("DIGITO",yytext,loc);
-  return yy::parser::make_DIGITO (n, loc);
+{IDCONT} {
+	format_output("IDCONT",yytext,loc);
+	return yy::parser::make_IDCONT(yytext,loc);
 }
-
-{elemento_quimico} {
-  format_output("ELEMENTO_QUIMICO",yytext,loc);
-  return yy::parser::make_ELEMENTO_QUIMICO(yytext,loc);
+{SENTENCIAS} {
+	format_output("SENTENCIAS",yytext,loc);
+	return yy::parser::make_SENTENCIAS(yytext,loc);
 }
-
-{elemento} {
-  format_output("ELEMENTO",yytext,loc);
-  return yy::parser::make_ELEMENTO(yytext,loc);
+{SENTENCIA} {
+	format_output("SENTENCIA",yytext,loc);
+	return yy::parser::make_SENTENCIA(yytext,loc);
 }
-
-
-{fin_de_linea} {
-  format_output("FIN_DE_LINEA",yytext,loc);
-  return yy::parser::make_FIN_DE_LINEA(yytext,loc);
+{MODELO_MOLECULAR} {
+	format_output("MODELO_MOLECULAR",yytext,loc);
+	return yy::parser::make_MODELO_MOLECULAR(yytext,loc);
 }
-
-{id} {
-    std::string text(yytext);
-    if (drv.variables.find(text) != drv.variables.end() && drv.variables[text] == "") {
-      if (drv.variables[text] == "") {
-        format_output("PALABRA_RESERVADA",yytext,loc);
-        return yy::parser::make_PALABRA_RESERVADA (yytext,loc);
-      }
-    }
-    format_output("IDENTIFICADOR",yytext,loc);
-    return yy::parser::make_IDENTIFICADOR (yytext, loc);
-  };
-
+{COMPUESTO} {
+	format_output("COMPUESTO",yytext,loc);
+	return yy::parser::make_COMPUESTO(yytext,loc);
+}
+{COMPUESTOS} {
+	format_output("COMPUESTOS",yytext,loc);
+	return yy::parser::make_COMPUESTOS(yytext,loc);
+}
+{ELEMENTO} {
+	format_output("ELEMENTO",yytext,loc);
+	return yy::parser::make_ELEMENTO(yytext,loc);
+}
+{ELEMENTO_QUIMICO} {
+	format_output("ELEMENTO_QUIMICO",yytext,loc);
+	return yy::parser::make_ELEMENTO_QUIMICO(yytext,loc);
+}
+{GRUPO_FUNCIONAL} {
+	format_output("GRUPO_FUNCIONAL",yytext,loc);
+	return yy::parser::make_GRUPO_FUNCIONAL(yytext,loc);
+}
+{GRUPO_FUNCIONAL_INFERIOR} {
+	format_output("GRUPO_FUNCIONAL_INFERIOR",yytext,loc);
+	return yy::parser::make_GRUPO_FUNCIONAL_INFERIOR(yytext,loc);
+}
+{GRUPO_FUNCIONAL_SUPERIOR} {
+	format_output("GRUPO_FUNCIONAL_SUPERIOR",yytext,loc);
+	return yy::parser::make_GRUPO_FUNCIONAL_SUPERIOR(yytext,loc);
+}
+{MODELO_GRUPO_FUNCIONAL} {
+	format_output("MODELO_GRUPO_FUNCIONAL",yytext,loc);
+	return yy::parser::make_MODELO_GRUPO_FUNCIONAL(yytext,loc);
+}
 
 
 <<EOF>>    {

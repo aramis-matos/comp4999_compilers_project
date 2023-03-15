@@ -1,8 +1,8 @@
-// A Bison parser, made by GNU Bison 3.5.1.
+// A Bison parser, made by GNU Bison 3.8.2.
 
 // Skeleton interface for Bison LALR(1) parsers in C++
 
-// Copyright (C) 2002-2015, 2018-2020 Free Software Foundation, Inc.
+// Copyright (C) 2002-2015, 2018-2021 Free Software Foundation, Inc.
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 // As a special exception, you may create a larger work that contains
 // part or all of the Bison parser skeleton and distribute that work
@@ -38,8 +38,9 @@
 
 // C++ LALR(1) parser skeleton written by Akim Demaille.
 
-// Undocumented macros, especially those whose name start with YY_,
-// are private implementation details.  Do not rely on them.
+// DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+// especially those whose name start with YY_ or yy_.  They are
+// private implementation details that can be changed or removed.
 
 #ifndef YY_YY_PARSER_HH_INCLUDED
 # define YY_YY_PARSER_HH_INCLUDED
@@ -50,7 +51,7 @@
   class driver;
 
 
-#line 54 "parser.hh"
+#line 55 "parser.hh"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -121,17 +122,23 @@
 
 /* Suppress unused-variable warnings by "using" E.  */
 #if ! defined lint || defined __GNUC__
-# define YYUSE(E) ((void) (E))
+# define YY_USE(E) ((void) (E))
 #else
-# define YYUSE(E) /* empty */
+# define YY_USE(E) /* empty */
 #endif
 
-#if defined __GNUC__ && ! defined __ICC && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
 /* Suppress an incorrect diagnostic about yylval being uninitialized.  */
-# define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                            \
+#if defined __GNUC__ && ! defined __ICC && 406 <= __GNUC__ * 100 + __GNUC_MINOR__
+# if __GNUC__ * 100 + __GNUC_MINOR__ < 407
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
+    _Pragma ("GCC diagnostic push")                                     \
+    _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")
+# else
+#  define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN                           \
     _Pragma ("GCC diagnostic push")                                     \
     _Pragma ("GCC diagnostic ignored \"-Wuninitialized\"")              \
     _Pragma ("GCC diagnostic ignored \"-Wmaybe-uninitialized\"")
+# endif
 # define YY_IGNORE_MAYBE_UNINITIALIZED_END      \
     _Pragma ("GCC diagnostic pop")
 #else
@@ -184,7 +191,7 @@
 #endif
 
 namespace yy {
-#line 188 "parser.hh"
+#line 195 "parser.hh"
 
 
 
@@ -193,35 +200,47 @@ namespace yy {
   class parser
   {
   public:
-#ifndef YYSTYPE
+#ifdef YYSTYPE
+# ifdef __GNUC__
+#  pragma GCC message "bison: do not #define YYSTYPE in C++, use %define api.value.type"
+# endif
+    typedef YYSTYPE value_type;
+#else
   /// A buffer to store and retrieve objects.
   ///
   /// Sort of a variant, but does not keep track of the nature
   /// of the stored data, since that knowledge is available
   /// via the current parser state.
-  class semantic_type
+  class value_type
   {
   public:
     /// Type of *this.
-    typedef semantic_type self_type;
+    typedef value_type self_type;
 
     /// Empty construction.
-    semantic_type () YY_NOEXCEPT
-      : yybuffer_ ()
+    value_type () YY_NOEXCEPT
+      : yyraw_ ()
       , yytypeid_ (YY_NULLPTR)
     {}
 
     /// Construct and fill.
     template <typename T>
-    semantic_type (YY_RVREF (T) t)
+    value_type (YY_RVREF (T) t)
       : yytypeid_ (&typeid (T))
     {
       YY_ASSERT (sizeof (T) <= size);
       new (yyas_<T> ()) T (YY_MOVE (t));
     }
 
+#if 201103L <= YY_CPLUSPLUS
+    /// Non copyable.
+    value_type (const self_type&) = delete;
+    /// Non copyable.
+    self_type& operator= (const self_type&) = delete;
+#endif
+
     /// Destruction, allowed only if empty.
-    ~semantic_type () YY_NOEXCEPT
+    ~value_type () YY_NOEXCEPT
     {
       YY_ASSERT (!yytypeid_);
     }
@@ -363,16 +382,19 @@ namespace yy {
     }
 
   private:
-    /// Prohibit blind copies.
+#if YY_CPLUSPLUS < 201103L
+    /// Non copyable.
+    value_type (const self_type&);
+    /// Non copyable.
     self_type& operator= (const self_type&);
-    semantic_type (const self_type&);
+#endif
 
     /// Accessor to raw memory as \a T.
     template <typename T>
     T*
     yyas_ () YY_NOEXCEPT
     {
-      void *yyp = yybuffer_.yyraw;
+      void *yyp = yyraw_;
       return static_cast<T*> (yyp);
      }
 
@@ -381,7 +403,7 @@ namespace yy {
     const T*
     yyas_ () const YY_NOEXCEPT
     {
-      const void *yyp = yybuffer_.yyraw;
+      const void *yyp = yyraw_;
       return static_cast<const T*> (yyp);
      }
 
@@ -392,12 +414,25 @@ namespace yy {
       // "valencia"
       char dummy1[sizeof (int)];
 
-      // "elemento_quimico"
-      // "elemento"
-      // "identificador"
-      // "palabra_reservada"
       // "fin_de_linea"
+      // "letra"
+      // "tipo"
+      // "operacion"
+      // "elemen"
       // "enlace"
+      // "id"
+      // "idcont"
+      // "sentencias"
+      // "sentencia"
+      // "modelo_molecular"
+      // "compuesto"
+      // "compuestos"
+      // "elemento"
+      // "elemento_quimico"
+      // "grupo_funcional"
+      // "grupo_funcional_inferior"
+      // "grupo_funcional_superior"
+      // "modelo_grupo_funcional"
       // exp
       char dummy2[sizeof (std::string)];
     };
@@ -409,18 +444,19 @@ namespace yy {
     union
     {
       /// Strongest alignment constraints.
-      long double yyalign_me;
+      long double yyalign_me_;
       /// A buffer large enough to store any of the semantic values.
-      char yyraw[size];
-    } yybuffer_;
+      char yyraw_[size];
+    };
 
     /// Whether the content is built: if defined, the name of the stored type.
     const std::type_info *yytypeid_;
   };
 
-#else
-    typedef YYSTYPE semantic_type;
 #endif
+    /// Backward compatibility (Bison 3.8).
+    typedef value_type semantic_type;
+
     /// Symbol locations.
     typedef location location_type;
 
@@ -442,44 +478,95 @@ namespace yy {
       location_type location;
     };
 
-    /// Tokens.
+    /// Token kinds.
     struct token
     {
-      enum yytokentype
+      enum token_kind_type
       {
-        TOK_END = 0,
-        TOK_ASIG = 258,
-        TOK_LPAREN = 259,
-        TOK_RPAREN = 260,
-        TOK_LCOR = 261,
-        TOK_RCOR = 262,
-        TOK_ELEMENTO_QUIMICO = 263,
-        TOK_ELEMENTO = 264,
-        TOK_IDENTIFICADOR = 265,
-        TOK_PALABRA_RESERVADA = 266,
-        TOK_FIN_DE_LINEA = 267,
-        TOK_ENLACE = 268,
-        TOK_DIGITO = 269,
-        TOK_VALENCIA = 270
+        TOK_YYEMPTY = -2,
+    TOK_END = 0,                   // "end of file"
+    TOK_YYerror = 256,             // error
+    TOK_YYUNDEF = 257,             // "invalid token"
+    TOK_FIN_DE_LINEA = 258,        // "fin_de_linea"
+    TOK_LETRA = 259,               // "letra"
+    TOK_DIGITO = 260,              // "digito"
+    TOK_TIPO = 261,                // "tipo"
+    TOK_OPERACION = 262,           // "operacion"
+    TOK_VALENCIA = 263,            // "valencia"
+    TOK_ELEMEN = 264,              // "elemen"
+    TOK_ENLACE = 265,              // "enlace"
+    TOK_ID = 266,                  // "id"
+    TOK_IDCONT = 267,              // "idcont"
+    TOK_SENTENCIAS = 268,          // "sentencias"
+    TOK_SENTENCIA = 269,           // "sentencia"
+    TOK_MODELO_MOLECULAR = 270,    // "modelo_molecular"
+    TOK_COMPUESTO = 271,           // "compuesto"
+    TOK_COMPUESTOS = 272,          // "compuestos"
+    TOK_ELEMENTO = 273,            // "elemento"
+    TOK_ELEMENTO_QUIMICO = 274,    // "elemento_quimico"
+    TOK_GRUPO_FUNCIONAL = 275,     // "grupo_funcional"
+    TOK_GRUPO_FUNCIONAL_INFERIOR = 276, // "grupo_funcional_inferior"
+    TOK_GRUPO_FUNCIONAL_SUPERIOR = 277, // "grupo_funcional_superior"
+    TOK_MODELO_GRUPO_FUNCIONAL = 278 // "modelo_grupo_funcional"
+      };
+      /// Backward compatibility alias (Bison 3.6).
+      typedef token_kind_type yytokentype;
+    };
+
+    /// Token kind, as returned by yylex.
+    typedef token::token_kind_type token_kind_type;
+
+    /// Backward compatibility alias (Bison 3.6).
+    typedef token_kind_type token_type;
+
+    /// Symbol kinds.
+    struct symbol_kind
+    {
+      enum symbol_kind_type
+      {
+        YYNTOKENS = 24, ///< Number of tokens.
+        S_YYEMPTY = -2,
+        S_YYEOF = 0,                             // "end of file"
+        S_YYerror = 1,                           // error
+        S_YYUNDEF = 2,                           // "invalid token"
+        S_FIN_DE_LINEA = 3,                      // "fin_de_linea"
+        S_LETRA = 4,                             // "letra"
+        S_DIGITO = 5,                            // "digito"
+        S_TIPO = 6,                              // "tipo"
+        S_OPERACION = 7,                         // "operacion"
+        S_VALENCIA = 8,                          // "valencia"
+        S_ELEMEN = 9,                            // "elemen"
+        S_ENLACE = 10,                           // "enlace"
+        S_ID = 11,                               // "id"
+        S_IDCONT = 12,                           // "idcont"
+        S_SENTENCIAS = 13,                       // "sentencias"
+        S_SENTENCIA = 14,                        // "sentencia"
+        S_MODELO_MOLECULAR = 15,                 // "modelo_molecular"
+        S_COMPUESTO = 16,                        // "compuesto"
+        S_COMPUESTOS = 17,                       // "compuestos"
+        S_ELEMENTO = 18,                         // "elemento"
+        S_ELEMENTO_QUIMICO = 19,                 // "elemento_quimico"
+        S_GRUPO_FUNCIONAL = 20,                  // "grupo_funcional"
+        S_GRUPO_FUNCIONAL_INFERIOR = 21,         // "grupo_funcional_inferior"
+        S_GRUPO_FUNCIONAL_SUPERIOR = 22,         // "grupo_funcional_superior"
+        S_MODELO_GRUPO_FUNCIONAL = 23,           // "modelo_grupo_funcional"
+        S_YYACCEPT = 24,                         // $accept
+        S_unit = 25,                             // unit
+        S_exps = 26,                             // exps
+        S_exp = 27                               // exp
       };
     };
 
-    /// (External) token type, as returned by yylex.
-    typedef token::yytokentype token_type;
+    /// (Internal) symbol kind.
+    typedef symbol_kind::symbol_kind_type symbol_kind_type;
 
-    /// Symbol type: an internal symbol number.
-    typedef int symbol_number_type;
-
-    /// The symbol type number to denote an empty symbol.
-    enum { empty_symbol = -2 };
-
-    /// Internal symbol number for tokens (subsumed by symbol_number_type).
-    typedef signed char token_number_type;
+    /// The number of tokens.
+    static const symbol_kind_type YYNTOKENS = symbol_kind::YYNTOKENS;
 
     /// A complete symbol.
     ///
-    /// Expects its Base type to provide access to the symbol type
-    /// via type_get ().
+    /// Expects its Base type to provide access to the symbol kind
+    /// via kind ().
     ///
     /// Provide access to semantic value and location.
     template <typename Base>
@@ -489,20 +576,59 @@ namespace yy {
       typedef Base super_type;
 
       /// Default constructor.
-      basic_symbol ()
+      basic_symbol () YY_NOEXCEPT
         : value ()
         , location ()
       {}
 
 #if 201103L <= YY_CPLUSPLUS
       /// Move constructor.
-      basic_symbol (basic_symbol&& that);
+      basic_symbol (basic_symbol&& that)
+        : Base (std::move (that))
+        , value ()
+        , location (std::move (that.location))
+      {
+        switch (this->kind ())
+    {
+      case symbol_kind::S_DIGITO: // "digito"
+      case symbol_kind::S_VALENCIA: // "valencia"
+        value.move< int > (std::move (that.value));
+        break;
+
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_LETRA: // "letra"
+      case symbol_kind::S_TIPO: // "tipo"
+      case symbol_kind::S_OPERACION: // "operacion"
+      case symbol_kind::S_ELEMEN: // "elemen"
+      case symbol_kind::S_ENLACE: // "enlace"
+      case symbol_kind::S_ID: // "id"
+      case symbol_kind::S_IDCONT: // "idcont"
+      case symbol_kind::S_SENTENCIAS: // "sentencias"
+      case symbol_kind::S_SENTENCIA: // "sentencia"
+      case symbol_kind::S_MODELO_MOLECULAR: // "modelo_molecular"
+      case symbol_kind::S_COMPUESTO: // "compuesto"
+      case symbol_kind::S_COMPUESTOS: // "compuestos"
+      case symbol_kind::S_ELEMENTO: // "elemento"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_GRUPO_FUNCIONAL: // "grupo_funcional"
+      case symbol_kind::S_GRUPO_FUNCIONAL_INFERIOR: // "grupo_funcional_inferior"
+      case symbol_kind::S_GRUPO_FUNCIONAL_SUPERIOR: // "grupo_funcional_superior"
+      case symbol_kind::S_MODELO_GRUPO_FUNCIONAL: // "modelo_grupo_funcional"
+      case symbol_kind::S_exp: // exp
+        value.move< std::string > (std::move (that.value));
+        break;
+
+      default:
+        break;
+    }
+
+      }
 #endif
 
       /// Copy constructor.
       basic_symbol (const basic_symbol& that);
 
-      /// Constructor for valueless symbols, and symbols from each type.
+      /// Constructors for typed symbols.
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, location_type&& l)
         : Base (t)
@@ -514,6 +640,7 @@ namespace yy {
         , location (l)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, int&& v, location_type&& l)
         : Base (t)
@@ -527,6 +654,7 @@ namespace yy {
         , location (l)
       {}
 #endif
+
 #if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, std::string&& v, location_type&& l)
         : Base (t)
@@ -547,34 +675,49 @@ namespace yy {
         clear ();
       }
 
+
+
       /// Destroy contents, and record that is empty.
-      void clear ()
+      void clear () YY_NOEXCEPT
       {
         // User destructor.
-        symbol_number_type yytype = this->type_get ();
+        symbol_kind_type yykind = this->kind ();
         basic_symbol<Base>& yysym = *this;
         (void) yysym;
-        switch (yytype)
+        switch (yykind)
         {
        default:
           break;
         }
 
-        // Type destructor.
-switch (yytype)
+        // Value type destructor.
+switch (yykind)
     {
-      case 14: // "digito"
-      case 15: // "valencia"
+      case symbol_kind::S_DIGITO: // "digito"
+      case symbol_kind::S_VALENCIA: // "valencia"
         value.template destroy< int > ();
         break;
 
-      case 8: // "elemento_quimico"
-      case 9: // "elemento"
-      case 10: // "identificador"
-      case 11: // "palabra_reservada"
-      case 12: // "fin_de_linea"
-      case 13: // "enlace"
-      case 19: // exp
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_LETRA: // "letra"
+      case symbol_kind::S_TIPO: // "tipo"
+      case symbol_kind::S_OPERACION: // "operacion"
+      case symbol_kind::S_ELEMEN: // "elemen"
+      case symbol_kind::S_ENLACE: // "enlace"
+      case symbol_kind::S_ID: // "id"
+      case symbol_kind::S_IDCONT: // "idcont"
+      case symbol_kind::S_SENTENCIAS: // "sentencias"
+      case symbol_kind::S_SENTENCIA: // "sentencia"
+      case symbol_kind::S_MODELO_MOLECULAR: // "modelo_molecular"
+      case symbol_kind::S_COMPUESTO: // "compuesto"
+      case symbol_kind::S_COMPUESTOS: // "compuestos"
+      case symbol_kind::S_ELEMENTO: // "elemento"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_GRUPO_FUNCIONAL: // "grupo_funcional"
+      case symbol_kind::S_GRUPO_FUNCIONAL_INFERIOR: // "grupo_funcional_inferior"
+      case symbol_kind::S_GRUPO_FUNCIONAL_SUPERIOR: // "grupo_funcional_superior"
+      case symbol_kind::S_MODELO_GRUPO_FUNCIONAL: // "modelo_grupo_funcional"
+      case symbol_kind::S_exp: // exp
         value.template destroy< std::string > ();
         break;
 
@@ -585,6 +728,15 @@ switch (yytype)
         Base::clear ();
       }
 
+      /// The user-facing name of this symbol.
+      std::string name () const YY_NOEXCEPT
+      {
+        return parser::symbol_name (this->kind ());
+      }
+
+      /// Backward compatibility (Bison 3.6).
+      symbol_kind_type type_get () const YY_NOEXCEPT;
+
       /// Whether empty.
       bool empty () const YY_NOEXCEPT;
 
@@ -592,7 +744,7 @@ switch (yytype)
       void move (basic_symbol& s);
 
       /// The semantic value.
-      semantic_type value;
+      value_type value;
 
       /// The location.
       location_type location;
@@ -605,95 +757,110 @@ switch (yytype)
     };
 
     /// Type access provider for token (enum) based symbols.
-    struct by_type
+    struct by_kind
     {
+      /// The symbol kind as needed by the constructor.
+      typedef token_kind_type kind_type;
+
       /// Default constructor.
-      by_type ();
+      by_kind () YY_NOEXCEPT;
 
 #if 201103L <= YY_CPLUSPLUS
       /// Move constructor.
-      by_type (by_type&& that);
+      by_kind (by_kind&& that) YY_NOEXCEPT;
 #endif
 
       /// Copy constructor.
-      by_type (const by_type& that);
-
-      /// The symbol type as needed by the constructor.
-      typedef token_type kind_type;
+      by_kind (const by_kind& that) YY_NOEXCEPT;
 
       /// Constructor from (external) token numbers.
-      by_type (kind_type t);
+      by_kind (kind_type t) YY_NOEXCEPT;
+
+
 
       /// Record that this symbol is empty.
-      void clear ();
+      void clear () YY_NOEXCEPT;
 
-      /// Steal the symbol type from \a that.
-      void move (by_type& that);
+      /// Steal the symbol kind from \a that.
+      void move (by_kind& that);
 
       /// The (internal) type number (corresponding to \a type).
       /// \a empty when empty.
-      symbol_number_type type_get () const YY_NOEXCEPT;
+      symbol_kind_type kind () const YY_NOEXCEPT;
 
-      /// The symbol type.
-      /// \a empty_symbol when empty.
-      /// An int, not token_number_type, to be able to store empty_symbol.
-      int type;
+      /// Backward compatibility (Bison 3.6).
+      symbol_kind_type type_get () const YY_NOEXCEPT;
+
+      /// The symbol kind.
+      /// \a S_YYEMPTY when empty.
+      symbol_kind_type kind_;
     };
 
+    /// Backward compatibility for a private implementation detail (Bison 3.6).
+    typedef by_kind by_type;
+
     /// "External" symbols: returned by the scanner.
-    struct symbol_type : basic_symbol<by_type>
+    struct symbol_type : basic_symbol<by_kind>
     {
       /// Superclass.
-      typedef basic_symbol<by_type> super_type;
+      typedef basic_symbol<by_kind> super_type;
 
       /// Empty symbol.
-      symbol_type () {}
+      symbol_type () YY_NOEXCEPT {}
 
       /// Constructor for valueless symbols, and symbols from each type.
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, location_type l)
-        : super_type(token_type (tok), std::move (l))
-      {
-        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_ASIG || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_LCOR || tok == token::TOK_RCOR);
-      }
+        : super_type (token_kind_type (tok), std::move (l))
 #else
       symbol_type (int tok, const location_type& l)
-        : super_type(token_type (tok), l)
-      {
-        YY_ASSERT (tok == token::TOK_END || tok == token::TOK_ASIG || tok == token::TOK_LPAREN || tok == token::TOK_RPAREN || tok == token::TOK_LCOR || tok == token::TOK_RCOR);
-      }
+        : super_type (token_kind_type (tok), l)
 #endif
+      {
+#if !defined _MSC_VER || defined __clang__
+        YY_ASSERT (tok == token::TOK_END
+                   || (token::TOK_YYerror <= tok && tok <= token::TOK_YYUNDEF));
+#endif
+      }
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, int v, location_type l)
-        : super_type(token_type (tok), std::move (v), std::move (l))
-      {
-        YY_ASSERT (tok == token::TOK_DIGITO || tok == token::TOK_VALENCIA);
-      }
+        : super_type (token_kind_type (tok), std::move (v), std::move (l))
 #else
       symbol_type (int tok, const int& v, const location_type& l)
-        : super_type(token_type (tok), v, l)
-      {
-        YY_ASSERT (tok == token::TOK_DIGITO || tok == token::TOK_VALENCIA);
-      }
+        : super_type (token_kind_type (tok), v, l)
 #endif
+      {
+#if !defined _MSC_VER || defined __clang__
+        YY_ASSERT (tok == token::TOK_DIGITO
+                   || tok == token::TOK_VALENCIA);
+#endif
+      }
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, std::string v, location_type l)
-        : super_type(token_type (tok), std::move (v), std::move (l))
-      {
-        YY_ASSERT (tok == token::TOK_ELEMENTO_QUIMICO || tok == token::TOK_ELEMENTO || tok == token::TOK_IDENTIFICADOR || tok == token::TOK_PALABRA_RESERVADA || tok == token::TOK_FIN_DE_LINEA || tok == token::TOK_ENLACE);
-      }
+        : super_type (token_kind_type (tok), std::move (v), std::move (l))
 #else
       symbol_type (int tok, const std::string& v, const location_type& l)
-        : super_type(token_type (tok), v, l)
-      {
-        YY_ASSERT (tok == token::TOK_ELEMENTO_QUIMICO || tok == token::TOK_ELEMENTO || tok == token::TOK_IDENTIFICADOR || tok == token::TOK_PALABRA_RESERVADA || tok == token::TOK_FIN_DE_LINEA || tok == token::TOK_ENLACE);
-      }
+        : super_type (token_kind_type (tok), v, l)
 #endif
+      {
+#if !defined _MSC_VER || defined __clang__
+        YY_ASSERT ((token::TOK_FIN_DE_LINEA <= tok && tok <= token::TOK_LETRA)
+                   || (token::TOK_TIPO <= tok && tok <= token::TOK_OPERACION)
+                   || (token::TOK_ELEMEN <= tok && tok <= token::TOK_MODELO_GRUPO_FUNCIONAL));
+#endif
+      }
     };
 
     /// Build a parser object.
     parser (driver& drv_yyarg);
     virtual ~parser ();
+
+#if 201103L <= YY_CPLUSPLUS
+    /// Non copyable.
+    parser (const parser&) = delete;
+    /// Non copyable.
+    parser& operator= (const parser&) = delete;
+#endif
 
     /// Parse.  An alias for parse ().
     /// \returns  0 iff parsing succeeded.
@@ -725,7 +892,11 @@ switch (yytype)
     /// Report a syntax error.
     void error (const syntax_error& err);
 
-    // Implementation of make_symbol for each symbol type.
+    /// The user-facing name of the symbol whose (internal) number is
+    /// YYSYMBOL.  No bounds checking.
+    static std::string symbol_name (symbol_kind_type yysymbol);
+
+    // Implementation of make_symbol for each token kind.
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
@@ -744,136 +915,31 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_ASIG (location_type l)
+      make_YYerror (location_type l)
       {
-        return symbol_type (token::TOK_ASIG, std::move (l));
+        return symbol_type (token::TOK_YYerror, std::move (l));
       }
 #else
       static
       symbol_type
-      make_ASIG (const location_type& l)
+      make_YYerror (const location_type& l)
       {
-        return symbol_type (token::TOK_ASIG, l);
+        return symbol_type (token::TOK_YYerror, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_LPAREN (location_type l)
+      make_YYUNDEF (location_type l)
       {
-        return symbol_type (token::TOK_LPAREN, std::move (l));
+        return symbol_type (token::TOK_YYUNDEF, std::move (l));
       }
 #else
       static
       symbol_type
-      make_LPAREN (const location_type& l)
+      make_YYUNDEF (const location_type& l)
       {
-        return symbol_type (token::TOK_LPAREN, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_RPAREN (location_type l)
-      {
-        return symbol_type (token::TOK_RPAREN, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_RPAREN (const location_type& l)
-      {
-        return symbol_type (token::TOK_RPAREN, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_LCOR (location_type l)
-      {
-        return symbol_type (token::TOK_LCOR, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_LCOR (const location_type& l)
-      {
-        return symbol_type (token::TOK_LCOR, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_RCOR (location_type l)
-      {
-        return symbol_type (token::TOK_RCOR, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_RCOR (const location_type& l)
-      {
-        return symbol_type (token::TOK_RCOR, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_ELEMENTO_QUIMICO (std::string v, location_type l)
-      {
-        return symbol_type (token::TOK_ELEMENTO_QUIMICO, std::move (v), std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_ELEMENTO_QUIMICO (const std::string& v, const location_type& l)
-      {
-        return symbol_type (token::TOK_ELEMENTO_QUIMICO, v, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_ELEMENTO (std::string v, location_type l)
-      {
-        return symbol_type (token::TOK_ELEMENTO, std::move (v), std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_ELEMENTO (const std::string& v, const location_type& l)
-      {
-        return symbol_type (token::TOK_ELEMENTO, v, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_IDENTIFICADOR (std::string v, location_type l)
-      {
-        return symbol_type (token::TOK_IDENTIFICADOR, std::move (v), std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_IDENTIFICADOR (const std::string& v, const location_type& l)
-      {
-        return symbol_type (token::TOK_IDENTIFICADOR, v, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_PALABRA_RESERVADA (std::string v, location_type l)
-      {
-        return symbol_type (token::TOK_PALABRA_RESERVADA, std::move (v), std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_PALABRA_RESERVADA (const std::string& v, const location_type& l)
-      {
-        return symbol_type (token::TOK_PALABRA_RESERVADA, v, l);
+        return symbol_type (token::TOK_YYUNDEF, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -894,16 +960,16 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_ENLACE (std::string v, location_type l)
+      make_LETRA (std::string v, location_type l)
       {
-        return symbol_type (token::TOK_ENLACE, std::move (v), std::move (l));
+        return symbol_type (token::TOK_LETRA, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_ENLACE (const std::string& v, const location_type& l)
+      make_LETRA (const std::string& v, const location_type& l)
       {
-        return symbol_type (token::TOK_ENLACE, v, l);
+        return symbol_type (token::TOK_LETRA, v, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -924,6 +990,36 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_TIPO (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_TIPO, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_TIPO (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_TIPO, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_OPERACION (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_OPERACION, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_OPERACION (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_OPERACION, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_VALENCIA (int v, location_type l)
       {
         return symbol_type (token::TOK_VALENCIA, std::move (v), std::move (l));
@@ -936,22 +1032,270 @@ switch (yytype)
         return symbol_type (token::TOK_VALENCIA, v, l);
       }
 #endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_ELEMEN (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_ELEMEN, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_ELEMEN (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_ELEMEN, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_ENLACE (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_ENLACE, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_ENLACE (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_ENLACE, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_ID (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_ID, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_ID (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_ID, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_IDCONT (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_IDCONT, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_IDCONT (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_IDCONT, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_SENTENCIAS (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_SENTENCIAS, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_SENTENCIAS (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_SENTENCIAS, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_SENTENCIA (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_SENTENCIA, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_SENTENCIA (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_SENTENCIA, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_MODELO_MOLECULAR (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_MODELO_MOLECULAR, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_MODELO_MOLECULAR (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_MODELO_MOLECULAR, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_COMPUESTO (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_COMPUESTO, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_COMPUESTO (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_COMPUESTO, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_COMPUESTOS (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_COMPUESTOS, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_COMPUESTOS (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_COMPUESTOS, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_ELEMENTO (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_ELEMENTO, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_ELEMENTO (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_ELEMENTO, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_ELEMENTO_QUIMICO (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_ELEMENTO_QUIMICO, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_ELEMENTO_QUIMICO (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_ELEMENTO_QUIMICO, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_GRUPO_FUNCIONAL (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_GRUPO_FUNCIONAL, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_GRUPO_FUNCIONAL (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_GRUPO_FUNCIONAL, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_GRUPO_FUNCIONAL_INFERIOR (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_GRUPO_FUNCIONAL_INFERIOR, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_GRUPO_FUNCIONAL_INFERIOR (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_GRUPO_FUNCIONAL_INFERIOR, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_GRUPO_FUNCIONAL_SUPERIOR (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_GRUPO_FUNCIONAL_SUPERIOR, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_GRUPO_FUNCIONAL_SUPERIOR (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_GRUPO_FUNCIONAL_SUPERIOR, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_MODELO_GRUPO_FUNCIONAL (std::string v, location_type l)
+      {
+        return symbol_type (token::TOK_MODELO_GRUPO_FUNCIONAL, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_MODELO_GRUPO_FUNCIONAL (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOK_MODELO_GRUPO_FUNCIONAL, v, l);
+      }
+#endif
 
+
+    class context
+    {
+    public:
+      context (const parser& yyparser, const symbol_type& yyla);
+      const symbol_type& lookahead () const YY_NOEXCEPT { return yyla_; }
+      symbol_kind_type token () const YY_NOEXCEPT { return yyla_.kind (); }
+      const location_type& location () const YY_NOEXCEPT { return yyla_.location; }
+
+      /// Put in YYARG at most YYARGN of the expected tokens, and return the
+      /// number of tokens stored in YYARG.  If YYARG is null, return the
+      /// number of expected tokens (guaranteed to be less than YYNTOKENS).
+      int expected_tokens (symbol_kind_type yyarg[], int yyargn) const;
+
+    private:
+      const parser& yyparser_;
+      const symbol_type& yyla_;
+    };
 
   private:
-    /// This class is not copyable.
+#if YY_CPLUSPLUS < 201103L
+    /// Non copyable.
     parser (const parser&);
+    /// Non copyable.
     parser& operator= (const parser&);
+#endif
+
 
     /// Stored state numbers (used for stacks).
     typedef signed char state_type;
 
-    /// Generate an error message.
-    /// \param yystate   the state where the error occurred.
-    /// \param yyla      the lookahead token.
-    virtual std::string yysyntax_error_ (state_type yystate,
-                                         const symbol_type& yyla) const;
+    /// The arguments of the error message.
+    int yy_syntax_error_arguments_ (const context& yyctx,
+                                    symbol_kind_type yyarg[], int yyargn) const;
 
+    /// Generate an error message.
+    /// \param yyctx     the context in which the error occurred.
+    virtual std::string yysyntax_error_ (const context& yyctx) const;
     /// Compute post-reduction state.
     /// \param yystate   the current state
     /// \param yysym     the nonterminal to push on the stack
@@ -959,19 +1303,26 @@ switch (yytype)
 
     /// Whether the given \c yypact_ value indicates a defaulted state.
     /// \param yyvalue   the value to check
-    static bool yy_pact_value_is_default_ (int yyvalue);
+    static bool yy_pact_value_is_default_ (int yyvalue) YY_NOEXCEPT;
 
     /// Whether the given \c yytable_ value indicates a syntax error.
     /// \param yyvalue   the value to check
-    static bool yy_table_value_is_error_ (int yyvalue);
+    static bool yy_table_value_is_error_ (int yyvalue) YY_NOEXCEPT;
 
     static const signed char yypact_ninf_;
     static const signed char yytable_ninf_;
 
-    /// Convert a scanner token number \a t to a symbol number.
-    /// In theory \a t should be a token_type, but character literals
-    /// are valid, yet not members of the token_type enum.
-    static token_number_type yytranslate_ (int t);
+    /// Convert a scanner token kind \a t to a symbol kind.
+    /// In theory \a t should be a token_kind_type, but character literals
+    /// are valid, yet not members of the token_kind_type enum.
+    static symbol_kind_type yytranslate_ (int t) YY_NOEXCEPT;
+
+    /// Convert the symbol name \a n to a form suitable for a diagnostic.
+    static std::string yytnamerr_ (const char *yystr);
+
+    /// For a symbol, its name in clear.
+    static const char* const yytname_[];
+
 
     // Tables.
     // YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
@@ -996,37 +1347,31 @@ switch (yytype)
 
     static const signed char yycheck_[];
 
-    // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
-    // symbol of state STATE-NUM.
+    // YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
+    // state STATE-NUM.
     static const signed char yystos_[];
 
-    // YYR1[YYN] -- Symbol number of symbol that rule YYN derives.
+    // YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.
     static const signed char yyr1_[];
 
-    // YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.
+    // YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.
     static const signed char yyr2_[];
 
 
-    /// Convert the symbol name \a n to a form suitable for a diagnostic.
-    static std::string yytnamerr_ (const char *n);
-
-
-    /// For a symbol, its name in clear.
-    static const char* const yytname_[];
 #if YYDEBUG
     // YYRLINE[YYN] -- Source line where rule number YYN was defined.
     static const signed char yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
-    virtual void yy_reduce_print_ (int r);
+    virtual void yy_reduce_print_ (int r) const;
     /// Print the state stack on the debug stream.
-    virtual void yystack_print_ ();
+    virtual void yy_stack_print_ () const;
 
     /// Debugging level.
     int yydebug_;
     /// Debug stream.
     std::ostream* yycdebug_;
 
-    /// \brief Display a symbol type, value and location.
+    /// \brief Display a symbol kind, value and location.
     /// \param yyo    The output stream.
     /// \param yysym  The symbol.
     template <typename Base>
@@ -1047,7 +1392,7 @@ switch (yytype)
       /// Default constructor.
       by_state () YY_NOEXCEPT;
 
-      /// The symbol type as needed by the constructor.
+      /// The symbol kind as needed by the constructor.
       typedef state_type kind_type;
 
       /// Constructor.
@@ -1059,12 +1404,12 @@ switch (yytype)
       /// Record that this symbol is empty.
       void clear () YY_NOEXCEPT;
 
-      /// Steal the symbol type from \a that.
+      /// Steal the symbol kind from \a that.
       void move (by_state& that);
 
-      /// The (internal) type number (corresponding to \a state).
-      /// \a empty_symbol when empty.
-      symbol_number_type type_get () const YY_NOEXCEPT;
+      /// The symbol kind (corresponding to \a state).
+      /// \a symbol_kind::S_YYEMPTY when empty.
+      symbol_kind_type kind () const YY_NOEXCEPT;
 
       /// The state number used to denote an empty symbol.
       /// We use the initial state, as it does not have a value.
@@ -1103,14 +1448,21 @@ switch (yytype)
     {
     public:
       // Hide our reversed order.
-      typedef typename S::reverse_iterator iterator;
-      typedef typename S::const_reverse_iterator const_iterator;
+      typedef typename S::iterator iterator;
+      typedef typename S::const_iterator const_iterator;
       typedef typename S::size_type size_type;
       typedef typename std::ptrdiff_t index_type;
 
-      stack (size_type n = 200)
+      stack (size_type n = 200) YY_NOEXCEPT
         : seq_ (n)
       {}
+
+#if 201103L <= YY_CPLUSPLUS
+      /// Non copyable.
+      stack (const stack&) = delete;
+      /// Non copyable.
+      stack& operator= (const stack&) = delete;
+#endif
 
       /// Random access.
       ///
@@ -1162,31 +1514,25 @@ switch (yytype)
         return index_type (seq_.size ());
       }
 
-      std::ptrdiff_t
-      ssize () const YY_NOEXCEPT
-      {
-        return std::ptrdiff_t (size ());
-      }
-
       /// Iterator on top of the stack (going downwards).
       const_iterator
       begin () const YY_NOEXCEPT
       {
-        return seq_.rbegin ();
+        return seq_.begin ();
       }
 
       /// Bottom of the stack.
       const_iterator
       end () const YY_NOEXCEPT
       {
-        return seq_.rend ();
+        return seq_.end ();
       }
 
       /// Present a slice of the top of a stack.
       class slice
       {
       public:
-        slice (const stack& stack, index_type range)
+        slice (const stack& stack, index_type range) YY_NOEXCEPT
           : stack_ (stack)
           , range_ (range)
         {}
@@ -1203,8 +1549,12 @@ switch (yytype)
       };
 
     private:
+#if YY_CPLUSPLUS < 201103L
+      /// Non copyable.
       stack (const stack&);
+      /// Non copyable.
       stack& operator= (const stack&);
+#endif
       /// The wrapped container.
       S seq_;
     };
@@ -1232,35 +1582,30 @@ switch (yytype)
     void yypush_ (const char* m, state_type s, YY_MOVE_REF (symbol_type) sym);
 
     /// Pop \a n symbols from the stack.
-    void yypop_ (int n = 1);
-
-    /// Some specific tokens.
-    static const token_number_type yy_error_token_ = 1;
-    static const token_number_type yy_undef_token_ = 2;
+    void yypop_ (int n = 1) YY_NOEXCEPT;
 
     /// Constants.
     enum
     {
-      yyeof_ = 0,
-      yylast_ = 13,     ///< Last index in yytable_.
+      yylast_ = 20,     ///< Last index in yytable_.
       yynnts_ = 4,  ///< Number of nonterminal symbols.
-      yyfinal_ = 3, ///< Termination state number.
-      yyntokens_ = 16  ///< Number of tokens.
+      yyfinal_ = 3 ///< Termination state number.
     };
 
 
     // User arguments.
     driver& drv;
+
   };
 
   inline
-  parser::token_number_type
-  parser::yytranslate_ (int t)
+  parser::symbol_kind_type
+  parser::yytranslate_ (int t) YY_NOEXCEPT
   {
     // YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to
     // TOKEN-NUM as returned by yylex.
     static
-    const token_number_type
+    const signed char
     translate_table[] =
     {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -1290,70 +1635,53 @@ switch (yytype)
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15
+      15,    16,    17,    18,    19,    20,    21,    22,    23
     };
-    const int user_token_number_max_ = 270;
+    // Last valid token kind.
+    const int code_max = 278;
 
     if (t <= 0)
-      return yyeof_;
-    else if (t <= user_token_number_max_)
-      return translate_table[t];
+      return symbol_kind::S_YYEOF;
+    else if (t <= code_max)
+      return static_cast <symbol_kind_type> (translate_table[t]);
     else
-      return yy_undef_token_;
+      return symbol_kind::S_YYUNDEF;
   }
 
   // basic_symbol.
-#if 201103L <= YY_CPLUSPLUS
-  template <typename Base>
-  parser::basic_symbol<Base>::basic_symbol (basic_symbol&& that)
-    : Base (std::move (that))
-    , value ()
-    , location (std::move (that.location))
-  {
-    switch (this->type_get ())
-    {
-      case 14: // "digito"
-      case 15: // "valencia"
-        value.move< int > (std::move (that.value));
-        break;
-
-      case 8: // "elemento_quimico"
-      case 9: // "elemento"
-      case 10: // "identificador"
-      case 11: // "palabra_reservada"
-      case 12: // "fin_de_linea"
-      case 13: // "enlace"
-      case 19: // exp
-        value.move< std::string > (std::move (that.value));
-        break;
-
-      default:
-        break;
-    }
-
-  }
-#endif
-
   template <typename Base>
   parser::basic_symbol<Base>::basic_symbol (const basic_symbol& that)
     : Base (that)
     , value ()
     , location (that.location)
   {
-    switch (this->type_get ())
+    switch (this->kind ())
     {
-      case 14: // "digito"
-      case 15: // "valencia"
+      case symbol_kind::S_DIGITO: // "digito"
+      case symbol_kind::S_VALENCIA: // "valencia"
         value.copy< int > (YY_MOVE (that.value));
         break;
 
-      case 8: // "elemento_quimico"
-      case 9: // "elemento"
-      case 10: // "identificador"
-      case 11: // "palabra_reservada"
-      case 12: // "fin_de_linea"
-      case 13: // "enlace"
-      case 19: // exp
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_LETRA: // "letra"
+      case symbol_kind::S_TIPO: // "tipo"
+      case symbol_kind::S_OPERACION: // "operacion"
+      case symbol_kind::S_ELEMEN: // "elemen"
+      case symbol_kind::S_ENLACE: // "enlace"
+      case symbol_kind::S_ID: // "id"
+      case symbol_kind::S_IDCONT: // "idcont"
+      case symbol_kind::S_SENTENCIAS: // "sentencias"
+      case symbol_kind::S_SENTENCIA: // "sentencia"
+      case symbol_kind::S_MODELO_MOLECULAR: // "modelo_molecular"
+      case symbol_kind::S_COMPUESTO: // "compuesto"
+      case symbol_kind::S_COMPUESTOS: // "compuestos"
+      case symbol_kind::S_ELEMENTO: // "elemento"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_GRUPO_FUNCIONAL: // "grupo_funcional"
+      case symbol_kind::S_GRUPO_FUNCIONAL_INFERIOR: // "grupo_funcional_inferior"
+      case symbol_kind::S_GRUPO_FUNCIONAL_SUPERIOR: // "grupo_funcional_superior"
+      case symbol_kind::S_MODELO_GRUPO_FUNCIONAL: // "modelo_grupo_funcional"
+      case symbol_kind::S_exp: // exp
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
@@ -1365,11 +1693,20 @@ switch (yytype)
 
 
 
+
+  template <typename Base>
+  parser::symbol_kind_type
+  parser::basic_symbol<Base>::type_get () const YY_NOEXCEPT
+  {
+    return this->kind ();
+  }
+
+
   template <typename Base>
   bool
   parser::basic_symbol<Base>::empty () const YY_NOEXCEPT
   {
-    return Base::type_get () == empty_symbol;
+    return this->kind () == symbol_kind::S_YYEMPTY;
   }
 
   template <typename Base>
@@ -1377,20 +1714,33 @@ switch (yytype)
   parser::basic_symbol<Base>::move (basic_symbol& s)
   {
     super_type::move (s);
-    switch (this->type_get ())
+    switch (this->kind ())
     {
-      case 14: // "digito"
-      case 15: // "valencia"
+      case symbol_kind::S_DIGITO: // "digito"
+      case symbol_kind::S_VALENCIA: // "valencia"
         value.move< int > (YY_MOVE (s.value));
         break;
 
-      case 8: // "elemento_quimico"
-      case 9: // "elemento"
-      case 10: // "identificador"
-      case 11: // "palabra_reservada"
-      case 12: // "fin_de_linea"
-      case 13: // "enlace"
-      case 19: // exp
+      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case symbol_kind::S_LETRA: // "letra"
+      case symbol_kind::S_TIPO: // "tipo"
+      case symbol_kind::S_OPERACION: // "operacion"
+      case symbol_kind::S_ELEMEN: // "elemen"
+      case symbol_kind::S_ENLACE: // "enlace"
+      case symbol_kind::S_ID: // "id"
+      case symbol_kind::S_IDCONT: // "idcont"
+      case symbol_kind::S_SENTENCIAS: // "sentencias"
+      case symbol_kind::S_SENTENCIA: // "sentencia"
+      case symbol_kind::S_MODELO_MOLECULAR: // "modelo_molecular"
+      case symbol_kind::S_COMPUESTO: // "compuesto"
+      case symbol_kind::S_COMPUESTOS: // "compuestos"
+      case symbol_kind::S_ELEMENTO: // "elemento"
+      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case symbol_kind::S_GRUPO_FUNCIONAL: // "grupo_funcional"
+      case symbol_kind::S_GRUPO_FUNCIONAL_INFERIOR: // "grupo_funcional_inferior"
+      case symbol_kind::S_GRUPO_FUNCIONAL_SUPERIOR: // "grupo_funcional_superior"
+      case symbol_kind::S_MODELO_GRUPO_FUNCIONAL: // "modelo_grupo_funcional"
+      case symbol_kind::S_exp: // exp
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
@@ -1401,56 +1751,66 @@ switch (yytype)
     location = YY_MOVE (s.location);
   }
 
-  // by_type.
+  // by_kind.
   inline
-  parser::by_type::by_type ()
-    : type (empty_symbol)
+  parser::by_kind::by_kind () YY_NOEXCEPT
+    : kind_ (symbol_kind::S_YYEMPTY)
   {}
 
 #if 201103L <= YY_CPLUSPLUS
   inline
-  parser::by_type::by_type (by_type&& that)
-    : type (that.type)
+  parser::by_kind::by_kind (by_kind&& that) YY_NOEXCEPT
+    : kind_ (that.kind_)
   {
     that.clear ();
   }
 #endif
 
   inline
-  parser::by_type::by_type (const by_type& that)
-    : type (that.type)
+  parser::by_kind::by_kind (const by_kind& that) YY_NOEXCEPT
+    : kind_ (that.kind_)
   {}
 
   inline
-  parser::by_type::by_type (token_type t)
-    : type (yytranslate_ (t))
+  parser::by_kind::by_kind (token_kind_type t) YY_NOEXCEPT
+    : kind_ (yytranslate_ (t))
   {}
+
+
 
   inline
   void
-  parser::by_type::clear ()
+  parser::by_kind::clear () YY_NOEXCEPT
   {
-    type = empty_symbol;
+    kind_ = symbol_kind::S_YYEMPTY;
   }
 
   inline
   void
-  parser::by_type::move (by_type& that)
+  parser::by_kind::move (by_kind& that)
   {
-    type = that.type;
+    kind_ = that.kind_;
     that.clear ();
   }
 
   inline
-  int
-  parser::by_type::type_get () const YY_NOEXCEPT
+  parser::symbol_kind_type
+  parser::by_kind::kind () const YY_NOEXCEPT
   {
-    return type;
+    return kind_;
   }
 
-} // yy
-#line 1453 "parser.hh"
 
+  inline
+  parser::symbol_kind_type
+  parser::by_kind::type_get () const YY_NOEXCEPT
+  {
+    return this->kind ();
+  }
+
+
+} // yy
+#line 1814 "parser.hh"
 
 
 
