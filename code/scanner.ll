@@ -28,13 +28,13 @@ void format_output (std::string token,const char* yytext, yy::location& loc) {
 
 %option noyywrap nounput batch debug noinput
 
-FIN_DE_LINEA (":",";") 
+FIN_DE_LINEA (":",";")
 
 LETRA [A-Za-z]
 
 DIGITO [0-9]
 
-TIPO "modelo" 
+TIPO "modelo"
 
 OPERACION ("graficar2d"|"graficar3d"|"pesomolecular")
 
@@ -42,31 +42,31 @@ VALENCIA [1-9]
 
 ENLACE ("-"|"="|":"|"::")
 
-IDCONT ([A-Za-z] | {DIGITO} {IDCONT} | [0-9] | {DIGITO} {IDCONT})
+IDCONT [A-Za-z0-9]+
 
 ID [A-Za-z]|{LETRA}{IDCONT}
 
-SENTENCIAS ({SENTENCIA} {FIN_DE_LINEA} {SENTENCIAS} | {SENTENCIA} {FIN_DE_LINEA})
+SENTENCIAS ({SENTENCIA}{FIN_DE_LINEA}{SENTENCIAS}|{SENTENCIA}{FIN_DE_LINEA})
 
-SENTENCIA  ("defina" {ID} "como" {TIPO} | {ID} "=" {MODELO_MOLECULAR} | {OPERACION} "(" {ID} ")")
+SENTENCIA ("defina"{ID}"como"{TIPO}|{ID}"="{MODELO_MOLECULAR}|{OPERACION}"("{ID}")")
 
-MODELO_MOLECULAR ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn"|{ELEMENTO_QUIMICO} {VALENCIA} | {ELEMENTO} {GRUPO_FUNCIONAL} | {COMPUESTO} {ELEMENTO} | {COMPUESTO} {ELEMENTO} {GRUPO_FUNCIONAL} | {COMPUESTO} {COMPUESTO} {COMPUESTOS})
+MODELO_MOLECULAR ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn"|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{ELEMENTO}|{COMPUESTO}{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{COMPUESTO}{COMPUESTOS})
 
-COMPUESTO ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn" | {ELEMENTO_QUIMICO} {VALENCIA} | {ELEMENTO} {GRUPO_FUNCIONAL} | {ELEMENTO} {GRUPO_FUNCIONAL} {ENLACE} | {ELEMENTO} {ENLACE}) 
+COMPUESTO ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn"|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{ELEMENTO}{GRUPO_FUNCIONAL}{ENLACE}|{ELEMENTO}{ENLACE})
 
-COMPUESTOS ({COMPUESTO} {COMPUESTOS} | {COMPUESTO})
+COMPUESTOS {COMPUESTO}+
 
-ELEMENTO ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn" | {ELEMENTO_QUIMICO} {VALENCIA})
+ELEMENTO ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn"|{ELEMENTO_QUIMICO}{VALENCIA})
 
 ELEMENTO_QUIMICO ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn")
 
-GRUPO_FUNCIONAL ({GRUPO_FUNCIONAL_INFERIOR} {GRUPO_FUNCIONAL_SUPERIOR} | {GRUPO_FUNCIONAL_SUPERIOR} {GRUPO_FUNCIONAL_INFERIOR} | "(" {MODELO_GRUPO_FUNCIONAL} ")" | "[" {MODELO_GRUPO_FUNCIONAL} "]")
+GRUPO_FUNCIONAL ({GRUPO_FUNCIONAL_INFERIOR}{GRUPO_FUNCIONAL_SUPERIOR}|{GRUPO_FUNCIONAL_SUPERIOR}{GRUPO_FUNCIONAL_INFERIOR}|"("{MODELO_GRUPO_FUNCIONAL}")"|"["{MODELO_GRUPO_FUNCIONAL}"]")
 
-GRUPO_FUNCIONAL_INFERIOR ("[" {MODELO_GRUPO_FUNCIONAL} "]")
+GRUPO_FUNCIONAL_INFERIOR("["{MODELO_GRUPO_FUNCIONAL}"]")
 
-GRUPO_FUNCIONAL_SUPERIOR ("(" {MODELO_GRUPO_FUNCIONAL} ")")
+GRUPO_FUNCIONAL_SUPERIOR("("{MODELO_GRUPO_FUNCIONAL}")")
 
-MODELO_GRUPO_FUNCIONAL ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn"| {ELEMENTO_QUIMICO} {VALENCIA} | {ELEMENTO} {GRUPO_FUNCIONAL} | {COMPUESTO} {ELEMENTO} {COMPUESTO} {ELEMENTO} {GRUPO_FUNCIONAL} | {COMPUESTO} {COMPUESTO} {COMPUESTOS})
+MODELO_GRUPO_FUNCIONAL ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn"|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{ELEMENTO}{COMPUESTO}{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{COMPUESTO}{COMPUESTOS})
 
 blank [ \t]
 %{

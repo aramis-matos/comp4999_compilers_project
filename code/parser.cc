@@ -1,8 +1,8 @@
-// A Bison parser, made by GNU Bison 3.8.2.
+// A Bison parser, made by GNU Bison 3.5.1.
 
 // Skeleton implementation for Bison LALR(1) parsers in C++
 
-// Copyright (C) 2002-2015, 2018-2021 Free Software Foundation, Inc.
+// Copyright (C) 2002-2015, 2018-2020 Free Software Foundation, Inc.
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // As a special exception, you may create a larger work that contains
 // part or all of the Bison parser skeleton and distribute that work
@@ -30,9 +30,8 @@
 // This special exception was added by the Free Software Foundation in
 // version 2.2 of Bison.
 
-// DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
-// especially those whose name start with YY_ or yy_.  They are
-// private implementation details that can be changed or removed.
+// Undocumented macros, especially those whose name start with YY_,
+// are private implementation details.  Do not rely on them.
 
 
 
@@ -46,7 +45,7 @@
 
 # include "driver.hh"
 
-#line 50 "parser.cc"
+#line 49 "parser.cc"
 
 
 #ifndef YY_
@@ -60,7 +59,6 @@
 #  define YY_(msgid) msgid
 # endif
 #endif
-
 
 // Whether we are compiled with exception support.
 #ifndef YY_EXCEPTIONS
@@ -117,13 +115,13 @@
 # define YY_STACK_PRINT()               \
   do {                                  \
     if (yydebug_)                       \
-      yy_stack_print_ ();                \
+      yystack_print_ ();                \
   } while (false)
 
 #else // !YYDEBUG
 
 # define YYCDEBUG if (false) std::cerr
-# define YY_SYMBOL_PRINT(Title, Symbol)  YY_USE (Symbol)
+# define YY_SYMBOL_PRINT(Title, Symbol)  YYUSE (Symbol)
 # define YY_REDUCE_PRINT(Rule)           static_cast<void> (0)
 # define YY_STACK_PRINT()                static_cast<void> (0)
 
@@ -138,7 +136,49 @@
 #define YYRECOVERING()  (!!yyerrstatus_)
 
 namespace yy {
-#line 142 "parser.cc"
+#line 140 "parser.cc"
+
+
+  /* Return YYSTR after stripping away unnecessary quotes and
+     backslashes, so that it's suitable for yyerror.  The heuristic is
+     that double-quoting is unnecessary unless the string contains an
+     apostrophe, a comma, or backslash (other than backslash-backslash).
+     YYSTR is taken from yytname.  */
+  std::string
+  parser::yytnamerr_ (const char *yystr)
+  {
+    if (*yystr == '"')
+      {
+        std::string yyr;
+        char const *yyp = yystr;
+
+        for (;;)
+          switch (*++yyp)
+            {
+            case '\'':
+            case ',':
+              goto do_not_strip_quotes;
+
+            case '\\':
+              if (*++yyp != '\\')
+                goto do_not_strip_quotes;
+              else
+                goto append;
+
+            append:
+            default:
+              yyr += *yyp;
+              break;
+
+            case '"':
+              return yyr;
+            }
+      do_not_strip_quotes: ;
+      }
+
+    return yystr;
+  }
+
 
   /// Build a parser object.
   parser::parser (driver& drv_yyarg)
@@ -157,9 +197,9 @@ namespace yy {
   parser::syntax_error::~syntax_error () YY_NOEXCEPT YY_NOTHROW
   {}
 
-  /*---------.
-  | symbol.  |
-  `---------*/
+  /*---------------.
+  | Symbol types.  |
+  `---------------*/
 
 
 
@@ -189,13 +229,13 @@ namespace yy {
     : state (s)
   {}
 
-  parser::symbol_kind_type
-  parser::by_state::kind () const YY_NOEXCEPT
+  parser::symbol_number_type
+  parser::by_state::type_get () const YY_NOEXCEPT
   {
     if (state == empty_state)
-      return symbol_kind::S_YYEMPTY;
+      return empty_symbol;
     else
-      return YY_CAST (symbol_kind_type, yystos_[+state]);
+      return yystos_[+state];
   }
 
   parser::stack_symbol_type::stack_symbol_type ()
@@ -204,33 +244,33 @@ namespace yy {
   parser::stack_symbol_type::stack_symbol_type (YY_RVREF (stack_symbol_type) that)
     : super_type (YY_MOVE (that.state), YY_MOVE (that.location))
   {
-    switch (that.kind ())
+    switch (that.type_get ())
     {
-      case symbol_kind::S_DIGITO: // "digito"
-      case symbol_kind::S_VALENCIA: // "valencia"
+      case 5: // "digito"
+      case 8: // "valencia"
         value.YY_MOVE_OR_COPY< int > (YY_MOVE (that.value));
         break;
 
-      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_LETRA: // "letra"
-      case symbol_kind::S_TIPO: // "tipo"
-      case symbol_kind::S_OPERACION: // "operacion"
-      case symbol_kind::S_ELEMEN: // "elemen"
-      case symbol_kind::S_ENLACE: // "enlace"
-      case symbol_kind::S_ID: // "id"
-      case symbol_kind::S_IDCONT: // "idcont"
-      case symbol_kind::S_SENTENCIAS: // "sentencias"
-      case symbol_kind::S_SENTENCIA: // "sentencia"
-      case symbol_kind::S_MODELO_MOLECULAR: // "modelo_molecular"
-      case symbol_kind::S_COMPUESTO: // "compuesto"
-      case symbol_kind::S_COMPUESTOS: // "compuestos"
-      case symbol_kind::S_ELEMENTO: // "elemento"
-      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
-      case symbol_kind::S_GRUPO_FUNCIONAL: // "grupo_funcional"
-      case symbol_kind::S_GRUPO_FUNCIONAL_INFERIOR: // "grupo_funcional_inferior"
-      case symbol_kind::S_GRUPO_FUNCIONAL_SUPERIOR: // "grupo_funcional_superior"
-      case symbol_kind::S_MODELO_GRUPO_FUNCIONAL: // "modelo_grupo_funcional"
-      case symbol_kind::S_exp: // exp
+      case 3: // "fin_de_linea"
+      case 4: // "letra"
+      case 6: // "tipo"
+      case 7: // "operacion"
+      case 9: // "elemen"
+      case 10: // "enlace"
+      case 11: // "id"
+      case 12: // "idcont"
+      case 13: // "sentencias"
+      case 14: // "sentencia"
+      case 15: // "modelo_molecular"
+      case 16: // "compuesto"
+      case 17: // "compuestos"
+      case 18: // "elemento"
+      case 19: // "elemento_quimico"
+      case 20: // "grupo_funcional"
+      case 21: // "grupo_funcional_inferior"
+      case 22: // "grupo_funcional_superior"
+      case 23: // "modelo_grupo_funcional"
+      case 27: // exp
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
@@ -247,33 +287,33 @@ namespace yy {
   parser::stack_symbol_type::stack_symbol_type (state_type s, YY_MOVE_REF (symbol_type) that)
     : super_type (s, YY_MOVE (that.location))
   {
-    switch (that.kind ())
+    switch (that.type_get ())
     {
-      case symbol_kind::S_DIGITO: // "digito"
-      case symbol_kind::S_VALENCIA: // "valencia"
+      case 5: // "digito"
+      case 8: // "valencia"
         value.move< int > (YY_MOVE (that.value));
         break;
 
-      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_LETRA: // "letra"
-      case symbol_kind::S_TIPO: // "tipo"
-      case symbol_kind::S_OPERACION: // "operacion"
-      case symbol_kind::S_ELEMEN: // "elemen"
-      case symbol_kind::S_ENLACE: // "enlace"
-      case symbol_kind::S_ID: // "id"
-      case symbol_kind::S_IDCONT: // "idcont"
-      case symbol_kind::S_SENTENCIAS: // "sentencias"
-      case symbol_kind::S_SENTENCIA: // "sentencia"
-      case symbol_kind::S_MODELO_MOLECULAR: // "modelo_molecular"
-      case symbol_kind::S_COMPUESTO: // "compuesto"
-      case symbol_kind::S_COMPUESTOS: // "compuestos"
-      case symbol_kind::S_ELEMENTO: // "elemento"
-      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
-      case symbol_kind::S_GRUPO_FUNCIONAL: // "grupo_funcional"
-      case symbol_kind::S_GRUPO_FUNCIONAL_INFERIOR: // "grupo_funcional_inferior"
-      case symbol_kind::S_GRUPO_FUNCIONAL_SUPERIOR: // "grupo_funcional_superior"
-      case symbol_kind::S_MODELO_GRUPO_FUNCIONAL: // "modelo_grupo_funcional"
-      case symbol_kind::S_exp: // exp
+      case 3: // "fin_de_linea"
+      case 4: // "letra"
+      case 6: // "tipo"
+      case 7: // "operacion"
+      case 9: // "elemen"
+      case 10: // "enlace"
+      case 11: // "id"
+      case 12: // "idcont"
+      case 13: // "sentencias"
+      case 14: // "sentencia"
+      case 15: // "modelo_molecular"
+      case 16: // "compuesto"
+      case 17: // "compuestos"
+      case 18: // "elemento"
+      case 19: // "elemento_quimico"
+      case 20: // "grupo_funcional"
+      case 21: // "grupo_funcional_inferior"
+      case 22: // "grupo_funcional_superior"
+      case 23: // "modelo_grupo_funcional"
+      case 27: // exp
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
@@ -282,7 +322,7 @@ namespace yy {
     }
 
     // that is emptied.
-    that.kind_ = symbol_kind::S_YYEMPTY;
+    that.type = empty_symbol;
   }
 
 #if YY_CPLUSPLUS < 201103L
@@ -290,33 +330,33 @@ namespace yy {
   parser::stack_symbol_type::operator= (const stack_symbol_type& that)
   {
     state = that.state;
-    switch (that.kind ())
+    switch (that.type_get ())
     {
-      case symbol_kind::S_DIGITO: // "digito"
-      case symbol_kind::S_VALENCIA: // "valencia"
+      case 5: // "digito"
+      case 8: // "valencia"
         value.copy< int > (that.value);
         break;
 
-      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_LETRA: // "letra"
-      case symbol_kind::S_TIPO: // "tipo"
-      case symbol_kind::S_OPERACION: // "operacion"
-      case symbol_kind::S_ELEMEN: // "elemen"
-      case symbol_kind::S_ENLACE: // "enlace"
-      case symbol_kind::S_ID: // "id"
-      case symbol_kind::S_IDCONT: // "idcont"
-      case symbol_kind::S_SENTENCIAS: // "sentencias"
-      case symbol_kind::S_SENTENCIA: // "sentencia"
-      case symbol_kind::S_MODELO_MOLECULAR: // "modelo_molecular"
-      case symbol_kind::S_COMPUESTO: // "compuesto"
-      case symbol_kind::S_COMPUESTOS: // "compuestos"
-      case symbol_kind::S_ELEMENTO: // "elemento"
-      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
-      case symbol_kind::S_GRUPO_FUNCIONAL: // "grupo_funcional"
-      case symbol_kind::S_GRUPO_FUNCIONAL_INFERIOR: // "grupo_funcional_inferior"
-      case symbol_kind::S_GRUPO_FUNCIONAL_SUPERIOR: // "grupo_funcional_superior"
-      case symbol_kind::S_MODELO_GRUPO_FUNCIONAL: // "modelo_grupo_funcional"
-      case symbol_kind::S_exp: // exp
+      case 3: // "fin_de_linea"
+      case 4: // "letra"
+      case 6: // "tipo"
+      case 7: // "operacion"
+      case 9: // "elemen"
+      case 10: // "enlace"
+      case 11: // "id"
+      case 12: // "idcont"
+      case 13: // "sentencias"
+      case 14: // "sentencia"
+      case 15: // "modelo_molecular"
+      case 16: // "compuesto"
+      case 17: // "compuestos"
+      case 18: // "elemento"
+      case 19: // "elemento_quimico"
+      case 20: // "grupo_funcional"
+      case 21: // "grupo_funcional_inferior"
+      case 22: // "grupo_funcional_superior"
+      case 23: // "modelo_grupo_funcional"
+      case 27: // exp
         value.copy< std::string > (that.value);
         break;
 
@@ -332,33 +372,33 @@ namespace yy {
   parser::stack_symbol_type::operator= (stack_symbol_type& that)
   {
     state = that.state;
-    switch (that.kind ())
+    switch (that.type_get ())
     {
-      case symbol_kind::S_DIGITO: // "digito"
-      case symbol_kind::S_VALENCIA: // "valencia"
+      case 5: // "digito"
+      case 8: // "valencia"
         value.move< int > (that.value);
         break;
 
-      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_LETRA: // "letra"
-      case symbol_kind::S_TIPO: // "tipo"
-      case symbol_kind::S_OPERACION: // "operacion"
-      case symbol_kind::S_ELEMEN: // "elemen"
-      case symbol_kind::S_ENLACE: // "enlace"
-      case symbol_kind::S_ID: // "id"
-      case symbol_kind::S_IDCONT: // "idcont"
-      case symbol_kind::S_SENTENCIAS: // "sentencias"
-      case symbol_kind::S_SENTENCIA: // "sentencia"
-      case symbol_kind::S_MODELO_MOLECULAR: // "modelo_molecular"
-      case symbol_kind::S_COMPUESTO: // "compuesto"
-      case symbol_kind::S_COMPUESTOS: // "compuestos"
-      case symbol_kind::S_ELEMENTO: // "elemento"
-      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
-      case symbol_kind::S_GRUPO_FUNCIONAL: // "grupo_funcional"
-      case symbol_kind::S_GRUPO_FUNCIONAL_INFERIOR: // "grupo_funcional_inferior"
-      case symbol_kind::S_GRUPO_FUNCIONAL_SUPERIOR: // "grupo_funcional_superior"
-      case symbol_kind::S_MODELO_GRUPO_FUNCIONAL: // "modelo_grupo_funcional"
-      case symbol_kind::S_exp: // exp
+      case 3: // "fin_de_linea"
+      case 4: // "letra"
+      case 6: // "tipo"
+      case 7: // "operacion"
+      case 9: // "elemen"
+      case 10: // "enlace"
+      case 11: // "id"
+      case 12: // "idcont"
+      case 13: // "sentencias"
+      case 14: // "sentencia"
+      case 15: // "modelo_molecular"
+      case 16: // "compuesto"
+      case 17: // "compuestos"
+      case 18: // "elemento"
+      case 19: // "elemento_quimico"
+      case 20: // "grupo_funcional"
+      case 21: // "grupo_funcional_inferior"
+      case 22: // "grupo_funcional_superior"
+      case 23: // "modelo_grupo_funcional"
+      case 27: // exp
         value.move< std::string > (that.value);
         break;
 
@@ -384,157 +424,159 @@ namespace yy {
 #if YYDEBUG
   template <typename Base>
   void
-  parser::yy_print_ (std::ostream& yyo, const basic_symbol<Base>& yysym) const
+  parser::yy_print_ (std::ostream& yyo,
+                                     const basic_symbol<Base>& yysym) const
   {
     std::ostream& yyoutput = yyo;
-    YY_USE (yyoutput);
+    YYUSE (yyoutput);
+    symbol_number_type yytype = yysym.type_get ();
+#if defined __GNUC__ && ! defined __clang__ && ! defined __ICC && __GNUC__ * 100 + __GNUC_MINOR__ <= 408
+    // Avoid a (spurious) G++ 4.8 warning about "array subscript is
+    // below array bounds".
     if (yysym.empty ())
-      yyo << "empty symbol";
-    else
-      {
-        symbol_kind_type yykind = yysym.kind ();
-        yyo << (yykind < YYNTOKENS ? "token" : "nterm")
-            << ' ' << yysym.name () << " ("
-            << yysym.location << ": ";
-        switch (yykind)
+      std::abort ();
+#endif
+    yyo << (yytype < yyntokens_ ? "token" : "nterm")
+        << ' ' << yytname_[yytype] << " ("
+        << yysym.location << ": ";
+    switch (yytype)
     {
-      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
+      case 3: // "fin_de_linea"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 405 "parser.cc"
+#line 448 "parser.cc"
         break;
 
-      case symbol_kind::S_LETRA: // "letra"
+      case 4: // "letra"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 411 "parser.cc"
+#line 454 "parser.cc"
         break;
 
-      case symbol_kind::S_DIGITO: // "digito"
+      case 5: // "digito"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < int > (); }
-#line 417 "parser.cc"
+#line 460 "parser.cc"
         break;
 
-      case symbol_kind::S_TIPO: // "tipo"
+      case 6: // "tipo"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 423 "parser.cc"
+#line 466 "parser.cc"
         break;
 
-      case symbol_kind::S_OPERACION: // "operacion"
+      case 7: // "operacion"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 429 "parser.cc"
+#line 472 "parser.cc"
         break;
 
-      case symbol_kind::S_VALENCIA: // "valencia"
+      case 8: // "valencia"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < int > (); }
-#line 435 "parser.cc"
+#line 478 "parser.cc"
         break;
 
-      case symbol_kind::S_ELEMEN: // "elemen"
+      case 9: // "elemen"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 441 "parser.cc"
+#line 484 "parser.cc"
         break;
 
-      case symbol_kind::S_ENLACE: // "enlace"
+      case 10: // "enlace"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 447 "parser.cc"
+#line 490 "parser.cc"
         break;
 
-      case symbol_kind::S_ID: // "id"
+      case 11: // "id"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 453 "parser.cc"
+#line 496 "parser.cc"
         break;
 
-      case symbol_kind::S_IDCONT: // "idcont"
+      case 12: // "idcont"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 459 "parser.cc"
+#line 502 "parser.cc"
         break;
 
-      case symbol_kind::S_SENTENCIAS: // "sentencias"
+      case 13: // "sentencias"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 465 "parser.cc"
+#line 508 "parser.cc"
         break;
 
-      case symbol_kind::S_SENTENCIA: // "sentencia"
+      case 14: // "sentencia"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 471 "parser.cc"
+#line 514 "parser.cc"
         break;
 
-      case symbol_kind::S_MODELO_MOLECULAR: // "modelo_molecular"
+      case 15: // "modelo_molecular"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 477 "parser.cc"
+#line 520 "parser.cc"
         break;
 
-      case symbol_kind::S_COMPUESTO: // "compuesto"
+      case 16: // "compuesto"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 483 "parser.cc"
+#line 526 "parser.cc"
         break;
 
-      case symbol_kind::S_COMPUESTOS: // "compuestos"
+      case 17: // "compuestos"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 489 "parser.cc"
+#line 532 "parser.cc"
         break;
 
-      case symbol_kind::S_ELEMENTO: // "elemento"
+      case 18: // "elemento"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 495 "parser.cc"
+#line 538 "parser.cc"
         break;
 
-      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
+      case 19: // "elemento_quimico"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 501 "parser.cc"
+#line 544 "parser.cc"
         break;
 
-      case symbol_kind::S_GRUPO_FUNCIONAL: // "grupo_funcional"
+      case 20: // "grupo_funcional"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 507 "parser.cc"
+#line 550 "parser.cc"
         break;
 
-      case symbol_kind::S_GRUPO_FUNCIONAL_INFERIOR: // "grupo_funcional_inferior"
+      case 21: // "grupo_funcional_inferior"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 513 "parser.cc"
+#line 556 "parser.cc"
         break;
 
-      case symbol_kind::S_GRUPO_FUNCIONAL_SUPERIOR: // "grupo_funcional_superior"
+      case 22: // "grupo_funcional_superior"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 519 "parser.cc"
+#line 562 "parser.cc"
         break;
 
-      case symbol_kind::S_MODELO_GRUPO_FUNCIONAL: // "modelo_grupo_funcional"
+      case 23: // "modelo_grupo_funcional"
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 525 "parser.cc"
+#line 568 "parser.cc"
         break;
 
-      case symbol_kind::S_exp: // exp
+      case 27: // exp
 #line 55 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 531 "parser.cc"
+#line 574 "parser.cc"
         break;
 
       default:
         break;
     }
-        yyo << ')';
-      }
+    yyo << ')';
   }
 #endif
 
@@ -558,7 +600,7 @@ namespace yy {
   }
 
   void
-  parser::yypop_ (int n) YY_NOEXCEPT
+  parser::yypop_ (int n)
   {
     yystack_.pop (n);
   }
@@ -593,21 +635,21 @@ namespace yy {
   parser::state_type
   parser::yy_lr_goto_state_ (state_type yystate, int yysym)
   {
-    int yyr = yypgoto_[yysym - YYNTOKENS] + yystate;
+    int yyr = yypgoto_[yysym - yyntokens_] + yystate;
     if (0 <= yyr && yyr <= yylast_ && yycheck_[yyr] == yystate)
       return yytable_[yyr];
     else
-      return yydefgoto_[yysym - YYNTOKENS];
+      return yydefgoto_[yysym - yyntokens_];
   }
 
   bool
-  parser::yy_pact_value_is_default_ (int yyvalue) YY_NOEXCEPT
+  parser::yy_pact_value_is_default_ (int yyvalue)
   {
     return yyvalue == yypact_ninf_;
   }
 
   bool
-  parser::yy_table_value_is_error_ (int yyvalue) YY_NOEXCEPT
+  parser::yy_table_value_is_error_ (int yyvalue)
   {
     return yyvalue == yytable_ninf_;
   }
@@ -657,7 +699,6 @@ namespace yy {
   `-----------------------------------------------*/
   yynewstate:
     YYCDEBUG << "Entering state " << int (yystack_[0].state) << '\n';
-    YY_STACK_PRINT ();
 
     // Accept?
     if (yystack_[0].state == yyfinal_)
@@ -678,7 +719,7 @@ namespace yy {
     // Read a lookahead token.
     if (yyla.empty ())
       {
-        YYCDEBUG << "Reading a token\n";
+        YYCDEBUG << "Reading a token: ";
 #if YY_EXCEPTIONS
         try
 #endif // YY_EXCEPTIONS
@@ -697,20 +738,10 @@ namespace yy {
       }
     YY_SYMBOL_PRINT ("Next token is", yyla);
 
-    if (yyla.kind () == symbol_kind::S_YYerror)
-    {
-      // The scanner already issued an error message, process directly
-      // to error recovery.  But do not keep the error token as
-      // lookahead, it is too special and may lead us to an endless
-      // loop in error recovery. */
-      yyla.kind_ = symbol_kind::S_YYUNDEF;
-      goto yyerrlab1;
-    }
-
     /* If the proper action on seeing token YYLA.TYPE is to reduce or
        to detect an error, take that action.  */
-    yyn += yyla.kind ();
-    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.kind ())
+    yyn += yyla.type_get ();
+    if (yyn < 0 || yylast_ < yyn || yycheck_[yyn] != yyla.type_get ())
       {
         goto yydefault;
       }
@@ -757,31 +788,31 @@ namespace yy {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case symbol_kind::S_DIGITO: // "digito"
-      case symbol_kind::S_VALENCIA: // "valencia"
+      case 5: // "digito"
+      case 8: // "valencia"
         yylhs.value.emplace< int > ();
         break;
 
-      case symbol_kind::S_FIN_DE_LINEA: // "fin_de_linea"
-      case symbol_kind::S_LETRA: // "letra"
-      case symbol_kind::S_TIPO: // "tipo"
-      case symbol_kind::S_OPERACION: // "operacion"
-      case symbol_kind::S_ELEMEN: // "elemen"
-      case symbol_kind::S_ENLACE: // "enlace"
-      case symbol_kind::S_ID: // "id"
-      case symbol_kind::S_IDCONT: // "idcont"
-      case symbol_kind::S_SENTENCIAS: // "sentencias"
-      case symbol_kind::S_SENTENCIA: // "sentencia"
-      case symbol_kind::S_MODELO_MOLECULAR: // "modelo_molecular"
-      case symbol_kind::S_COMPUESTO: // "compuesto"
-      case symbol_kind::S_COMPUESTOS: // "compuestos"
-      case symbol_kind::S_ELEMENTO: // "elemento"
-      case symbol_kind::S_ELEMENTO_QUIMICO: // "elemento_quimico"
-      case symbol_kind::S_GRUPO_FUNCIONAL: // "grupo_funcional"
-      case symbol_kind::S_GRUPO_FUNCIONAL_INFERIOR: // "grupo_funcional_inferior"
-      case symbol_kind::S_GRUPO_FUNCIONAL_SUPERIOR: // "grupo_funcional_superior"
-      case symbol_kind::S_MODELO_GRUPO_FUNCIONAL: // "modelo_grupo_funcional"
-      case symbol_kind::S_exp: // exp
+      case 3: // "fin_de_linea"
+      case 4: // "letra"
+      case 6: // "tipo"
+      case 7: // "operacion"
+      case 9: // "elemen"
+      case 10: // "enlace"
+      case 11: // "id"
+      case 12: // "idcont"
+      case 13: // "sentencias"
+      case 14: // "sentencia"
+      case 15: // "modelo_molecular"
+      case 16: // "compuesto"
+      case 17: // "compuestos"
+      case 18: // "elemento"
+      case 19: // "elemento_quimico"
+      case 20: // "grupo_funcional"
+      case 21: // "grupo_funcional_inferior"
+      case 22: // "grupo_funcional_superior"
+      case 23: // "modelo_grupo_funcional"
+      case 27: // exp
         yylhs.value.emplace< std::string > ();
         break;
 
@@ -805,140 +836,140 @@ namespace yy {
         {
           switch (yyn)
             {
-  case 2: // unit: exps
+  case 2:
 #line 59 "parser.yy"
            {}
-#line 812 "parser.cc"
+#line 843 "parser.cc"
     break;
 
-  case 4: // exps: exps exp
+  case 4:
 #line 61 "parser.yy"
                         {}
-#line 818 "parser.cc"
+#line 849 "parser.cc"
     break;
 
-  case 5: // exp: "fin_de_linea"
+  case 5:
 #line 66 "parser.yy"
                {}
-#line 824 "parser.cc"
+#line 855 "parser.cc"
     break;
 
-  case 6: // exp: "letra"
+  case 6:
 #line 67 "parser.yy"
           {}
-#line 830 "parser.cc"
+#line 861 "parser.cc"
     break;
 
-  case 7: // exp: "digito"
+  case 7:
 #line 68 "parser.yy"
            {}
-#line 836 "parser.cc"
+#line 867 "parser.cc"
     break;
 
-  case 8: // exp: "tipo"
+  case 8:
 #line 69 "parser.yy"
          {}
-#line 842 "parser.cc"
+#line 873 "parser.cc"
     break;
 
-  case 9: // exp: "operacion"
+  case 9:
 #line 70 "parser.yy"
               {}
-#line 848 "parser.cc"
+#line 879 "parser.cc"
     break;
 
-  case 10: // exp: "valencia"
+  case 10:
 #line 71 "parser.yy"
              {}
-#line 854 "parser.cc"
+#line 885 "parser.cc"
     break;
 
-  case 11: // exp: "enlace"
+  case 11:
 #line 72 "parser.yy"
            {}
-#line 860 "parser.cc"
+#line 891 "parser.cc"
     break;
 
-  case 12: // exp: "id"
+  case 12:
 #line 73 "parser.yy"
        {}
-#line 866 "parser.cc"
+#line 897 "parser.cc"
     break;
 
-  case 13: // exp: "idcont"
+  case 13:
 #line 74 "parser.yy"
            {}
-#line 872 "parser.cc"
+#line 903 "parser.cc"
     break;
 
-  case 14: // exp: "sentencias"
+  case 14:
 #line 75 "parser.yy"
                {}
-#line 878 "parser.cc"
+#line 909 "parser.cc"
     break;
 
-  case 15: // exp: "sentencia"
+  case 15:
 #line 76 "parser.yy"
               {}
-#line 884 "parser.cc"
+#line 915 "parser.cc"
     break;
 
-  case 16: // exp: "modelo_molecular"
+  case 16:
 #line 77 "parser.yy"
                      {}
-#line 890 "parser.cc"
+#line 921 "parser.cc"
     break;
 
-  case 17: // exp: "compuesto"
+  case 17:
 #line 78 "parser.yy"
               {}
-#line 896 "parser.cc"
+#line 927 "parser.cc"
     break;
 
-  case 18: // exp: "compuestos"
+  case 18:
 #line 79 "parser.yy"
                {}
-#line 902 "parser.cc"
+#line 933 "parser.cc"
     break;
 
-  case 19: // exp: "elemento"
+  case 19:
 #line 80 "parser.yy"
              {}
-#line 908 "parser.cc"
+#line 939 "parser.cc"
     break;
 
-  case 20: // exp: "elemento_quimico"
+  case 20:
 #line 81 "parser.yy"
                      {}
-#line 914 "parser.cc"
+#line 945 "parser.cc"
     break;
 
-  case 21: // exp: "grupo_funcional"
+  case 21:
 #line 82 "parser.yy"
                     {}
-#line 920 "parser.cc"
+#line 951 "parser.cc"
     break;
 
-  case 22: // exp: "grupo_funcional_inferior"
+  case 22:
 #line 83 "parser.yy"
                              {}
-#line 926 "parser.cc"
+#line 957 "parser.cc"
     break;
 
-  case 23: // exp: "grupo_funcional_superior"
+  case 23:
 #line 84 "parser.yy"
                              {}
-#line 932 "parser.cc"
+#line 963 "parser.cc"
     break;
 
-  case 24: // exp: "modelo_grupo_funcional"
+  case 24:
 #line 85 "parser.yy"
                            {}
-#line 938 "parser.cc"
+#line 969 "parser.cc"
     break;
 
 
-#line 942 "parser.cc"
+#line 973 "parser.cc"
 
             default:
               break;
@@ -955,6 +986,7 @@ namespace yy {
       YY_SYMBOL_PRINT ("-> $$ =", yylhs);
       yypop_ (yylen);
       yylen = 0;
+      YY_STACK_PRINT ();
 
       // Shift the result of the reduction.
       yypush_ (YY_NULLPTR, YY_MOVE (yylhs));
@@ -970,9 +1002,7 @@ namespace yy {
     if (!yyerrstatus_)
       {
         ++yynerrs_;
-        context yyctx (*this, yyla);
-        std::string msg = yysyntax_error_ (yyctx);
-        error (yyla.location, YY_MOVE (msg));
+        error (yyla.location, yysyntax_error_ (yystack_[0].state, yyla));
       }
 
 
@@ -983,7 +1013,7 @@ namespace yy {
            error, discard it.  */
 
         // Return failure if at end of input.
-        if (yyla.kind () == symbol_kind::S_YYEOF)
+        if (yyla.type_get () == yyeof_)
           YYABORT;
         else if (!yyla.empty ())
           {
@@ -1009,7 +1039,6 @@ namespace yy {
        this YYERROR.  */
     yypop_ (yylen);
     yylen = 0;
-    YY_STACK_PRINT ();
     goto yyerrlab1;
 
 
@@ -1018,33 +1047,31 @@ namespace yy {
   `-------------------------------------------------------------*/
   yyerrlab1:
     yyerrstatus_ = 3;   // Each real token shifted decrements this.
-    // Pop stack until we find a state that shifts the error token.
-    for (;;)
-      {
-        yyn = yypact_[+yystack_[0].state];
-        if (!yy_pact_value_is_default_ (yyn))
-          {
-            yyn += symbol_kind::S_YYerror;
-            if (0 <= yyn && yyn <= yylast_
-                && yycheck_[yyn] == symbol_kind::S_YYerror)
-              {
-                yyn = yytable_[yyn];
-                if (0 < yyn)
-                  break;
-              }
-          }
-
-        // Pop the current state because it cannot handle the error token.
-        if (yystack_.size () == 1)
-          YYABORT;
-
-        yyerror_range[1].location = yystack_[0].location;
-        yy_destroy_ ("Error: popping", yystack_[0]);
-        yypop_ ();
-        YY_STACK_PRINT ();
-      }
     {
       stack_symbol_type error_token;
+      for (;;)
+        {
+          yyn = yypact_[+yystack_[0].state];
+          if (!yy_pact_value_is_default_ (yyn))
+            {
+              yyn += yy_error_token_;
+              if (0 <= yyn && yyn <= yylast_ && yycheck_[yyn] == yy_error_token_)
+                {
+                  yyn = yytable_[yyn];
+                  if (0 < yyn)
+                    break;
+                }
+            }
+
+          // Pop the current state because it cannot handle the error token.
+          if (yystack_.size () == 1)
+            YYABORT;
+
+          yyerror_range[1].location = yystack_[0].location;
+          yy_destroy_ ("Error: popping", yystack_[0]);
+          yypop_ ();
+          YY_STACK_PRINT ();
+        }
 
       yyerror_range[2].location = yyla.location;
       YYLLOC_DEFAULT (error_token.location, yyerror_range, 2);
@@ -1082,7 +1109,6 @@ namespace yy {
     /* Do not reclaim the symbols of the rule whose action triggered
        this YYABORT or YYACCEPT.  */
     yypop_ (yylen);
-    YY_STACK_PRINT ();
     while (1 < yystack_.size ())
       {
         yy_destroy_ ("Cleanup: popping", yystack_[0]);
@@ -1116,103 +1142,18 @@ namespace yy {
     error (yyexc.location, yyexc.what ());
   }
 
-  /* Return YYSTR after stripping away unnecessary quotes and
-     backslashes, so that it's suitable for yyerror.  The heuristic is
-     that double-quoting is unnecessary unless the string contains an
-     apostrophe, a comma, or backslash (other than backslash-backslash).
-     YYSTR is taken from yytname.  */
+  // Generate an error message.
   std::string
-  parser::yytnamerr_ (const char *yystr)
+  parser::yysyntax_error_ (state_type yystate, const symbol_type& yyla) const
   {
-    if (*yystr == '"')
-      {
-        std::string yyr;
-        char const *yyp = yystr;
+    // Number of reported tokens (one for the "unexpected", one per
+    // "expected").
+    std::ptrdiff_t yycount = 0;
+    // Its maximum.
+    enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
+    // Arguments of yyformat.
+    char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
 
-        for (;;)
-          switch (*++yyp)
-            {
-            case '\'':
-            case ',':
-              goto do_not_strip_quotes;
-
-            case '\\':
-              if (*++yyp != '\\')
-                goto do_not_strip_quotes;
-              else
-                goto append;
-
-            append:
-            default:
-              yyr += *yyp;
-              break;
-
-            case '"':
-              return yyr;
-            }
-      do_not_strip_quotes: ;
-      }
-
-    return yystr;
-  }
-
-  std::string
-  parser::symbol_name (symbol_kind_type yysymbol)
-  {
-    return yytnamerr_ (yytname_[yysymbol]);
-  }
-
-
-
-  // parser::context.
-  parser::context::context (const parser& yyparser, const symbol_type& yyla)
-    : yyparser_ (yyparser)
-    , yyla_ (yyla)
-  {}
-
-  int
-  parser::context::expected_tokens (symbol_kind_type yyarg[], int yyargn) const
-  {
-    // Actual number of expected tokens
-    int yycount = 0;
-
-    const int yyn = yypact_[+yyparser_.yystack_[0].state];
-    if (!yy_pact_value_is_default_ (yyn))
-      {
-        /* Start YYX at -YYN if negative to avoid negative indexes in
-           YYCHECK.  In other words, skip the first -YYN actions for
-           this state because they are default actions.  */
-        const int yyxbegin = yyn < 0 ? -yyn : 0;
-        // Stay within bounds of both yycheck and yytname.
-        const int yychecklim = yylast_ - yyn + 1;
-        const int yyxend = yychecklim < YYNTOKENS ? yychecklim : YYNTOKENS;
-        for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
-          if (yycheck_[yyx + yyn] == yyx && yyx != symbol_kind::S_YYerror
-              && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
-            {
-              if (!yyarg)
-                ++yycount;
-              else if (yycount == yyargn)
-                return 0;
-              else
-                yyarg[yycount++] = YY_CAST (symbol_kind_type, yyx);
-            }
-      }
-
-    if (yyarg && yycount == 0 && 0 < yyargn)
-      yyarg[0] = symbol_kind::S_YYEMPTY;
-    return yycount;
-  }
-
-
-
-
-
-
-  int
-  parser::yy_syntax_error_arguments_ (const context& yyctx,
-                                                 symbol_kind_type yyarg[], int yyargn) const
-  {
     /* There are many possibilities here to consider:
        - If this state is a consistent state with a default action, then
          the only way this function was invoked is if the default action
@@ -1237,26 +1178,35 @@ namespace yy {
          one exception: it will still contain any token that will not be
          accepted due to an error action in a later state.
     */
-
-    if (!yyctx.lookahead ().empty ())
+    if (!yyla.empty ())
       {
-        if (yyarg)
-          yyarg[0] = yyctx.token ();
-        int yyn = yyctx.expected_tokens (yyarg ? yyarg + 1 : yyarg, yyargn - 1);
-        return yyn + 1;
-      }
-    return 0;
-  }
+        symbol_number_type yytoken = yyla.type_get ();
+        yyarg[yycount++] = yytname_[yytoken];
 
-  // Generate an error message.
-  std::string
-  parser::yysyntax_error_ (const context& yyctx) const
-  {
-    // Its maximum.
-    enum { YYARGS_MAX = 5 };
-    // Arguments of yyformat.
-    symbol_kind_type yyarg[YYARGS_MAX];
-    int yycount = yy_syntax_error_arguments_ (yyctx, yyarg, YYARGS_MAX);
+        int yyn = yypact_[+yystate];
+        if (!yy_pact_value_is_default_ (yyn))
+          {
+            /* Start YYX at -YYN if negative to avoid negative indexes in
+               YYCHECK.  In other words, skip the first -YYN actions for
+               this state because they are default actions.  */
+            int yyxbegin = yyn < 0 ? -yyn : 0;
+            // Stay within bounds of both yycheck and yytname.
+            int yychecklim = yylast_ - yyn + 1;
+            int yyxend = yychecklim < yyntokens_ ? yychecklim : yyntokens_;
+            for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
+              if (yycheck_[yyx + yyn] == yyx && yyx != yy_error_token_
+                  && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
+                {
+                  if (yycount == YYERROR_VERBOSE_ARGS_MAXIMUM)
+                    {
+                      yycount = 1;
+                      break;
+                    }
+                  else
+                    yyarg[yycount++] = yytname_[yyx];
+                }
+          }
+      }
 
     char const* yyformat = YY_NULLPTR;
     switch (yycount)
@@ -1281,7 +1231,7 @@ namespace yy {
     for (char const* yyp = yyformat; *yyp; ++yyp)
       if (yyp[0] == '%' && yyp[1] == 's' && yyi < yycount)
         {
-          yyres += symbol_name (yyarg[yyi++]);
+          yyres += yytnamerr_ (yyarg[yyi++]);
           ++yyp;
         }
       else
@@ -1319,7 +1269,7 @@ namespace yy {
   const signed char
   parser::yydefgoto_[] =
   {
-       0,     1,     2,    24
+      -1,     1,     2,    24
   };
 
   const signed char
@@ -1363,13 +1313,13 @@ namespace yy {
   };
 
 
-#if YYDEBUG || 1
+
   // YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
-  // First, the terminals, then, starting at \a YYNTOKENS, nonterminals.
+  // First, the terminals, then, starting at \a yyntokens_, nonterminals.
   const char*
   const parser::yytname_[] =
   {
-  "\"end of file\"", "error", "\"invalid token\"", "\"fin_de_linea\"",
+  "\"end of file\"", "error", "$undefined", "\"fin_de_linea\"",
   "\"letra\"", "\"digito\"", "\"tipo\"", "\"operacion\"", "\"valencia\"",
   "\"elemen\"", "\"enlace\"", "\"id\"", "\"idcont\"", "\"sentencias\"",
   "\"sentencia\"", "\"modelo_molecular\"", "\"compuesto\"",
@@ -1378,8 +1328,6 @@ namespace yy {
   "\"grupo_funcional_superior\"", "\"modelo_grupo_funcional\"", "$accept",
   "unit", "exps", "exp", YY_NULLPTR
   };
-#endif
-
 
 #if YYDEBUG
   const signed char
@@ -1390,8 +1338,9 @@ namespace yy {
       81,    82,    83,    84,    85
   };
 
+  // Print the state stack on the debug stream.
   void
-  parser::yy_stack_print_ () const
+  parser::yystack_print_ ()
   {
     *yycdebug_ << "Stack now";
     for (stack_type::const_iterator
@@ -1402,8 +1351,9 @@ namespace yy {
     *yycdebug_ << '\n';
   }
 
+  // Report on the debug stream that the rule \a yyrule is going to be reduced.
   void
-  parser::yy_reduce_print_ (int yyrule) const
+  parser::yy_reduce_print_ (int yyrule)
   {
     int yylno = yyrline_[yyrule];
     int yynrhs = yyr2_[yyrule];
@@ -1419,7 +1369,7 @@ namespace yy {
 
 
 } // yy
-#line 1423 "parser.cc"
+#line 1373 "parser.cc"
 
 #line 86 "parser.yy"
 
