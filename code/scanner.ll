@@ -28,7 +28,7 @@ void format_output (std::string token,const char* yytext, yy::location& loc) {
 
 %option noyywrap nounput batch debug noinput
 
-FIN_DE_LINEA (":",";")
+FIN_DE_LINEA (":"|";")
 
 LETRA [A-Za-z]
 
@@ -63,7 +63,7 @@ GRUPO_FUNCIONAL_INFERIOR ("["{MODELO_GRUPO_FUNCIONAL}"]")
 
 GRUPO_FUNCIONAL_SUPERIOR ("("{MODELO_GRUPO_FUNCIONAL}")")
 
-MODELO_GRUPO_FUNCIONAL ({ELEMENTO_QUIMICO}|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{ELEMENTO}{COMPUESTO}{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{COMPUESTO}{COMPUESTOS})
+MODELO_GRUPO_FUNCIONAL ({ELEMENTO_QUIMICO}+{VALENCIA}?)+
 
 SENTENCIA ("defina"{ID}"como"{TIPO}|{ID}"="{MODELO_MOLECULAR}|{OPERACION}"("{ID}")")
 
@@ -92,9 +92,10 @@ blank [ \t]
 	format_output("FIN_DE_LINEA",yytext,loc);
 	return yy::parser::make_FIN_DE_LINEA(yytext,loc);
 }
-{LETRA} {
-	format_output("LETRA",yytext,loc);
-	return yy::parser::make_LETRA(yytext,loc);
+{VALENCIA} {
+  	long n = std::stol(yytext);
+	format_output("VALENCIA",yytext,loc);
+	return yy::parser::make_VALENCIA(n,loc);
 }
 {DIGITO} {
   long n = std::stol(yytext);
@@ -109,28 +110,6 @@ blank [ \t]
 	format_output("OPERACION",yytext,loc);
 	return yy::parser::make_OPERACION(yytext,loc);
 }
-{VALENCIA} {
-  	long n = std::stol(yytext);
-	format_output("VALENCIA",yytext,loc);
-	return yy::parser::make_VALENCIA(n,loc);
-}
-{ELEMENTO_QUIMICO} {
-	format_output("ELEMENTO_QUIMICO",yytext,loc);
-	return yy::parser::make_ELEMENTO_QUIMICO(yytext,loc);
-}
-{ENLACE} {
-	format_output("ENLACE",yytext,loc);
-	return yy::parser::make_ENLACE(yytext,loc);
-}
-
-{ID} {
-	format_output("ID",yytext,loc);
-	return yy::parser::make_ID(yytext,loc);
-}
-{IDCONT} {
-	format_output("IDCONT",yytext,loc);
-	return yy::parser::make_IDCONT(yytext,loc);
-}
 {ELEMENTO_QUIMICO} {
 	format_output("ELEMENTO_QUIMICO",yytext,loc);
 	return yy::parser::make_ELEMENTO_QUIMICO(yytext,loc);
@@ -139,6 +118,19 @@ blank [ \t]
 	format_output("ELEMENTO",yytext,loc);
 	return yy::parser::make_ELEMENTO(yytext,loc);
 }
+{GRUPO_FUNCIONAL_INFERIOR} {
+	format_output("GRUPO_FUNCIONAL_INFERIOR",yytext,loc);
+	return yy::parser::make_GRUPO_FUNCIONAL_INFERIOR(yytext,loc);
+}
+{GRUPO_FUNCIONAL_SUPERIOR} {
+	format_output("GRUPO_FUNCIONAL_SUPERIOR",yytext,loc);
+	return yy::parser::make_GRUPO_FUNCIONAL_SUPERIOR(yytext,loc);
+}
+{ENLACE} {
+	format_output("ENLACE",yytext,loc);
+	return yy::parser::make_ENLACE(yytext,loc);
+}
+
 {MODELO_MOLECULAR} {
 	format_output("MODELO_MOLECULAR",yytext,loc);
 	return yy::parser::make_MODELO_MOLECULAR(yytext,loc);
@@ -155,17 +147,17 @@ blank [ \t]
 	format_output("COMPUESTOS",yytext,loc);
 	return yy::parser::make_COMPUESTOS(yytext,loc);
 }
-{GRUPO_FUNCIONAL_INFERIOR} {
-	format_output("GRUPO_FUNCIONAL_INFERIOR",yytext,loc);
-	return yy::parser::make_GRUPO_FUNCIONAL_INFERIOR(yytext,loc);
+{LETRA} {
+	format_output("LETRA",yytext,loc);
+	return yy::parser::make_LETRA(yytext,loc);
 }
-{GRUPO_FUNCIONAL_SUPERIOR} {
-	format_output("GRUPO_FUNCIONAL_SUPERIOR",yytext,loc);
-	return yy::parser::make_GRUPO_FUNCIONAL_SUPERIOR(yytext,loc);
+{ID} {
+	format_output("ID",yytext,loc);
+	return yy::parser::make_ID(yytext,loc);
 }
-{MODELO_GRUPO_FUNCIONAL} {
-	format_output("MODELO_GRUPO_FUNCIONAL",yytext,loc);
-	return yy::parser::make_MODELO_GRUPO_FUNCIONAL(yytext,loc);
+{IDCONT} {
+	format_output("IDCONT",yytext,loc);
+	return yy::parser::make_IDCONT(yytext,loc);
 }
 {SENTENCIAS} {
 	format_output("SENTENCIAS",yytext,loc);
