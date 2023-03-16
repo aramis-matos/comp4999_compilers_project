@@ -45,6 +45,7 @@
 %token <std::string> COMPUESTO "compuesto"
 %token <std::string> COMPUESTOS "compuestos"
 %token <std::string> ELEMENTO "elemento"
+%token <std::string> PALABRA_RESERVADA "palabra_reservada"
 %token <std::string> ELEMENTO_QUIMICO "elemento_quimico"
 %token <std::string> GRUPO_FUNCIONAL "grupo_funcional"
 %token <std::string> GRUPO_FUNCIONAL_INFERIOR "grupo_funcional_inferior"
@@ -70,6 +71,7 @@ exp:
 | "operacion" {}
 | "valencia" {}
 | "enlace" {}
+| "palabra_reservada" {}
 | "id" {}
 | "idcont" {}
 | "sentencias" {}

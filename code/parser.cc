@@ -265,12 +265,13 @@ namespace yy {
       case 16: // "compuesto"
       case 17: // "compuestos"
       case 18: // "elemento"
-      case 19: // "elemento_quimico"
-      case 20: // "grupo_funcional"
-      case 21: // "grupo_funcional_inferior"
-      case 22: // "grupo_funcional_superior"
-      case 23: // "modelo_grupo_funcional"
-      case 27: // exp
+      case 19: // "palabra_reservada"
+      case 20: // "elemento_quimico"
+      case 21: // "grupo_funcional"
+      case 22: // "grupo_funcional_inferior"
+      case 23: // "grupo_funcional_superior"
+      case 24: // "modelo_grupo_funcional"
+      case 28: // exp
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
@@ -308,12 +309,13 @@ namespace yy {
       case 16: // "compuesto"
       case 17: // "compuestos"
       case 18: // "elemento"
-      case 19: // "elemento_quimico"
-      case 20: // "grupo_funcional"
-      case 21: // "grupo_funcional_inferior"
-      case 22: // "grupo_funcional_superior"
-      case 23: // "modelo_grupo_funcional"
-      case 27: // exp
+      case 19: // "palabra_reservada"
+      case 20: // "elemento_quimico"
+      case 21: // "grupo_funcional"
+      case 22: // "grupo_funcional_inferior"
+      case 23: // "grupo_funcional_superior"
+      case 24: // "modelo_grupo_funcional"
+      case 28: // exp
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
@@ -351,12 +353,13 @@ namespace yy {
       case 16: // "compuesto"
       case 17: // "compuestos"
       case 18: // "elemento"
-      case 19: // "elemento_quimico"
-      case 20: // "grupo_funcional"
-      case 21: // "grupo_funcional_inferior"
-      case 22: // "grupo_funcional_superior"
-      case 23: // "modelo_grupo_funcional"
-      case 27: // exp
+      case 19: // "palabra_reservada"
+      case 20: // "elemento_quimico"
+      case 21: // "grupo_funcional"
+      case 22: // "grupo_funcional_inferior"
+      case 23: // "grupo_funcional_superior"
+      case 24: // "modelo_grupo_funcional"
+      case 28: // exp
         value.copy< std::string > (that.value);
         break;
 
@@ -393,12 +396,13 @@ namespace yy {
       case 16: // "compuesto"
       case 17: // "compuestos"
       case 18: // "elemento"
-      case 19: // "elemento_quimico"
-      case 20: // "grupo_funcional"
-      case 21: // "grupo_funcional_inferior"
-      case 22: // "grupo_funcional_superior"
-      case 23: // "modelo_grupo_funcional"
-      case 27: // exp
+      case 19: // "palabra_reservada"
+      case 20: // "elemento_quimico"
+      case 21: // "grupo_funcional"
+      case 22: // "grupo_funcional_inferior"
+      case 23: // "grupo_funcional_superior"
+      case 24: // "modelo_grupo_funcional"
+      case 28: // exp
         value.move< std::string > (that.value);
         break;
 
@@ -442,135 +446,141 @@ namespace yy {
     switch (yytype)
     {
       case 3: // "fin_de_linea"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 448 "parser.cc"
+#line 452 "parser.cc"
         break;
 
       case 4: // "letra"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 454 "parser.cc"
+#line 458 "parser.cc"
         break;
 
       case 5: // "digito"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < int > (); }
-#line 460 "parser.cc"
+#line 464 "parser.cc"
         break;
 
       case 6: // "tipo"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 466 "parser.cc"
+#line 470 "parser.cc"
         break;
 
       case 7: // "operacion"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 472 "parser.cc"
+#line 476 "parser.cc"
         break;
 
       case 8: // "valencia"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < int > (); }
-#line 478 "parser.cc"
+#line 482 "parser.cc"
         break;
 
       case 9: // "elemen"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 484 "parser.cc"
+#line 488 "parser.cc"
         break;
 
       case 10: // "enlace"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 490 "parser.cc"
+#line 494 "parser.cc"
         break;
 
       case 11: // "id"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 496 "parser.cc"
+#line 500 "parser.cc"
         break;
 
       case 12: // "idcont"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 502 "parser.cc"
+#line 506 "parser.cc"
         break;
 
       case 13: // "sentencias"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 508 "parser.cc"
+#line 512 "parser.cc"
         break;
 
       case 14: // "sentencia"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 514 "parser.cc"
+#line 518 "parser.cc"
         break;
 
       case 15: // "modelo_molecular"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 520 "parser.cc"
+#line 524 "parser.cc"
         break;
 
       case 16: // "compuesto"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 526 "parser.cc"
+#line 530 "parser.cc"
         break;
 
       case 17: // "compuestos"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 532 "parser.cc"
+#line 536 "parser.cc"
         break;
 
       case 18: // "elemento"
-#line 55 "parser.yy"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 538 "parser.cc"
+#line 542 "parser.cc"
         break;
 
-      case 19: // "elemento_quimico"
-#line 55 "parser.yy"
+      case 19: // "palabra_reservada"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 544 "parser.cc"
+#line 548 "parser.cc"
         break;
 
-      case 20: // "grupo_funcional"
-#line 55 "parser.yy"
+      case 20: // "elemento_quimico"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 550 "parser.cc"
+#line 554 "parser.cc"
         break;
 
-      case 21: // "grupo_funcional_inferior"
-#line 55 "parser.yy"
+      case 21: // "grupo_funcional"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 556 "parser.cc"
+#line 560 "parser.cc"
         break;
 
-      case 22: // "grupo_funcional_superior"
-#line 55 "parser.yy"
+      case 22: // "grupo_funcional_inferior"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 562 "parser.cc"
+#line 566 "parser.cc"
         break;
 
-      case 23: // "modelo_grupo_funcional"
-#line 55 "parser.yy"
+      case 23: // "grupo_funcional_superior"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 568 "parser.cc"
+#line 572 "parser.cc"
         break;
 
-      case 27: // exp
-#line 55 "parser.yy"
+      case 24: // "modelo_grupo_funcional"
+#line 56 "parser.yy"
                  { yyoutput << yysym.value.template as < std::string > (); }
-#line 574 "parser.cc"
+#line 578 "parser.cc"
+        break;
+
+      case 28: // exp
+#line 56 "parser.yy"
+                 { yyoutput << yysym.value.template as < std::string > (); }
+#line 584 "parser.cc"
         break;
 
       default:
@@ -807,12 +817,13 @@ namespace yy {
       case 16: // "compuesto"
       case 17: // "compuestos"
       case 18: // "elemento"
-      case 19: // "elemento_quimico"
-      case 20: // "grupo_funcional"
-      case 21: // "grupo_funcional_inferior"
-      case 22: // "grupo_funcional_superior"
-      case 23: // "modelo_grupo_funcional"
-      case 27: // exp
+      case 19: // "palabra_reservada"
+      case 20: // "elemento_quimico"
+      case 21: // "grupo_funcional"
+      case 22: // "grupo_funcional_inferior"
+      case 23: // "grupo_funcional_superior"
+      case 24: // "modelo_grupo_funcional"
+      case 28: // exp
         yylhs.value.emplace< std::string > ();
         break;
 
@@ -837,139 +848,145 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 59 "parser.yy"
+#line 60 "parser.yy"
            {}
-#line 843 "parser.cc"
+#line 854 "parser.cc"
     break;
 
   case 4:
-#line 61 "parser.yy"
+#line 62 "parser.yy"
                         {}
-#line 849 "parser.cc"
+#line 860 "parser.cc"
     break;
 
   case 5:
-#line 66 "parser.yy"
+#line 67 "parser.yy"
                {}
-#line 855 "parser.cc"
+#line 866 "parser.cc"
     break;
 
   case 6:
-#line 67 "parser.yy"
+#line 68 "parser.yy"
           {}
-#line 861 "parser.cc"
+#line 872 "parser.cc"
     break;
 
   case 7:
-#line 68 "parser.yy"
+#line 69 "parser.yy"
            {}
-#line 867 "parser.cc"
+#line 878 "parser.cc"
     break;
 
   case 8:
-#line 69 "parser.yy"
+#line 70 "parser.yy"
          {}
-#line 873 "parser.cc"
+#line 884 "parser.cc"
     break;
 
   case 9:
-#line 70 "parser.yy"
+#line 71 "parser.yy"
               {}
-#line 879 "parser.cc"
+#line 890 "parser.cc"
     break;
 
   case 10:
-#line 71 "parser.yy"
+#line 72 "parser.yy"
              {}
-#line 885 "parser.cc"
+#line 896 "parser.cc"
     break;
 
   case 11:
-#line 72 "parser.yy"
+#line 73 "parser.yy"
            {}
-#line 891 "parser.cc"
+#line 902 "parser.cc"
     break;
 
   case 12:
-#line 73 "parser.yy"
-       {}
-#line 897 "parser.cc"
+#line 74 "parser.yy"
+                      {}
+#line 908 "parser.cc"
     break;
 
   case 13:
-#line 74 "parser.yy"
-           {}
-#line 903 "parser.cc"
+#line 75 "parser.yy"
+       {}
+#line 914 "parser.cc"
     break;
 
   case 14:
-#line 75 "parser.yy"
-               {}
-#line 909 "parser.cc"
+#line 76 "parser.yy"
+           {}
+#line 920 "parser.cc"
     break;
 
   case 15:
-#line 76 "parser.yy"
-              {}
-#line 915 "parser.cc"
+#line 77 "parser.yy"
+               {}
+#line 926 "parser.cc"
     break;
 
   case 16:
-#line 77 "parser.yy"
-                     {}
-#line 921 "parser.cc"
+#line 78 "parser.yy"
+              {}
+#line 932 "parser.cc"
     break;
 
   case 17:
-#line 78 "parser.yy"
-              {}
-#line 927 "parser.cc"
+#line 79 "parser.yy"
+                     {}
+#line 938 "parser.cc"
     break;
 
   case 18:
-#line 79 "parser.yy"
-               {}
-#line 933 "parser.cc"
+#line 80 "parser.yy"
+              {}
+#line 944 "parser.cc"
     break;
 
   case 19:
-#line 80 "parser.yy"
-             {}
-#line 939 "parser.cc"
+#line 81 "parser.yy"
+               {}
+#line 950 "parser.cc"
     break;
 
   case 20:
-#line 81 "parser.yy"
-                     {}
-#line 945 "parser.cc"
+#line 82 "parser.yy"
+             {}
+#line 956 "parser.cc"
     break;
 
   case 21:
-#line 82 "parser.yy"
-                    {}
-#line 951 "parser.cc"
+#line 83 "parser.yy"
+                     {}
+#line 962 "parser.cc"
     break;
 
   case 22:
-#line 83 "parser.yy"
-                             {}
-#line 957 "parser.cc"
+#line 84 "parser.yy"
+                    {}
+#line 968 "parser.cc"
     break;
 
   case 23:
-#line 84 "parser.yy"
+#line 85 "parser.yy"
                              {}
-#line 963 "parser.cc"
+#line 974 "parser.cc"
     break;
 
   case 24:
-#line 85 "parser.yy"
+#line 86 "parser.yy"
+                             {}
+#line 980 "parser.cc"
+    break;
+
+  case 25:
+#line 87 "parser.yy"
                            {}
-#line 969 "parser.cc"
+#line 986 "parser.cc"
     break;
 
 
-#line 973 "parser.cc"
+#line 990 "parser.cc"
 
             default:
               break;
@@ -1249,15 +1266,15 @@ namespace yy {
   {
       -4,     6,    -3,    -4,    -4,    -4,    -4,    -4,    -4,    -4,
       -4,    -4,    -4,    -4,    -4,    -4,    -4,    -4,    -4,    -4,
-      -4,    -4,    -4,    -4,    -4
+      -4,    -4,    -4,    -4,    -4,    -4
   };
 
   const signed char
   parser::yydefact_[] =
   {
        3,     0,     2,     1,     5,     6,     7,     8,     9,    10,
-      11,    12,    13,    14,    15,    16,    17,    18,    19,    20,
-      21,    22,    23,    24,     4
+      11,    13,    14,    15,    16,    17,    18,    19,    20,    12,
+      21,    22,    23,    24,    25,     4
   };
 
   const signed char
@@ -1269,7 +1286,7 @@ namespace yy {
   const signed char
   parser::yydefgoto_[] =
   {
-      -1,     1,     2,    24
+      -1,     1,     2,    25
   };
 
   const signed char
@@ -1277,7 +1294,7 @@ namespace yy {
   {
        4,     5,     6,     7,     8,     9,     3,    10,    11,    12,
       13,    14,    15,    16,    17,    18,    19,    20,    21,    22,
-      23
+      23,    24
   };
 
   const signed char
@@ -1285,23 +1302,23 @@ namespace yy {
   {
        3,     4,     5,     6,     7,     8,     0,    10,    11,    12,
       13,    14,    15,    16,    17,    18,    19,    20,    21,    22,
-      23
+      23,    24
   };
 
   const signed char
   parser::yystos_[] =
   {
-       0,    25,    26,     0,     3,     4,     5,     6,     7,     8,
+       0,    26,    27,     0,     3,     4,     5,     6,     7,     8,
       10,    11,    12,    13,    14,    15,    16,    17,    18,    19,
-      20,    21,    22,    23,    27
+      20,    21,    22,    23,    24,    28
   };
 
   const signed char
   parser::yyr1_[] =
   {
-       0,    24,    25,    26,    26,    27,    27,    27,    27,    27,
-      27,    27,    27,    27,    27,    27,    27,    27,    27,    27,
-      27,    27,    27,    27,    27
+       0,    25,    26,    27,    27,    28,    28,    28,    28,    28,
+      28,    28,    28,    28,    28,    28,    28,    28,    28,    28,
+      28,    28,    28,    28,    28,    28
   };
 
   const signed char
@@ -1309,7 +1326,7 @@ namespace yy {
   {
        0,     2,     1,     0,     2,     1,     1,     1,     1,     1,
        1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1
+       1,     1,     1,     1,     1,     1
   };
 
 
@@ -1323,19 +1340,19 @@ namespace yy {
   "\"letra\"", "\"digito\"", "\"tipo\"", "\"operacion\"", "\"valencia\"",
   "\"elemen\"", "\"enlace\"", "\"id\"", "\"idcont\"", "\"sentencias\"",
   "\"sentencia\"", "\"modelo_molecular\"", "\"compuesto\"",
-  "\"compuestos\"", "\"elemento\"", "\"elemento_quimico\"",
-  "\"grupo_funcional\"", "\"grupo_funcional_inferior\"",
-  "\"grupo_funcional_superior\"", "\"modelo_grupo_funcional\"", "$accept",
-  "unit", "exps", "exp", YY_NULLPTR
+  "\"compuestos\"", "\"elemento\"", "\"palabra_reservada\"",
+  "\"elemento_quimico\"", "\"grupo_funcional\"",
+  "\"grupo_funcional_inferior\"", "\"grupo_funcional_superior\"",
+  "\"modelo_grupo_funcional\"", "$accept", "unit", "exps", "exp", YY_NULLPTR
   };
 
 #if YYDEBUG
   const signed char
   parser::yyrline_[] =
   {
-       0,    59,    59,    61,    61,    66,    67,    68,    69,    70,
-      71,    72,    73,    74,    75,    76,    77,    78,    79,    80,
-      81,    82,    83,    84,    85
+       0,    60,    60,    62,    62,    67,    68,    69,    70,    71,
+      72,    73,    74,    75,    76,    77,    78,    79,    80,    81,
+      82,    83,    84,    85,    86,    87
   };
 
   // Print the state stack on the debug stream.
@@ -1369,9 +1386,9 @@ namespace yy {
 
 
 } // yy
-#line 1373 "parser.cc"
+#line 1390 "parser.cc"
 
-#line 86 "parser.yy"
+#line 88 "parser.yy"
 
 
 void

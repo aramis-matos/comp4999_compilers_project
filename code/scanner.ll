@@ -88,12 +88,20 @@ blank [ \t]
 [\n]+      loc.lines (yyleng); loc.step ();
 
 
+{SENTENCIAS} {
+	format_output("SENTENCIAS",yytext,loc);
+	return yy::parser::make_SENTENCIAS(yytext,loc);
+}
+{SENTENCIA} {
+	format_output("SENTENCIA",yytext,loc);
+	return yy::parser::make_SENTENCIA(yytext,loc);
+}
 {FIN_DE_LINEA} {
 	format_output("FIN_DE_LINEA",yytext,loc);
 	return yy::parser::make_FIN_DE_LINEA(yytext,loc);
 }
 {VALENCIA} {
-  	long n = std::stol(yytext);
+  long n = std::stol(yytext);
 	format_output("VALENCIA",yytext,loc);
 	return yy::parser::make_VALENCIA(n,loc);
 }
@@ -151,21 +159,20 @@ blank [ \t]
 	format_output("LETRA",yytext,loc);
 	return yy::parser::make_LETRA(yytext,loc);
 }
-{ID} {
+{ID} {	
+  std::string text(yytext);
+  if (drv.variables.find(text) != drv.variables.end() && drv.variables[text] == "") {
+    if (drv.variables[text] == "") {
+      format_output("PALABRA_RESERVADA",yytext,loc);
+      return yy::parser::make_PALABRA_RESERVADA (yytext,loc);
+    }
+  }
 	format_output("ID",yytext,loc);
-	return yy::parser::make_ID(yytext,loc);
+	return yy::parser::make_ID(text,loc);
 }
 {IDCONT} {
 	format_output("IDCONT",yytext,loc);
 	return yy::parser::make_IDCONT(yytext,loc);
-}
-{SENTENCIAS} {
-	format_output("SENTENCIAS",yytext,loc);
-	return yy::parser::make_SENTENCIAS(yytext,loc);
-}
-{SENTENCIA} {
-	format_output("SENTENCIA",yytext,loc);
-	return yy::parser::make_SENTENCIA(yytext,loc);
 }
 
 
