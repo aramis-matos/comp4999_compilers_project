@@ -11,7 +11,7 @@ all: avismo
 	$(BISON) $(BISONFLAGS) -o $*.cc $<
 
 %.cc: %.ll
-	$(FLEX) $(FLEXFLAGS) -o$@ $<
+	$(FLEX) $(FLEXFLAGS) -Ca -o $@ $<
 
 %.o: %.cc
 	$(CXX) $(CXXFLAGS) -c -o$@ $<

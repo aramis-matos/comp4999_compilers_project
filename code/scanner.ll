@@ -46,27 +46,28 @@ IDCONT [A-Za-z0-9]+
 
 ID [A-Za-z]|{LETRA}{IDCONT}
 
-SENTENCIAS ({SENTENCIA}{FIN_DE_LINEA}{SENTENCIAS}|{SENTENCIA}{FIN_DE_LINEA})
-
-SENTENCIA ("defina"{ID}"como"{TIPO}|{ID}"="{MODELO_MOLECULAR}|{OPERACION}"("{ID}")")
-
-MODELO_MOLECULAR ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn"|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{ELEMENTO}|{COMPUESTO}{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{COMPUESTO}{COMPUESTOS})
-
-COMPUESTO ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn"|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{ELEMENTO}{GRUPO_FUNCIONAL}{ENLACE}|{ELEMENTO}{ENLACE})
-
-COMPUESTOS {COMPUESTO}{COMPUESTOS}|{COMPUESTO}
-
-ELEMENTO ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn"|{ELEMENTO_QUIMICO}{VALENCIA})
-
 ELEMENTO_QUIMICO ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn")
+
+MODELO_MOLECULAR ({ELEMENTO_QUIMICO}|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{ELEMENTO}|{COMPUESTO}{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{COMPUESTO}{COMPUESTOS})
+
+COMPUESTO ({ELEMENTO_QUIMICO}|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{ELEMENTO}{GRUPO_FUNCIONAL}{ENLACE}|{ELEMENTO}{ENLACE})
+
+COMPUESTOS {COMPUESTO}+
+
+ELEMENTO ({ELEMENTO_QUIMICO}|{ELEMENTO_QUIMICO}{VALENCIA})
+
 
 GRUPO_FUNCIONAL ({GRUPO_FUNCIONAL_INFERIOR}{GRUPO_FUNCIONAL_SUPERIOR}|{GRUPO_FUNCIONAL_SUPERIOR}{GRUPO_FUNCIONAL_INFERIOR}|"("{MODELO_GRUPO_FUNCIONAL}")"|"["{MODELO_GRUPO_FUNCIONAL}"]")
 
-GRUPO_FUNCIONAL_INFERIOR("["{MODELO_GRUPO_FUNCIONAL}"]")
+GRUPO_FUNCIONAL_INFERIOR ("["{MODELO_GRUPO_FUNCIONAL}"]")
 
-GRUPO_FUNCIONAL_SUPERIOR("("{MODELO_GRUPO_FUNCIONAL}")")
+GRUPO_FUNCIONAL_SUPERIOR ("("{MODELO_GRUPO_FUNCIONAL}")")
 
-MODELO_GRUPO_FUNCIONAL ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn"|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{ELEMENTO}{COMPUESTO}{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{COMPUESTO}{COMPUESTOS})
+MODELO_GRUPO_FUNCIONAL ({ELEMENTO_QUIMICO}|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{ELEMENTO}{COMPUESTO}{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{COMPUESTO}{COMPUESTOS})
+
+SENTENCIA ("defina"{ID}"como"{TIPO}|{ID}"="{MODELO_MOLECULAR}|{OPERACION}"("{ID}")")
+
+SENTENCIAS ({SENTENCIA}{FIN_DE_LINEA})+
 
 blank [ \t]
 %{
@@ -130,13 +131,13 @@ blank [ \t]
 	format_output("IDCONT",yytext,loc);
 	return yy::parser::make_IDCONT(yytext,loc);
 }
-{SENTENCIAS} {
-	format_output("SENTENCIAS",yytext,loc);
-	return yy::parser::make_SENTENCIAS(yytext,loc);
+{ELEMENTO_QUIMICO} {
+	format_output("ELEMENTO_QUIMICO",yytext,loc);
+	return yy::parser::make_ELEMENTO_QUIMICO(yytext,loc);
 }
-{SENTENCIA} {
-	format_output("SENTENCIA",yytext,loc);
-	return yy::parser::make_SENTENCIA(yytext,loc);
+{ELEMENTO} {
+	format_output("ELEMENTO",yytext,loc);
+	return yy::parser::make_ELEMENTO(yytext,loc);
 }
 {MODELO_MOLECULAR} {
 	format_output("MODELO_MOLECULAR",yytext,loc);
@@ -146,21 +147,13 @@ blank [ \t]
 	format_output("COMPUESTO",yytext,loc);
 	return yy::parser::make_COMPUESTO(yytext,loc);
 }
-{COMPUESTOS} {
-	format_output("COMPUESTOS",yytext,loc);
-	return yy::parser::make_COMPUESTOS(yytext,loc);
-}
-{ELEMENTO} {
-	format_output("ELEMENTO",yytext,loc);
-	return yy::parser::make_ELEMENTO(yytext,loc);
-}
-{ELEMENTO_QUIMICO} {
-	format_output("ELEMENTO_QUIMICO",yytext,loc);
-	return yy::parser::make_ELEMENTO_QUIMICO(yytext,loc);
-}
 {GRUPO_FUNCIONAL} {
 	format_output("GRUPO_FUNCIONAL",yytext,loc);
 	return yy::parser::make_GRUPO_FUNCIONAL(yytext,loc);
+}
+{COMPUESTOS} {
+	format_output("COMPUESTOS",yytext,loc);
+	return yy::parser::make_COMPUESTOS(yytext,loc);
 }
 {GRUPO_FUNCIONAL_INFERIOR} {
 	format_output("GRUPO_FUNCIONAL_INFERIOR",yytext,loc);
@@ -173,6 +166,14 @@ blank [ \t]
 {MODELO_GRUPO_FUNCIONAL} {
 	format_output("MODELO_GRUPO_FUNCIONAL",yytext,loc);
 	return yy::parser::make_MODELO_GRUPO_FUNCIONAL(yytext,loc);
+}
+{SENTENCIAS} {
+	format_output("SENTENCIAS",yytext,loc);
+	return yy::parser::make_SENTENCIAS(yytext,loc);
+}
+{SENTENCIA} {
+	format_output("SENTENCIA",yytext,loc);
+	return yy::parser::make_SENTENCIA(yytext,loc);
 }
 
 
