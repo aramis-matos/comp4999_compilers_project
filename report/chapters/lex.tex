@@ -7,23 +7,40 @@
     \item <ID> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | <LETRA> <IDCONT>
     \item <IDCONT> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | <LETRA> <IDCONT> | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | <DIGITO> <IDCONT>
     \item <LETRA> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+    \item <DIGITO> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+    \item <TIPO> ::= "modelo"
+    \item <OPERACION> ::= "graficar2d" |"graficar3d" | "pesomolecular"
+    \item <MODELO\_MOLECULAR> ::= "H" | "Li" | "Na" | "K" | "Rb" | "Cs" | "Fr" | "Be" | "Mg" | "Ca" | "Sr" | "Ba" | "Ra" | "Sc" | "Y" | "Ti" | "Zr" | "Hf" | "Db" | "V" | "Nb" | "Ta" | "Ji" | "Cr" | "Mo" | "W" | "Rf" | "Mn" | "Tc" | "Re" | "Bh" | "Fe" | "Ru" | "Os" | "Hn" | "Co" | "Rh" | "Ir" | "Mt" | "Ni" | "Pd" | "Pt" | "Cu" | "Ag" | "Au" | "Zn" | "Cd" | "Hg" | "B" | "Al" | "Ga" | "In" | "Ti" | "C" | "Si" | "Ge" | "Sn" | "Pb" | "N" | "P" | "As" | "Sb" | "Bi" | "O" | "S" | "Se" | "Te" | "Po" | "F" | "Cr" | "Br" | "I" | "At" | "He" | "Ne" | "Ar" | "Kr" | "Xe" | "Rn" | <ELEMENTO\_QUIMICO> <VALENCIA> | <ELEMENTO> <GRUPO\_FUNCIONAL> | <COMPUESTO> <ELEMENTO> <GRUPO\_FUNCIONAL> | <COMPUESTO> <COMPUESTO>
+    \item <COMPUESTO> ::= "H" | "Li" | "Na" | "K" | "Rb" | "Cs" | "Fr" | "Be" | "Mg" | "Ca" | "Sr" | "Ba" | "Ra" | "Sc" | "Y" | "Ti" | "Zr" | "Hf" | "Db" | "V" | "Nb" | "Ta" | "Ji" | "Cr" | "Mo" | "W" | "Rf" | "Mn" | "Tc" | "Re" | "Bh" | "Fe" | "Ru" | "Os" | "Hn" | "Co" | "Rh" | "Ir" | "Mt" | "Ni" | "Pd" | "Pt" | "Cu" | "Ag" | "Au" | "Zn" | "Cd" | "Hg" | "B" | "Al" | "Ga" | "In" | "Ti" | "C" | "Si" | "Ge" | "Sn" | "Pb" | "N" | "P" | "As" | "Sb" | "Bi" | "O" | "S" | "Se" | "Te" | "Po" | "F" | "Cr" | "Br" | "I" | "At" | "He" | "Ne" | "Ar" | "Kr" | "Xe" | "Rn" | <ELEMENTO\_QUIMICO> <VALENCIA> | <ELEMENTO> <GRUPO\_FUNCIONAL> | <ELEMENTO> <GRUPO\_FUNCIONAL> <ENLACE> | <ELEMENTO> <ENLACE>
+    \item <COMPUESTOS> ::= <COMPUESTO> <COMPUESTO> | <COMPUESTOS>
+    \item <ELEMENTO> ::= "H" | "Li" | "Na" | "K" | "Rb" | "Cs" | "Fr" | "Be" | "Mg" | "Ca" | "Sr" | "Ba" | "Ra" | "Sc" | "Y" | "Ti" | "Zr" | "Hf" | "Db" | "V" | "Nb" | "Ta" | "Ji" | "Cr" | "Mo" | "W" | "Rf" | "Mn" | "Tc" | "Re" | "Bh" | "Fe" | "Ru" | "Os" | "Hn" | "Co" | "Rh" | "Ir" | "Mt" | "Ni" | "Pd" | "Pt" | "Cu" | "Ag" | "Au" | "Zn" | "Cd" | "Hg" | "B" | "Al" | "Ga" | "In" | "Ti" | "C" | "Si" | "Ge" | "Sn" | "Pb" | "N" | "P" | "As" | "Sb" | "Bi" | "O" | "S" | "Se" | "Te" | "Po" | "F" | "Cr" | "Br" | "I" | "At" | "He" | "Ne" | "Ar" | "Kr" | "Xe" | "Rn" | <ELEMENTO\_QUIMICO> <VALENCIA>
+    \item <ELEMENTO\_QUIMICO> ::= "H" | "Li" | "Na" | "K" | "Rb" | "Cs" | "Fr" | "Be" | "Mg" | "Ca" | "Sr" | "Ba" | "Ra" | "Sc" | "Y" | "Ti" | "Zr" | "Hf" | "Db" | "V" | "Nb" | "Ta" | "Ji" | "Cr" | "Mo" | "W" | "Rf" | "Mn" | "Tc" | "Re" | "Bh" | "Fe" | "Ru" | "Os" | "Hn" | "Co" | "Rh" | "Ir" | "Mt" | "Ni" | "Pd" | "Pt" | "Cu" | "Ag" | "Au" | "Zn" | "Cd" | "Hg" | "B" | "Al" | "Ga" | "In" | "Ti" | "C" | "Si" | "Ge" | "Sn" | "Pb" | "N" | "P" | "As" | "Sb" | "Bi" | "O" | "S" | "Se" | "Te" | "Po" | "F" | "Cr" | "Br" | "I" | "At" | "He" | "Ne" | "Ar" | "Kr" | "Xe" | "Rn"
+    \item <VALENCIA> ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+    \item <GRUPO\_FUNCIONAL> ::=
+          <GRUPO\_FUNCIONAL\_INFERIOR>
+
+          <GRUPO\_FUNCIONAL\_SUPERIOR> | <GRUPO\_FUNCIONAL\_SUPERIOR> <GRUPO\_FUNCIONAL\_INFERIOR> | "(" <MODELO\_GRUPO\_FUNCIONAL> ")" | "["  <MODELO\_GRUPO\_FUNCIONAL> "]"
+    \item <GRUPO\_FUNCIONAL\_SUPERIOR> ::= "[" <MODELO\_GRUPO\_FUNCIONAL> "]"
+    \item <GRUPO\_FUNCIONAL\_INFERIOR> ::= "(" <MODELO\_GRUYPO\_FUNCIONAL> ")
+    \item  <MODELO\_GRUYPO\_FUNCIONAL> ::= <ENLACE> <MODELO\_MOLECULAR> | "H" | "Li" | "Na" | "K" | "Rb" | "Cs" | "Fr" | "Be" | "Mg" | "Ca" | "Sr" | "Ba" | "Ra" | "Sc" | "Y" | "Ti" | "Zr" | "Hf" | "Db" | "V" | "Nb" | "Ta" | "Ji" | "Cr" | "Mo" | "W" | "Rf" | "Mn" | "Tc" | "Re" | "Bh" | "Fe" | "Ru" | "Os" | "Hn" | "Co" | "Rh" | "Ir" | "Mt" | "Ni" | "Pd" | "Pt" | "Cu" | "Ag" | "Au" | "Zn" | "Cd" | "Hg" | "B" | "Al" | "Ga" | "In" | "Ti" | "C" | "Si" | "Ge" | "Sn" | "Pb" | "N" | "P" | "As" | "Sb" | "Bi" | "O" | "S" | "Se" | "Te" | "Po" | "F" | "Cr" | "Br" | "I" | "At" | "He" | "Ne" | "Ar" | "Kr" | "Xe" | "Rn" | <ELEMENTO\_QUIMICO> <VALENCIA> | <ELEMENTO> <GRUPO\_FUNCIONAL> | <COMPUESTO> <ELEMENTO> | <COMPUESTO> <COMPUESTO> <COMPUESTOS>
 \end{itemize}
-
-\section{Especificación del Analizador Léxico}
-
 
 \begin{table}[H]
     \footnotesize
-    \begin{tabularx}{\linewidth}{|X|X|X|}
+    \begin{longtable}{| p{.25\textwidth} | p{.25\textwidth} | p{0.25\textwidth} | p{0.25\textwidth} |}
         \hline
-        \textit{Token}       & Patrón                                                                    & Atributos                                         \\\hline
-        <FIN\_DE\_LINEA>     & ; | :                                                                     & Indica fin de Línea                               \\\hline
-        <PALABRA\_RESERVADA> & defina | como                                                             & Indica declaración de una variable                \\\hline
-        <ID>                 & [A-Za-z] | <LETRA> <IDCONT>                                               & Apuntador a la tabla de símbolos                  \\\hline
-        <IDCONT>             & \textit{[A-Za-z]} | <LETRA> <IDCONT> | \textit{[0-9]} | <DIGITO> <IDCONT> & Permite que los identificadores contengan números \\\hline
-        <ID>                 & [A-Za-z] | <LETRA> <IDCONT>                                               & Indica declaración de una variable                \\\hline
-        <LETRA>              & [A-Za-z]                                                                  & Provee un terminal para <ID> y <IDCONT>           \\\hline
-    \end{tabularx}
+        \textit{Token}        & Patrón                                  & Lexema        & Atributos                                         \\\hline
+        <FIN\_DE\_LINEA>      & ; | :                                   & :             & Indica fin de Línea                               \\\hline
+        <PALABRA \_RESERVADA> & defina | como                           & defina        & Indica declaración de una variable                \\\hline
+        <ID>                  & [A-Za-z][A-Za-z0-9]*                    & var1          & Apuntador a la tabla de símbolos                  \\\hline
+        <IDCONT>              & \textit{[A-Za-z0-9]+}                   & 1ar           & Permite que los identificadores contengan números \\\hline
+        <LETRA>               & [A-Za-z]                                & a             & Provee un terminal para <ID> y <IDCONT>           \\\hline
+        <DIGITO>              & [0-9]                                   & 7             & Valor numérico, lexema asociado                   \\\hline
+        <TIPO>                & modelo                                  & modelo        & ID asociado                                       \\\hline
+        <OPERACION>           & graficar2d | graficar3d | pesomolecular & pesomolecular & ID asociado                                       \\\hline
+        %<MODELO \_MOLECULAR> & (H | Li | Na | K | Rb | Cs | Fr | Be | Mg | Ca | Sr | Ba | Ra | Sc | Y | Ti | Zr | Hf | Db | V | Nb | Ta | Ji | Cr | Mo | W | Rf | Mn | Tc | Re | Bh | Fe | Ru | Os | Hn | Co | Rh | Ir | Mt | Ni | Pd | Pt | Cu | Ag | Au | Zn | Cd | Hg | B | Al | Ga | In | Ti | C | Si | Ge | Sn | Pb | N | P | As | Sb | Bi | O | S | Se | Te | Po | F | Cr | Br | I | At | He | Ne | Ar | Kr | Xe | Rn)[1-9]? | (H | Li | Na | K | Rb | Cs | Fr | Be | Mg | Ca | Sr | Ba | Ra | Sc | Y | Ti | Zr | Hf | Db | V | Nb | Ta | Ji | Cr | Mo | W | Rf | Mn | Tc | Re | Bh | Fe | Ru | Os | Hn | Co | Rh | Ir | Mt | Ni | Pd | Pt | Cu | Ag | Au | Zn | Cd | Hg | B | Al | Ga | In | Ti | C | Si | Ge | Sn | Pb | N | P | As | Sb | Bi | O | S | Se | Te | Po | F | Cr | Br | I | At | He | Ne | Ar | Kr | Xe | Rn)[1-9]+ & CH3(CH3)CHH & ID asociado \\\hline
+ 
+    \end{longtable}
     \label{table: lexTable}
     \caption{Definición Léxica del Lenguaje AVISMO}
 \end{table}
@@ -94,18 +111,17 @@
                 \node [state, initial] (q0) {$0$};
                 \node [state, accepting] [right=of q0] (q1) {$1$};
                 \node [state] [below=of q1] (q2) {$2$};
-                \node [state, accepting] [below=of q2] (q3) {$3$};
                 \node [state, accepting] [above left=of q0] (q4) {$4$};
                 \node [state] [below left=of q0] (q5) {$5$};
 
 
                 \path[-stealth, thick]
                 (q0) edge node {[A-Za-z]} (q1)
-                (q0) edge node {<LETRA>} (q2)
-                (q2) edge node [left] {<IDCONT>} (q3)
+                (q0) edge node [left] {<LETRA>} (q2)
+                (q2) edge [bend right] node [right]{<IDCONT>} (q0)
                 (q0) edge [bend right] node[right] {[0-9]} (q4)
                 (q0) edge [bend right] node [left] {<DIGITO>} (q5)
-                (q5.east) edge [bend right] node [below right] {<IDCONT>} (q0);
+                (q5.east) edge [bend right] node [below] {<IDCONT>} (q0);
 
 
             \end{tikzpicture}
@@ -145,22 +161,48 @@
     \end{minipage}
 \end{figure}
 
+\begin{center}
+    \begin{figure}[H]
+        \footnotesize
+        \begin{mdframed}
+            \begin{tikzpicture}[node distance = 0cm, on grid ,auto]
+                \node [state,initial] (q0) {$0$};
+                \node [state,accepting] [right=of q1] (q1) {$1$};
+
+                \path[-stealth,thick]
+                (q0) edge node {[0-9]} (q1);
+            \end{tikzpicture}
+        \end{mdframed}
+        \label{fig: digitoAutomata}
+        \caption{Automata del patrón para el token <DIGITO>}
+    \end{figure}
+\end{center}
+
 \subsection{Tabla de Símbolos}
 
-
 \begin{figure}[H]
-    \begin{mdframed}
-        \textnormal{var1} $\rightarrow \left\{\textbf{tipo}: \textit{str},\textbf{valor}:\textit{"chungus",\textbf{esMutable} : false}\right\}$
+    \begin{tikzpicture}[
+            node distance=2cm and 3cm,
+            ID/.style={rectangle, rounded corners, draw=black, thick, minimum size=10mm},
+            ATT/.style={rectangle, rounded corners, draw=red!60, thick, minimum size=10mm},
+        ]
+        \draw node at (0,1.6)   {Identificador};
+        \draw node at (7.5, 1.6)  {Atributo};
 
-        \textnormal{Big} $\rightarrow \left\{\textbf{tipo}: \textit{int},\textbf{valor}:\textit{"12",\textbf{esMutable} : false}\right\}$
-        \begin{center}
-            $\vdots$
-        \end{center}
-        
-        \textit{Identificador}  $\rightarrow \textbf{Atributos de Identificador}$
-    \end{mdframed}
-    \label{fig: symbolTableStruct}
-    \caption{Estructura de la Tabla de Símbolos, un Diccionario}
+        \node[ID]   (var1)                  {var1};
+        \node[ID]   (Big)   [below=of var1] {Big};
+
+        \node[ATT]  (str1)  [right=of var1]  {str, val:"chungus", esMutable:false};
+        \node[ATT]  (int1)  [right=of Big]   {int, val:"12",      esMutable:false};
+
+        \draw[->, very thick] (var1.east) to (str1.west);
+        \draw[->, very thick] (Big.east) to (int1.west);
+
+        \node[draw=black, thick, fit={(var1) (Big)}, inner sep=10pt] (box) {};
+        \node[draw=black, thick, fit={(str1) (int1)}, inner sep=10pt] (box) {};
+    \end{tikzpicture}
+    \label{fig: tablaDeSimbolos}
+    \caption{Tabla de símbolos implementada como un diccionario}
 \end{figure}
 
 \section{Implementación del Analizador Léxico}
