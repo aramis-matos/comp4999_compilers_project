@@ -24,26 +24,29 @@
     \item <GRUPO\_FUNCIONAL\_INFERIOR> ::= "(" <MODELO\_GRUYPO\_FUNCIONAL> ")
     \item  <MODELO\_GRUYPO\_FUNCIONAL> ::= <ENLACE> <MODELO\_MOLECULAR> | "H" | "Li" | "Na" | "K" | "Rb" | "Cs" | "Fr" | "Be" | "Mg" | "Ca" | "Sr" | "Ba" | "Ra" | "Sc" | "Y" | "Ti" | "Zr" | "Hf" | "Db" | "V" | "Nb" | "Ta" | "Ji" | "Cr" | "Mo" | "W" | "Rf" | "Mn" | "Tc" | "Re" | "Bh" | "Fe" | "Ru" | "Os" | "Hn" | "Co" | "Rh" | "Ir" | "Mt" | "Ni" | "Pd" | "Pt" | "Cu" | "Ag" | "Au" | "Zn" | "Cd" | "Hg" | "B" | "Al" | "Ga" | "In" | "Ti" | "C" | "Si" | "Ge" | "Sn" | "Pb" | "N" | "P" | "As" | "Sb" | "Bi" | "O" | "S" | "Se" | "Te" | "Po" | "F" | "Cr" | "Br" | "I" | "At" | "He" | "Ne" | "Ar" | "Kr" | "Xe" | "Rn" | <ELEMENTO\_QUIMICO> <VALENCIA> | <ELEMENTO> <GRUPO\_FUNCIONAL> | <COMPUESTO> <ELEMENTO> | <COMPUESTO> <COMPUESTO> <COMPUESTOS>
 \end{itemize}
+\vspace{1cm}
+En la tabla \ref{table:lexTable}, en la columna de de patrones, note que cuando dice $\left\{\textit{TOKEN}\right\}$ donde \textit{TOKEN} de refiere a el patrón asociado a \textit{token}.
+Por ejemplo, si un patrón dice $\left\{\textit{ELEMENTO\_QUIMICO}\right\}$, esto significa que inserta el patrón asociado al \textit{token} \textit{ELEMENTO\_QUIMICO}.
+Esto no significa que el analizador léxico espera un \textit{token} de por si, sencillamente se hizo con el propósito de evitar redundancias. 
+\newpage
 
-\begin{table}[H]
-    \footnotesize
-    \begin{longtable}{| p{.25\textwidth} | p{.25\textwidth} | p{0.25\textwidth} | p{0.25\textwidth} |}
-        \hline
-        \textit{Token}        & Patrón                                  & Lexema        & Atributos                                         \\\hline
-        <FIN\_DE\_LINEA>      & ; | :                                   & :             & Indica fin de Línea                               \\\hline
-        <PALABRA \_RESERVADA> & defina | como                           & defina        & Indica declaración de una variable                \\\hline
-        <ID>                  & [A-Za-z][A-Za-z0-9]*                    & var1          & Apuntador a la tabla de símbolos                  \\\hline
-        <IDCONT>              & \textit{[A-Za-z0-9]+}                   & 1ar           & Permite que los identificadores contengan números \\\hline
-        <LETRA>               & [A-Za-z]                                & a             & Provee un terminal para <ID> y <IDCONT>           \\\hline
-        <DIGITO>              & [0-9]                                   & 7             & Valor numérico, lexema asociado                   \\\hline
-        <TIPO>                & modelo                                  & modelo        & ID asociado                                       \\\hline
-        <OPERACION>           & graficar2d | graficar3d | pesomolecular & pesomolecular & ID asociado                                       \\\hline
-        %<MODELO \_MOLECULAR> & (H | Li | Na | K | Rb | Cs | Fr | Be | Mg | Ca | Sr | Ba | Ra | Sc | Y | Ti | Zr | Hf | Db | V | Nb | Ta | Ji | Cr | Mo | W | Rf | Mn | Tc | Re | Bh | Fe | Ru | Os | Hn | Co | Rh | Ir | Mt | Ni | Pd | Pt | Cu | Ag | Au | Zn | Cd | Hg | B | Al | Ga | In | Ti | C | Si | Ge | Sn | Pb | N | P | As | Sb | Bi | O | S | Se | Te | Po | F | Cr | Br | I | At | He | Ne | Ar | Kr | Xe | Rn)[1-9]? | (H | Li | Na | K | Rb | Cs | Fr | Be | Mg | Ca | Sr | Ba | Ra | Sc | Y | Ti | Zr | Hf | Db | V | Nb | Ta | Ji | Cr | Mo | W | Rf | Mn | Tc | Re | Bh | Fe | Ru | Os | Hn | Co | Rh | Ir | Mt | Ni | Pd | Pt | Cu | Ag | Au | Zn | Cd | Hg | B | Al | Ga | In | Ti | C | Si | Ge | Sn | Pb | N | P | As | Sb | Bi | O | S | Se | Te | Po | F | Cr | Br | I | At | He | Ne | Ar | Kr | Xe | Rn)[1-9]+ & CH3(CH3)CHH & ID asociado \\\hline
- 
-    \end{longtable}
-    \label{table: lexTable}
+\footnotesize
+\begin{longtable}{| p{.25\textwidth} | p{.25\textwidth} | p{0.25\textwidth} | p{0.25\textwidth} |}
+    \hline
+    \textit{Token}        & Patrón                                  & Lexema        & Atributos                                         \\\hline
+    <FIN\_DE\_LINEA>      & ; | :                                   & :             & Indica fin de Línea                               \\\hline
+    <PALABRA \_RESERVADA> & defina | como                           & defina        & Indica declaración de una variable                \\\hline
+    <ID>                  & [A-Za-z][A-Za-z0-9]*                    & var1          & Apuntador a la tabla de símbolos                  \\\hline
+    <IDCONT>              & \textit{[A-Za-z0-9]+}                   & 1ar           & Permite que los identificadores contengan números \\\hline
+    <LETRA>               & [A-Za-z]                                & a             & Provee un terminal para <ID> y <IDCONT>           \\\hline
+    <DIGITO>              & [0-9]                                   & 7             & Valor numérico, lexema asociado                   \\\hline
+    <TIPO>                & modelo                                  & modelo        & ID asociado                                       \\\hline
+    <OPERACION>           & graficar2d | graficar3d | pesomolecular & pesomolecular & ID asociado                                       \\\hline
+    <MODELO \_MOLECULAR> & (\{ELEMENTO \_QUIMICO\} | \{ELEMENTO \_QUIMICO\} \{VALENCIA\} | \{ELEMENTO\} \{GRUPO \_FUNCIONAL\} | \{ELEMENTO\} \{GRUPO \_FUNCIONAL\}\{ENLACE\} | \{ELEMENTO\} \{ENLACE\}) & CH3(CH3)CHH & ID asociado \\\hline
+
     \caption{Definición Léxica del Lenguaje AVISMO}
-\end{table}
+    \label{table:lexTable}
+\end{longtable}
 
 \section{Diseño del del Analizador Léxico}
 
