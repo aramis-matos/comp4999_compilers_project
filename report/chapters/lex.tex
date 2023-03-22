@@ -220,3 +220,112 @@ Esto no significa que el analizador léxico espera un \textit{token} de por si, 
 \end{figure}
 
 \section{Implementación del Analizador Léxico}
+
+
+Como se menciona en la introducción de este proyecto, se toma la implementación lexica y sintáctica del proyecto mediante la implementación de Calc++ por bwasti 
+\cite{wasti_bwastibison-example-calc-_2020}, por lo que se maneja el programa como una caja negra. Se añade edito al programa ejemplar que existia en este
+repositorio (como cambiar la gramatica por la de AVISMO) pero dejandonos llevar del ejemplo original.
+
+Es importante comenzar con que AVISMO siempre tiene que empezar ejecutando el comando \textit{MAKE CLEAN}, debido a que se tiene que crear el ejecutable del
+programa. Esto entonces creara todas las dependencias necesarias dentro del programa, compilando Bison y Flex (con todos los .cc, .hh y .ll files) y 
+complila todos los programas objetos (.o) que se crean para el programa driver (encargado de abrir archivos input e instanciar el analizador), parser y scanner. 
+Posterior a esto es que se puede ejecutar \textit{$$./avismo fileName.txt$$} el cual para nuestro caso seria el siguiente: \textit{$$./avismo test_prog.txt$$}
+
+Incurriendo esto, el programa entonces se encargara de leer \textbf{cada caracter} del programa e identificar si en el programa existen símbolos, identificadores, o
+palabras reservadas de distintos tipos definidas en la gramatica. Se pasan por el programa intermediario \textit{driver.cc} el cual se encarga de abrir el archivo de
+palabras reservadas (\textit{keywords.txt}) y entra al proceso de analisis o "parsing". Aqui entonces verifica las definiciones de la gramatica, las cuales 
+determinan su tipo y los patrones de caracteres que se aceptaran y tokenizan. En nuestro caso, tenemos como ejemplo token <std::string> FIN\_DE\_LINEA "fin\_de\_linea" 
+donde se especifica que es un token tipo string el cual se denota como FIN\_DE\_LINEA (determina que ya la sentencia se acabo) fin\_de\_linea es cómo se identifica 
+en la expresión regular de cómo el programa se ejecuta.
+
+El programa mismo necesita un patrón lógico para su ejecución, el cual definimos en base a la gramatica cómo:
+
+
+\%\%
+
+
+\%start unit;
+
+
+unit: exps {};
+
+
+exps: \%empty | exps exp {};
+
+
+////assignment: "identificador" "="
+
+
+exp:
+"fin\_de\_linea" {}
+| "letra" {}
+| "digito" {}
+| "tipo" {}
+| "operacion" {}
+| "valencia" {}
+| "enlace" {}
+| "palabra\_reservada" {}
+| "id" {}
+| "idcont" {}
+| "sentencias" {}
+| "sentencia" {}
+| "modelo\_molecular" {}
+| "compuesto" {}
+| "compuestos" {}
+| "elemento" {}
+| "elemento\_quimico" {}
+| "grupo\_funcional" {}
+| "grupo\_funcional\_inferior" {}
+| "grupo\_funcional\_superior" {}
+| "modelo\_grupo\_funcional" {}\\
+\%\%
+
+\newpage
+El formato del programa debe seguir este patron donde se empieza con el axioma \textit{unit}, el cual esta compuesto por \textit{exps{}} (expresiones) el cual 
+se contiene a si mismo (definición recursiva) y a \textit{exp} (expresión), la cual esta compuesta por todos los tipos de tokens que podemos identificar 
+con el analizador léxico. Aqui entonces introducimos el scanner, el cual contiene los patrones que debe seguir cada uno de los tokens que previamente hemos definido.
+Es aqui donde definimos el formato del archivo de salida para presentar los lexemas que se tokenizaron o los errores devueltos:
+
+
+std::ofstream\ file("output.txt");\\
+\indent void format\_output (std::string token,const char* yytext, yy::location\& loc) \{\\
+\indent file << "(" << "<" << token << ">," << std::string(yytext) << "," << loc << ")" << std::endl;\\
+\indent\}
+
+Las definiciones que utilizamos para este archivo \textit{scanner.ll} son las mismas que fueron presentadas en la sección anterior 2.1 Gramatica del Lenguaje avismo 
+pero es en este archivo que damos la definición de qué cada función ejecutará una vez tenga estos lexemas que siguen el patrón establecido (tokenizados). Se utilizara 
+una variable llamada loc que contiene la referencia a memoria de la variable localización de la clase driver, el cual usaremos para retornar el valor de la linea en 
+donde encontramos un lexema dado. Tambien esta función devuelve tanto el nombre del token que se categoriza, y su valor como se envia al parser como yytext (contiene el valor del lexema); 
+todos estos valores como arguments para especificar el formato que queremos el archivo de salida (\textit{output.txt}):
+
+
+format\_output("SENTENCIAS",yytext,loc);
+
+
+Todas las definiciones (excepto \textbf{ID}) contienen la función de format\_output para la salida de nuestro programa y siempre devuelven una función que se 
+utilizara en el parser (que Flex y Bison se encargan en crear por nosotros) para crear una instancia del token.
+
+{SENTENCIAS} \{\\
+	\indent\indent format\_output("SENTENCIAS",yytext,loc);\\
+	\indent\indent return yy::parser::make\_SENTENCIAS(yytext,loc);\\
+    \indent \}
+
+En el caso de \textbf{ID}, hay que hacer una diferenciación entre si es una palabra reservada o si es un identificador, pues si no se pone una restricción el programa 
+no pudiera saber cual caso seria. Para eso se crea un archivo \textit{keywords.txt} el cual contiene estas palabras reservadas los cuales se cargan con el 
+programa driver. En el caso de que el valor del lexema que esta en "variables" en la clase de drv (driver, la cual contiene el lexema que se esta leyendo) resulta ser 
+el mismo valor que yytext (el cual contiene el lexema retornado del patrón reconocido) y cuyo texto se encuentra en la lista y su valor es vacio (se sabe por cómo se llena 
+las palabras a driver al momento de ejecutar el constructor), sabemos entonces que cumple con todos los requisitos de ser una palabra reservada en el contexto del programa.
+De no ser el caso, pues entonces no hay otra opción que ser un identificador.
+
+
+{ID} \{	
+  std::string text(yytext);
+  if (drv.variables.find(text) != drv.variables.end() \&\& drv.variables[text] == "") {
+    if (drv.variables[text] == "") {
+      format\_output("PALABRA\_RESERVADA",yytext,loc);
+      return yy::parser::make\_PALABRA\_RESERVADA (yytext,loc);
+    }
+  }
+	format\_output("ID",yytext,loc);
+	return yy::parser::make\_ID(text,loc);
+\}

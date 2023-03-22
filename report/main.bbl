@@ -1,0 +1,84 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+\APACcitebtitle {Bison - {{GNU Project}} - {{Free Software Foundation}}}}{%
+\APACcitebtitle {Bison - {{GNU Project}} - {{Free Software Foundation}}}}{%
+{\protect \APACyear {{\protect \bibnodate {}}}}%
+}]{%
+noauthor_bison_nodate}
+\APACinsertmetastar {%
+noauthor_bison_nodate}%
+\APACrefbtitle {Bison - {{GNU Project}} - {{Free Software Foundation}}.} {Bison
+  - {{GNU Project}} - {{Free Software Foundation}}.}
+\newblock
+\APACrefYearMonthDay{{\protect \bibnodate {}}}{}{}.
+\newblock
+\APAChowpublished {https://www.gnu.org/software/bison/}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+\APACcitebtitle {Flex - a Scanner Generator}}{%
+\APACcitebtitle {Flex - a Scanner Generator}}{%
+{\protect \APACyear {{\protect \bibnodate {}}}}%
+}]{%
+noauthor_flex_nodate}
+\APACinsertmetastar {%
+noauthor_flex_nodate}%
+\APACrefbtitle {Flex - a Scanner Generator.} {Flex - a scanner generator.}
+\newblock
+\APACrefYearMonthDay{{\protect \bibnodate {}}}{}{}.
+\newblock
+\APAChowpublished
+  {https://ftp.gnu.org/old-gnu/Manuals/flex-2.5.4/html\_mono/flex.html}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Narciso~Farias%
+, Rios%
+, Hidrobo%
+\BCBL {}\ \BBA {} Vicu{\~n}a%
+}{%
+Narciso~Farias%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2012}}%
+}]{%
+narciso_farias_gramatica_2012}
+\APACinsertmetastar {%
+narciso_farias_gramatica_2012}%
+\begin{APACrefauthors}%
+Narciso~Farias, F.%
+, Rios, A.%
+, Hidrobo, F.%
+\BCBL {}\ \BBA {} Vicu{\~n}a, O.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{{\APACmonth{05}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Una Gram\'atica Libre de Contexto Para El Lenguaje Del
+  Ambiente de Visualizaci\'on Molecular - {{AVISMO}}} {Una gram\'atica libre de
+  contexto para el lenguaje del ambiente de visualizaci\'on molecular -
+  {{AVISMO}}}.{\BBCQ}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wasti%
+}{%
+Wasti%
+}{%
+{\protect \APACyear {2020}}%
+}]{%
+wasti_bwastibison-example-calc-_2020}
+\APACinsertmetastar {%
+wasti_bwastibison-example-calc-_2020}%
+\begin{APACrefauthors}%
+Wasti, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2020}{{\APACmonth{06}}}{}.
+\newblock
+\APACrefbtitle {Bwasti/Bison-Example-Calc-.} {Bwasti/bison-example-calc-.}
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}
