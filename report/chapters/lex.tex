@@ -222,76 +222,83 @@ Esto no significa que el analizador léxico espera un \textit{token} de por si, 
 \section{Implementación del Analizador Léxico}
 
 
-Como se menciona en la introducción de este proyecto, se toma la implementación lexica y sintáctica del proyecto mediante la implementación de Calc++ por bwasti
-\cite{wasti_bwastibison-example-calc-_2020}, por lo que se maneja el programa como una caja negra. Se añade edito al programa ejemplar que existia en este
-repositorio (como cambiar la gramatica por la de AVISMO) pero dejandonos llevar del ejemplo original.
+Como se ha mencionado anteriormente, la implementación lexica del proyecto fue inspirada por la implementación de Calc++ por bwasti y adaptada para la gramática de AVISMO \cite{wasti_bwastibison-example-calc-_2020}. 
 
-Es importante comenzar con que AVISMO siempre tiene que empezar ejecutando el comando \textit{MAKE CLEAN}, debido a que se tiene que crear el ejecutable del
-programa. Esto entonces creara todas las dependencias necesarias dentro del programa, compilando Bison y Flex (con todos los .cc, .hh y .ll files) y
-complila todos los programas objetos (.o) que se crean para el programa driver (encargado de abrir archivos input e instanciar el analizador), parser y scanner.
-Posterior a esto es que se puede ejecutar \textit{$$./avismo fileName.txt$$} el cual para nuestro caso seria el siguiente: \textit{$$./avismo test_prog.txt$$}
+Para compilar el programa, primero que todo se tiene que ejecutar \textit{make clean} por la línea dentro del directorio \textit{code}, Esto se hace con el propósito de evitar errores de compilación.
+Entonces, se ejecuta el comando \textit{make}, estó compilará todas las dependencias necesarias, en particular, los archivos de contiene el léxico de Flex (con todos los archivos con extensión .cc, .hh y .ll).
+Además, el comando anterior compila todos los programas en código objeto (.o) que se crean para el programa \textit{driver} (el cual está encargado de abrir archivos de entrada e instanciar el analizador), parser y scanner.
+Posterior a esto es que se puede ejecutar \textit{./avismo fileName.txt} el cual para nuestro caso seria el siguiente: 
 
-Incurriendo esto, el programa entonces se encargara de leer \textbf{cada caracter} del programa e identificar si en el programa existen símbolos, identificadores, o
-palabras reservadas de distintos tipos definidas en la gramatica. Se pasan por el programa intermediario \textit{driver.cc} el cual se encarga de abrir el archivo de
-palabras reservadas (\textit{keywords.txt}) y entra al proceso de analisis o "parsing". Aqui entonces verifica las definiciones de la gramatica, las cuales
-determinan su tipo y los patrones de caracteres que se aceptaran y tokenizan. En nuestro caso, tenemos como ejemplo token <std::string> FIN\_DE\_LINEA "fin\_de\_linea"
-donde se especifica que es un token tipo string el cual se denota como FIN\_DE\_LINEA (determina que ya la sentencia se acabo) fin\_de\_linea es cómo se identifica
-en la expresión regular de cómo el programa se ejecuta.
+\begin{center}
+\textbf{\textit{./avismo test\_prog.txt}}
+\end{center}
 
-El programa mismo necesita un patrón lógico para su ejecución, el cual definimos en base a la gramatica cómo:
+Al ejecutarse el comando anterior, el programa se encargara de leer \textbf{cada caracter} del programa e identificar si una serie de caracteres sigue un patrón que forma parte del lenguaje AVISMO. Al encontrar un patrón reconocido, tales como un identificador o modelo molecular, lo clasica con un \textit{token} correspondiente, lo emprime en el archivo de \textit{output.txt} y lo devuelve al analizador sintáctico. Note, que el patrón de identificador reconoce a las palabra reservadas. Esto crea ambiguedad semántica debido a que la gramatica no tiene un mecanismo para diferenciar entre una palabra reservada y un identificador. Por esto, si una serie de caracteres si identifica como un lexema de categoría identificador, se compara con los valores dentro del diccionario \textit{variables}, el cual es un miembro de la clase \textit{driver}. Al inicializar un objeto \textit{driver}, cuyo constructor está localizado en \textit{driver.cc} este se encarga de abrir el archivo de
+palabras reservadas (\textit{keywords.txt}) y añadir las palabras reservadas antes que cualquier variable se pueda inicializar. Mas aún, a las palabras reservada se le asigna el valor de la cadena vacía. Esto se hace con el propósito de poder diferenciar entre palabras reservadas e identificadores, ya que al nivél sintáctico, no es posible asignarle a una identifcador una cadena vacía.
 
+%Aqui entonces verifica las definiciones de la gramatica, las cuales
+%determinan su tipo y los patrones de caracteres que se aceptaran y tokenizan. En nuestro caso, tenemos como ejemplo token <std::string> FIN\_DE\_LINEA "fin\_de\_linea"
+%donde se especifica que es un token tipo string el cual se denota como FIN\_DE\_LINEA (determina que ya la sentencia se acabo) fin\_de\_linea es cómo se identifica
+%en la expresión regular de cómo el programa se ejecuta.
 
-\%\%
-
-
-\%start unit;
+%El programa mismo necesita un patrón lógico para su ejecución, el cual definimos en base a la gramatica cómo:
 
 
-unit: exps {};
+%\%\%
 
 
-exps: \%empty | exps exp {};
+%\%start unit;
 
 
-////assignment: "identificador" "="
+%unit: exps {};
 
 
-exp:
-"fin\_de\_linea" {}
-| "letra" {}
-| "digito" {}
-| "tipo" {}
-| "operacion" {}
-| "valencia" {}
-| "enlace" {}
-| "palabra\_reservada" {}
-| "id" {}
-| "idcont" {}
-| "sentencias" {}
-| "sentencia" {}
-| "modelo\_molecular" {}
-| "compuesto" {}
-| "compuestos" {}
-| "elemento" {}
-| "elemento\_quimico" {}
-| "grupo\_funcional" {}
-| "grupo\_funcional\_inferior" {}
-| "grupo\_funcional\_superior" {}
-| "modelo\_grupo\_funcional" {}\\
-\%\%
-
-\newpage
-El formato del programa debe seguir este patron donde se empieza con el axioma \textit{unit}, el cual esta compuesto por \textit{exps{}} (expresiones) el cual
-se contiene a si mismo (definición recursiva) y a \textit{exp} (expresión), la cual esta compuesta por todos los tipos de tokens que podemos identificar
-con el analizador léxico. Aqui entonces introducimos el scanner, el cual contiene los patrones que debe seguir cada uno de los tokens que previamente hemos definido.
-Es aqui donde definimos el formato del archivo de salida para presentar los lexemas que se tokenizaron o los errores devueltos:
+%exps: \%empty | exps exp {};
 
 
-std::ofstream\ file("output.txt");\\
-\indent void format\_output (std::string token,const char* yytext, yy::location\& loc) \{\\
-\indent file << "(" << "<" << token << ">," << std::string(yytext) << "," << loc << ")" << std::endl;\\
-\indent\}
+%////assignment: "identificador" "="
 
+
+%exp:
+%"fin\_de\_linea" {}
+%| "letra" {}
+%| "digito" {}
+%| "tipo" {}
+%| "operacion" {}
+%| "valencia" {}
+%| "enlace" {}
+%| "palabra\_reservada" {}
+%| "id" {}
+%| "idcont" {}
+%| "sentencias" {}
+%| "sentencia" {}
+%| "modelo\_molecular" {}
+%| "compuesto" {}
+%| "compuestos" {}
+%| "elemento" {}
+%| "elemento\_quimico" {}
+%| "grupo\_funcional" {}
+%| "grupo\_funcional\_inferior" {}
+%| "grupo\_funcional\_superior" {}
+%| "modelo\_grupo\_funcional" {}\\
+%\%\%
+
+%\newpage
+%El formato del programa debe seguir este patron donde se empieza con el axioma \textit{unit}, el cual esta compuesto por \textit{exps{}} (expresiones) el cual
+%se contiene a si mismo (definición recursiva) y a \textit{exp} (expresión), la cual esta compuesta por todos los tipos de tokens que podemos identificar
+Con el propósito de visualizar los lexemas generados por el scanner, colocado en el archivo \textit{scanner.ll}, se utliza la siguiente función:
+\begin{lstlisting}
+std::ofstream& file("output.txt");
+void format_output (std::string token,const char* yytext, yy::location& loc) {
+    file << "(" << "<" << token << ">," << std::string(yytext) << "," << loc << ")" << std::endl;
+}
+\end{lstlisting}
+En el caso de un error léxico, se ejecuta el siguiente código:
+\begin{lstlisting}
+. {
+  file << "CARACTER INVALIDO " << std::string(yytext) << "," << loc << std::endl;
+}
+\end{lstlisting}
 Las definiciones que utilizamos para este archivo \textit{scanner.ll} son las mismas que fueron presentadas en la sección anterior 2.1 Gramatica del Lenguaje avismo
 pero es en este archivo que damos la definición de qué cada función ejecutará una vez tenga estos lexemas que siguen el patrón establecido (tokenizados). Se utilizara
 una variable llamada loc que contiene la referencia a memoria de la variable localización de la clase driver, el cual usaremos para retornar el valor de la linea en
@@ -305,10 +312,12 @@ format\_output("SENTENCIAS",yytext,loc);
 Todas las definiciones (excepto \textbf{ID}) contienen la función de format\_output para la salida de nuestro programa y siempre devuelven una función que se
 utilizara en el parser (que Flex y Bison se encargan en crear por nosotros) para crear una instancia del token.
 
-    {SENTENCIAS} \{\\
-\indent\indent format\_output("SENTENCIAS",yytext,loc);\\
-\indent\indent return yy::parser::make\_SENTENCIAS(yytext,loc);\\
-\indent \}
+\begin{lstlisting}
+{SENTENCIAS} {
+    format_output("SENTENCIAS",yytext,loc);\\
+    return yy::parser::make_SENTENCIAS(yytext,loc);\\
+}
+\end{lstlisting}
 
 En el caso de \textbf{ID}, hay que hacer una diferenciación entre si es una palabra reservada o si es un identificador, pues si no se pone una restricción el programa
 no pudiera saber cual caso seria. Para eso se crea un archivo \textit{keywords.txt} el cual contiene estas palabras reservadas los cuales se cargan con el
