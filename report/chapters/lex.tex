@@ -233,60 +233,22 @@ Posterior a esto es que se puede ejecutar \textit{./avismo fileName.txt} el cual
 \textbf{\textit{./avismo test\_prog.txt}}
 \end{center}
 
-Al ejecutarse el comando anterior, el programa se encargara de leer \textbf{cada caracter} del programa e identificar si una serie de caracteres sigue un patrón que forma parte del lenguaje AVISMO. Al encontrar un patrón reconocido, tales como un identificador o modelo molecular, lo clasica con un \textit{token} correspondiente, lo emprime en el archivo de \textit{output.txt} y lo devuelve al analizador sintáctico. Note, que el patrón de identificador reconoce a las palabra reservadas. Esto crea ambiguedad semántica debido a que la gramatica no tiene un mecanismo para diferenciar entre una palabra reservada y un identificador. Por esto, si una serie de caracteres si identifica como un lexema de categoría identificador, se compara con los valores dentro del diccionario \textit{variables}, el cual es un miembro de la clase \textit{driver}. Al inicializar un objeto \textit{driver}, cuyo constructor está localizado en \textit{driver.cc} este se encarga de abrir el archivo de
-palabras reservadas (\textit{keywords.txt}) y añadir las palabras reservadas antes que cualquier variable se pueda inicializar. Mas aún, a las palabras reservada se le asigna el valor de la cadena vacía. Esto se hace con el propósito de poder diferenciar entre palabras reservadas e identificadores, ya que al nivél sintáctico, no es posible asignarle a una identifcador una cadena vacía.
-
-%Aqui entonces verifica las definiciones de la gramatica, las cuales
-%determinan su tipo y los patrones de caracteres que se aceptaran y tokenizan. En nuestro caso, tenemos como ejemplo token <std::string> FIN\_DE\_LINEA "fin\_de\_linea"
-%donde se especifica que es un token tipo string el cual se denota como FIN\_DE\_LINEA (determina que ya la sentencia se acabo) fin\_de\_linea es cómo se identifica
-%en la expresión regular de cómo el programa se ejecuta.
-
-%El programa mismo necesita un patrón lógico para su ejecución, el cual definimos en base a la gramatica cómo:
-
-
-%\%\%
-
-
-%\%start unit;
-
-
-%unit: exps {};
-
-
-%exps: \%empty | exps exp {};
-
-
-%////assignment: "identificador" "="
-
-
-%exp:
-%"fin\_de\_linea" {}
-%| "letra" {}
-%| "digito" {}
-%| "tipo" {}
-%| "operacion" {}
-%| "valencia" {}
-%| "enlace" {}
-%| "palabra\_reservada" {}
-%| "id" {}
-%| "idcont" {}
-%| "sentencias" {}
-%| "sentencia" {}
-%| "modelo\_molecular" {}
-%| "compuesto" {}
-%| "compuestos" {}
-%| "elemento" {}
-%| "elemento\_quimico" {}
-%| "grupo\_funcional" {}
-%| "grupo\_funcional\_inferior" {}
-%| "grupo\_funcional\_superior" {}
-%| "modelo\_grupo\_funcional" {}\\
-%\%\%
-
-%\newpage
-%El formato del programa debe seguir este patron donde se empieza con el axioma \textit{unit}, el cual esta compuesto por \textit{exps{}} (expresiones) el cual
-%se contiene a si mismo (definición recursiva) y a \textit{exp} (expresión), la cual esta compuesta por todos los tipos de tokens que podemos identificar
-Con el propósito de visualizar los lexemas generados por el scanner, colocado en el archivo \textit{scanner.ll}, se utliza la siguiente función:
+Al ejecutarse el comando anterior, el programa procede a leer \textbf{cada caracter} del programa e identificar si una serie de caracteres sigue un patrón que forma parte del lenguaje AVISMO. Al encontrar un patrón reconocido, tales como un identificador o modelo molecular, lo clasifica con un \textit{token} correspondiente, lo emprime en el archivo de \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/output.txt}\textit{output.txt} y lo devuelve al analizador sintáctico. Note, que el patrón de identificador reconoce a palabra reservadas también. Esto crea ambiguedad semántica debido a que la gramatica no tiene un mecanismo para diferenciar entre una palabra reservada y un identificador. Por esta razón, si una serie de caracteres se identifica como un lexema de categoría identificador, se compara con los valores ya existente del diccionario \textit{variables}, el cual es un miembro de la clase \textit{driver}. Al inicializar un objeto \textit{driver}, cuyo constructor está localizado en \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/driver.cc}{\textit{driver.cc}} este se encarga de abrir el archivo de
+palabras reservadas (\href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/keywords.txt}{\textit{keywords.txt}}) y añadir las palabras reservadas antes que cualquier variable se pueda inicializar. Mas aún, a las palabras reservada se le asigna el valor de la cadena vacía. Esto se hace con el propósito de poder diferenciar entre palabras reservadas e identificadores, ya que al nivél sintáctico, no es posible asignarle a una identifcador una cadena vacía, como se puede apreciar a continuación:
+\begin{lstlisting}
+{ID} {	
+  std::string text(yytext);
+  if (drv.variables.find(text) != drv.variables.end() && drv.variables[text] == "") {
+    if (drv.variables[text] == "") {
+      format_output("PALABRA_RESERVADA",yytext,loc);
+      return yy::parser::make_PALABRA_RESERVADA (yytext,loc);
+    }
+  }
+	format_output("ID",yytext,loc);
+	return yy::parser::make_ID(text,loc);
+}
+\end{lstlisting}
+Con el propósito de visualizar los lexemas generados por el \textit{scanner}, colocado en el archivo \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/scanner.ll}{\textit{scanner.ll}}, se utliza la siguiente función:
 \begin{lstlisting}
 std::ofstream& file("output.txt");
 void format_output (std::string token,const char* yytext, yy::location& loc) {
@@ -299,18 +261,16 @@ En el caso de un error léxico, se ejecuta el siguiente código:
   file << "CARACTER INVALIDO " << std::string(yytext) << "," << loc << std::endl;
 }
 \end{lstlisting}
-Las definiciones que utilizamos para este archivo \textit{scanner.ll} son las mismas que fueron presentadas en la sección anterior 2.1 Gramatica del Lenguaje avismo
-pero es en este archivo que damos la definición de qué cada función ejecutará una vez tenga estos lexemas que siguen el patrón establecido (tokenizados). Se utilizara
-una variable llamada loc que contiene la referencia a memoria de la variable localización de la clase driver, el cual usaremos para retornar el valor de la linea en
-donde encontramos un lexema dado. Tambien esta función devuelve tanto el nombre del token que se categoriza, y su valor como se envia al parser como yytext (contiene el valor del lexema);
-todos estos valores como arguments para especificar el formato que queremos el archivo de salida (\textit{output.txt}):
+Los patrones que se utilizan para este \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/scanner.ll}{\textit{scanner.ll}} archivo (líneas 30-71) son una adaptación de la gramática el la tabla \ref{table:lexTable}. Note las variables \textit{yytext} y \textit{loc} en el código anterior. 
+\textit{loc} contiene la referencia a la memoria de la variable \textit{location} de la clase \textit{driver}, cuyo propósito es retornar el valor de la linea en donde se encuentra un lexema dado.
+\textit{yytext} contiene el lexema que fue aceptado por un patrón.
+\textit{loc} y \textit{yytext} se utilizan para imprimir la aceptación de una cadena de caracteres como un lexema de un \textit{token} o para gestión de errores. Por ejemplo, el siguiente código genera una entrada en el archivo \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/output.txt}\textit{output.txt} que declar que la cadena de caracteres se aceptó como una sentencia.
+\begin{lstlisting}
+format_output("SENTENCIAS",yytext,loc);
+\end{lstlisting}
 
-
-format\_output("SENTENCIAS",yytext,loc);
-
-
-Todas las definiciones (excepto \textbf{ID}) contienen la función de format\_output para la salida de nuestro programa y siempre devuelven una función que se
-utilizara en el parser (que Flex y Bison se encargan en crear por nosotros) para crear una instancia del token.
+Todas las definiciones de patrones, con la exepción del patrón que maneja la gestión de errores, contienen la función de \textit{format\_output} para imprimir la aceptación de una serie de caracteres como un lexema de un patrón en particular.
+Además, como se ha mencionado anteriormente, una vez se hace la aceptación, se retorna el \textit{token} al analizador sintáctico.
 
 \begin{lstlisting}
 {SENTENCIAS} {
@@ -319,23 +279,3 @@ utilizara en el parser (que Flex y Bison se encargan en crear por nosotros) para
 }
 \end{lstlisting}
 
-En el caso de \textbf{ID}, hay que hacer una diferenciación entre si es una palabra reservada o si es un identificador, pues si no se pone una restricción el programa
-no pudiera saber cual caso seria. Para eso se crea un archivo \textit{keywords.txt} el cual contiene estas palabras reservadas los cuales se cargan con el
-programa driver. En el caso de que el valor del lexema que esta en "variables" en la clase de drv (driver, la cual contiene el lexema que se esta leyendo) resulta ser
-el mismo valor que yytext (el cual contiene el lexema retornado del patrón reconocido) y cuyo texto se encuentra en la lista y su valor es vacio (se sabe por cómo se llena
-las palabras a driver al momento de ejecutar el constructor), sabemos entonces que cumple con todos los requisitos de ser una palabra reservada en el contexto del programa.
-De no ser el caso, pues entonces no hay otra opción que ser un identificador.
-
-\begin{lstlisting}
-{ID} {	
-  std::string text(yytext);
-  if (drv.variables.find(text) != drv.variables.end() && drv.variables[text] == "") {
-    if (drv.variables[text] == "") {
-      format_output("PALABRA_RESERVADA",yytext,loc);
-      return yy::parser::make_PALABRA_RESERVADA (yytext,loc);
-    }
-  }
-	format_output("ID",yytext,loc);
-	return yy::parser::make\_ID(text,loc);
-}
-\end{lstlisting}
