@@ -1,0 +1,56 @@
+\documentclass[14pt, aspectratio=169]{beamer}
+\usepackage{unicode}
+\usepackage[notocbib]{apacite}
+\usepackage{parskip}
+\usepackage{times}
+\usepackage{tabularx}
+\usepackage{mdframed}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{pifont}
+\usepackage{multicol}
+
+\newcommand {\scaledimage}[1] {
+    \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{#1}
+}
+
+\renewcommand{\bibname}{Referencias Bibliográficas}
+\renewcommand{\contentsname}{Tabla de Contenido}
+\renewcommand{\chaptername}{Capítulo}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabla}
+
+\title{Implementación del Analizador Léxico}
+\author{Aramis E. Matos, Lenier Gerena, Angel Berrios}
+\date{2/28/2023}
+
+\usetheme{Berlin}
+\usecolortheme{beaver}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+\maketitle
+
+\begin{frame}
+    \frametitle{Introducción}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \small
+        \begin{itemize}
+            \item El propósito de esta presentación es exponer acerca de la implementación léxica del lenguaje AVISMO.
+            \item La base de esta fue inspirada por Calc++ \cite{noauthor_complete_nodate} y adaptada de la implementación de la misma por Bwasti \cite{wasti_bwastibison-example-calc-_2020}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \scaledimage{chemical.png}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Referencias}
+    \bibliography{../../report/References}
+    \bibliographystyle{apacite}
+\end{frame}
+
+\end{document}
