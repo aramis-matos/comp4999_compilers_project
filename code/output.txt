@@ -6,8 +6,8 @@
 (<FIN_DE_LINEA>,;,test_prog.txt:2.22)
 (<ID>,a1,test_prog.txt:3.1-2)
 (<ENLACE>,=,test_prog.txt:3.4)
-(<MODELO_MOLECULAR>,CH3CH(CH3)CH3,test_prog.txt:3.6-18)
-(<FIN_DE_LINEA>,;,test_prog.txt:3.19)
+(<ELEMENTO_QUIMICO>,C,test_prog.txt:3.6)
+(<FIN_DE_LINEA>,;,test_prog.txt:3.7)
 (<PALABRA_RESERVADA>,fin,test_prog.txt:4.1-3)
 
 

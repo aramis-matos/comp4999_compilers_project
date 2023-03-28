@@ -42,32 +42,38 @@ VALENCIA [1-9]
 
 ENLACE ("-"|"="|":"|"::")
 
+
 IDCONT [A-Za-z0-9]+
 
 ID [A-Za-z]|{LETRA}{IDCONT}
 
-ELEMENTO_QUIMICO ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn")
+ELEMENTO_QUIMICO ("H"|"Li"|"Na"|"K"|"Rb"|"Cs"|"Fr"|"Be"|"Mg"|"Ca"|"Sr"|"Ba"|"Ra"|"Sc"|"Y"|"Ti"|"Zr"|"Hf"|"Db"|"V"|"Nb"|"Ta"|"Ji"|"Cr"|"Mo"|"W"|"Rf"|"Mn"|"Tc"|"Re"|"Bh"|"Fe"|"Ru"|"Os"|"Hn"|"Co"|"Rh"|"Ir"|"Mt"|"Ni"|"Pd"|"Pt"|"Cu"|"Ag"|"Au"|"Zn"|"Cd"|"Hg"|"B"|"Al"|"Ga"|"In"|"Ti"|"C"|"Si"|"Ge"|"Sn"|"Pb"|"N"|"P"|"As"|"Sb"|"Bi"|"O"|"S"|"Se"|"Te"|"Po"|"F"|"Cr"|"Br"|"I"|"At"|"He"|"Ne"|"Ar"|"Kr"|"Xe"|"Rn")+
 
-MODELO_MOLECULAR ({ELEMENTO_QUIMICO}|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{ELEMENTO}|{COMPUESTO}{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{COMPUESTO}{COMPUESTOS})
+PARENTESIS_IZQ "("
 
-COMPUESTO ({ELEMENTO_QUIMICO}|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{ELEMENTO}{GRUPO_FUNCIONAL}{ENLACE}|{ELEMENTO}{ENLACE})
-
-COMPUESTOS {COMPUESTO}+
-
-ELEMENTO ({ELEMENTO_QUIMICO}|{ELEMENTO_QUIMICO}{VALENCIA})
+PARENTESIS_DER ")"
 
 
-GRUPO_FUNCIONAL ({GRUPO_FUNCIONAL_INFERIOR}{GRUPO_FUNCIONAL_SUPERIOR}|{GRUPO_FUNCIONAL_SUPERIOR}{GRUPO_FUNCIONAL_INFERIOR}|"("{MODELO_GRUPO_FUNCIONAL}")"|"["{MODELO_GRUPO_FUNCIONAL}"]")
+/* MODELO_MOLECULAR ({ELEMENTO_QUIMICO}|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{ELEMENTO}|{COMPUESTO}{ELEMENTO}{GRUPO_FUNCIONAL}|{COMPUESTO}{COMPUESTO}{COMPUESTOS}) */
 
-GRUPO_FUNCIONAL_INFERIOR ("["{MODELO_GRUPO_FUNCIONAL}"]")
+/* COMPUESTO ({ELEMENTO_QUIMICO}|{ELEMENTO_QUIMICO}{VALENCIA}|{ELEMENTO}{GRUPO_FUNCIONAL}|{ELEMENTO}{GRUPO_FUNCIONAL}{ENLACE}|{ELEMENTO}{ENLACE}) */
+
+/* COMPUESTOS {COMPUESTO}+ */
+
+/* ELEMENTO ({ELEMENTO_QUIMICO}|{ELEMENTO_QUIMICO}{VALENCIA}) */
+
+
+/* GRUPO_FUNCIONAL ({GRUPO_FUNCIONAL_INFERIOR}{GRUPO_FUNCIONAL_SUPERIOR}|{GRUPO_FUNCIONAL_SUPERIOR}{GRUPO_FUNCIONAL_INFERIOR}|"("{MODELO_GRUPO_FUNCIONAL}")"|"["{MODELO_GRUPO_FUNCIONAL}"]") */
+
+/* GRUPO_FUNCIONAL_INFERIOR ("["{MODELO_GRUPO_FUNCIONAL}"]")
 
 GRUPO_FUNCIONAL_SUPERIOR ("("{MODELO_GRUPO_FUNCIONAL}")")
 
-MODELO_GRUPO_FUNCIONAL ({ELEMENTO_QUIMICO}+{VALENCIA}?)+|({ELEMENTO}+{ENLACE}{ELEMENTO}+)+
+MODELO_GRUPO_FUNCIONAL ({ELEMENTO_QUIMICO}+{VALENCIA}?)+|({ELEMENTO}+{ENLACE}{ELEMENTO}+)+ */
 
-SENTENCIA ("defina"{ID}"como"{TIPO}|{ID}"="{MODELO_MOLECULAR}|{OPERACION}"("{ID}")")
+/* SENTENCIA ("defina"{ID}"como"{TIPO}|{ID}"="{MODELO_MOLECULAR}|{OPERACION}"("{ID}")") */
 
-SENTENCIAS ({SENTENCIA}{FIN_DE_LINEA})+
+/* SENTENCIAS ({SENTENCIA}{FIN_DE_LINEA})+ */
 
 blank [ \t]
 %{
@@ -87,15 +93,16 @@ blank [ \t]
 {blank}+   loc.step ();
 [\n]+      loc.lines (yyleng); loc.step ();
 
+{PARENTESIS_IZQ} {
+  format_output("PARENTESIS_IZQ",yytext,loc);
+  return yy::parser::make_PARENTESIS_IZQ(yytext,loc);
+}
 
-{SENTENCIAS} {
-	format_output("SENTENCIAS",yytext,loc);
-	return yy::parser::make_SENTENCIAS(yytext,loc);
+{PARENTESIS_DER} {
+  format_output("PARENTESIS_DER",yytext,loc);
+  return yy::parser::make_PARENTESIS_DER(yytext,loc);
 }
-{SENTENCIA} {
-	format_output("SENTENCIA",yytext,loc);
-	return yy::parser::make_SENTENCIA(yytext,loc);
-}
+
 {FIN_DE_LINEA} {
 	format_output("FIN_DE_LINEA",yytext,loc);
 	return yy::parser::make_FIN_DE_LINEA(yytext,loc);
@@ -122,38 +129,9 @@ blank [ \t]
 	format_output("ELEMENTO_QUIMICO",yytext,loc);
 	return yy::parser::make_ELEMENTO_QUIMICO(yytext,loc);
 }
-{ELEMENTO} {
-	format_output("ELEMENTO",yytext,loc);
-	return yy::parser::make_ELEMENTO(yytext,loc);
-}
-{GRUPO_FUNCIONAL_INFERIOR} {
-	format_output("GRUPO_FUNCIONAL_INFERIOR",yytext,loc);
-	return yy::parser::make_GRUPO_FUNCIONAL_INFERIOR(yytext,loc);
-}
-{GRUPO_FUNCIONAL_SUPERIOR} {
-	format_output("GRUPO_FUNCIONAL_SUPERIOR",yytext,loc);
-	return yy::parser::make_GRUPO_FUNCIONAL_SUPERIOR(yytext,loc);
-}
 {ENLACE} {
 	format_output("ENLACE",yytext,loc);
 	return yy::parser::make_ENLACE(yytext,loc);
-}
-
-{MODELO_MOLECULAR} {
-	format_output("MODELO_MOLECULAR",yytext,loc);
-	return yy::parser::make_MODELO_MOLECULAR(yytext,loc);
-}
-{COMPUESTO} {
-	format_output("COMPUESTO",yytext,loc);
-	return yy::parser::make_COMPUESTO(yytext,loc);
-}
-{GRUPO_FUNCIONAL} {
-	format_output("GRUPO_FUNCIONAL",yytext,loc);
-	return yy::parser::make_GRUPO_FUNCIONAL(yytext,loc);
-}
-{COMPUESTOS} {
-	format_output("COMPUESTOS",yytext,loc);
-	return yy::parser::make_COMPUESTOS(yytext,loc);
 }
 {LETRA} {
 	format_output("LETRA",yytext,loc);

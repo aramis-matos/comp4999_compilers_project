@@ -29,6 +29,8 @@
   END  0  "end of file"
 ;
 
+%token <std::string> PARENTESIS_IZQ "parentesis_izq"
+%token <std::string> PARENTESIS_DER "parentesis_der"
 %token <std::string> FIN_DE_LINEA "fin_de_linea"
 %token <std::string> LETRA "letra"
 %token <int> DIGITO "digito"
@@ -72,6 +74,7 @@ exp:
 | "valencia" {}
 | "enlace" {}
 | "palabra_reservada" {}
+| "elemento_quimico" {}
 | "id" {}
 | "idcont" {}
 | "sentencias" {}
@@ -80,11 +83,12 @@ exp:
 | "compuesto" {}
 | "compuestos" {}
 | "elemento" {}
-| "elemento_quimico" {}
 | "grupo_funcional" {}
 | "grupo_funcional_inferior" {}
 | "grupo_funcional_superior" {}
 | "modelo_grupo_funcional" {}
+| "parentesis_izq"
+| "parentesis_der"
 %%
 
 void
