@@ -1,0 +1,8 @@
+defina
+inicio
+como
+graficar2d
+graficar3d
+pesomolecular
+modelo
+fin
