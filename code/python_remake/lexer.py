@@ -1,5 +1,6 @@
 import ply.lex as lex
 import sys
+import os
 
 reserved = {}
 
@@ -9,6 +10,16 @@ with open("keywords.txt","r") as f:
     for line in f:
         val = line.strip()
         reserved[val] = val.upper()
+
+try:
+    test_file = sys.argv[1]
+except IndexError:
+    test_file = "test_prog.txt"
+
+if not (os.path.exists(test_file)):
+    print(f"The file {test_file} not found, proceeding with default test_prog.txt file")
+    test_file = "test_prog.txt"
+
 
 tokens = (
     "FIN_DE_LINEA",
@@ -89,7 +100,8 @@ def t_error(t):
 
 lexer = lex.lex()
 
-with open("test_prog.txt", "r") as f:
+
+with open(test_file, "r") as f:
     with open("output.txt","w") as o:
         for data in f:
             # data = input("Input data: ")
