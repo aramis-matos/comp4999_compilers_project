@@ -1,30 +1,31 @@
-+----+-------------------+--------+-------+----------+----------+
-| N. |       Token       | Lexema | Linea | Posición | Programa |
-+----+-------------------+--------+-------+----------+----------+
-| 1  | PALABRA_RESERVADA | inicio |   1   |    0     | lexer.py |
-| 2  | PALABRA_RESERVADA | defina |   1   |    7     | lexer.py |
-| 3  |         ID        |   a1   |   1   |    14    | lexer.py |
-| 4  | PALABRA_RESERVADA |  como  |   1   |    17    | lexer.py |
-| 5  | PALABRA_RESERVADA | modelo |   2   |    0     | lexer.py |
-| 6  |      COR_DER      |   ]    |   2   |    6     | lexer.py |
-| 7  |         ID        |   a1   |   3   |    0     | lexer.py |
-| 8  |       ENLACE      |   =    |   3   |    3     | lexer.py |
-| 9  |  ELEMENTO_QUIMICO |   C    |   3   |    5     | lexer.py |
-| 10 |  ELEMENTO_QUIMICO |   H    |   3   |    6     | lexer.py |
-| 11 |       DIGITO      |   3    |   3   |    7     | lexer.py |
-| 12 |  ELEMENTO_QUIMICO |   C    |   3   |    8     | lexer.py |
-| 13 |  ELEMENTO_QUIMICO |   H    |   3   |    9     | lexer.py |
-| 14 |       ERROR       |   {    |   3   |    10    | lexer.py |
-| 14 |  ELEMENTO_QUIMICO |   C    |   3   |    11    | lexer.py |
-| 15 |  ELEMENTO_QUIMICO |   H    |   3   |    12    | lexer.py |
-| 16 |       DIGITO      |   3    |   3   |    13    | lexer.py |
-| 17 |   PARENTESIS_DER  |   )    |   3   |    14    | lexer.py |
-| 18 |  ELEMENTO_QUIMICO |   C    |   3   |    15    | lexer.py |
-| 19 |  ELEMENTO_QUIMICO |   H    |   3   |    16    | lexer.py |
-| 20 |       DIGITO      |   3    |   3   |    17    | lexer.py |
-| 21 |    FIN_DE_LINEA   |   ;    |   3   |    18    | lexer.py |
-| 22 | PALABRA_RESERVADA |  fin   |   5   |    0     | lexer.py |
-+----+-------------------+--------+-------+----------+----------+
++----+-------------------+--------+-------+----------+----------------+
+| N. |       Token       | Lexema | Linea | Posición |    Programa    |
++----+-------------------+--------+-------+----------+----------------+
+| 1  | PALABRA_RESERVADA | inicio |   1   |    0     | test_prog3.txt |
+| 2  | PALABRA_RESERVADA | defina |   1   |    7     | test_prog3.txt |
+| 3  |         ID        |   a1   |   1   |    14    | test_prog3.txt |
+| 4  | PALABRA_RESERVADA |  como  |   1   |    17    | test_prog3.txt |
+| 5  | PALABRA_RESERVADA | modelo |   2   |    0     | test_prog3.txt |
+| 6  |      COR_DER      |   ]    |   2   |    6     | test_prog3.txt |
+| 7  |       ERROR       |   *    |   2   |    7     | test_prog3.txt |
+| 7  |         ID        |   a1   |   3   |    0     | test_prog3.txt |
+| 8  |       ENLACE      |   =    |   3   |    3     | test_prog3.txt |
+| 9  |  ELEMENTO_QUIMICO |   C    |   3   |    5     | test_prog3.txt |
+| 10 |  ELEMENTO_QUIMICO |   H    |   3   |    6     | test_prog3.txt |
+| 11 |       DIGITO      |   3    |   3   |    7     | test_prog3.txt |
+| 12 |  ELEMENTO_QUIMICO |   C    |   3   |    8     | test_prog3.txt |
+| 13 |  ELEMENTO_QUIMICO |   H    |   3   |    9     | test_prog3.txt |
+| 14 |       ERROR       |   {    |   3   |    10    | test_prog3.txt |
+| 14 |  ELEMENTO_QUIMICO |   C    |   3   |    11    | test_prog3.txt |
+| 15 |  ELEMENTO_QUIMICO |   H    |   3   |    12    | test_prog3.txt |
+| 16 |       DIGITO      |   3    |   3   |    13    | test_prog3.txt |
+| 17 |   PARENTESIS_DER  |   )    |   3   |    14    | test_prog3.txt |
+| 18 |  ELEMENTO_QUIMICO |   C    |   3   |    15    | test_prog3.txt |
+| 19 |  ELEMENTO_QUIMICO |   H    |   3   |    16    | test_prog3.txt |
+| 20 |       DIGITO      |   3    |   3   |    17    | test_prog3.txt |
+| 21 |    FIN_DE_LINEA   |   ;    |   3   |    18    | test_prog3.txt |
+| 22 | PALABRA_RESERVADA |  fin   |   5   |    0     | test_prog3.txt |
++----+-------------------+--------+-------+----------+----------------+
 
 TABLA DE SIMBOLOS
 a1

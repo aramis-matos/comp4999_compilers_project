@@ -96,7 +96,7 @@ def t_COMMENT(t):
     # No return value. Token discarded
 
 def t_error(t):
-    tokenTable.add_row([tokenNum,"ERROR",t.value[0],t.lineno,t.lexpos,sys.argv[0]])
+    tokenTable.add_row([tokenNum,"ERROR",t.value[0],t.lineno,t.lexpos,test_file])
     t.lexer.skip(1)
 
 lexer = lex.lex()
@@ -109,7 +109,7 @@ with open(test_file, "r") as f:
             # data = input("Input data: ")
             lexer.input(data)
             for tok in lexer:
-                tokenTable.add_row([tokenNum,tok.type,tok.value,tok.lineno,tok.lexpos,sys.argv[0]])
+                tokenTable.add_row([tokenNum,tok.type,tok.value,tok.lineno,tok.lexpos,test_file])
                 tokenNum += 1
                 # o.write(line+"\n")
         o.write(str(tokenTable))
