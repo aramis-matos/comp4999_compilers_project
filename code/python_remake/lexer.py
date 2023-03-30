@@ -1,6 +1,7 @@
 import ply.lex as lex
 import sys
 import os
+from prettytable import PrettyTable
 
 reserved = {}
 
@@ -19,6 +20,8 @@ except IndexError:
 if not (os.path.exists(test_file)):
     print(f"The file {test_file} not found, proceeding with default test_prog.txt file")
     test_file = "test_prog.txt"
+
+tokenTable = PrettyTable()
 
 
 tokens = (
@@ -93,33 +96,32 @@ def t_COMMENT(t):
     # No return value. Token discarded
 
 def t_error(t):
-    line = f"CARACTER INVALIDO {t.value[0]},{sys.argv[0]}:{t.lineno}.{t.lexpos}"
-    print(line)
-    o.write(line+"\n")
+    tokenTable.add_row([tokenNum,"ERROR",t.value[0],t.lineno,t.lexpos,sys.argv[0]])
     t.lexer.skip(1)
 
 lexer = lex.lex()
+tokenTable.field_names = ["N.","Token","Lexema","Linea","Posición","Programa"]
 
-
+tokenNum = 1
 with open(test_file, "r") as f:
     with open("output.txt","w") as o:
         for data in f:
             # data = input("Input data: ")
             lexer.input(data)
             for tok in lexer:
-                line = f"(<{tok.type}>,{tok.value},{sys.argv[0]}:{tok.lineno}.{tok.lexpos})"
-                o.write(line+"\n")
-                print(line)
+                tokenTable.add_row([tokenNum,tok.type,tok.value,tok.lineno,tok.lexpos,sys.argv[0]])
+                tokenNum += 1
+                # o.write(line+"\n")
+        o.write(str(tokenTable))
         line = "\n\nTABLA DE SIMBOLOS"
         o.write(line+"\n")
-        print(line)
         for val in variables:
             o.write(val+"\n")
-            print(val)
         line = "\n\nPALABRAS RESERVADAS"
         o.write(line+"\n")
-        print(line)
         for val in reserved:
             o.write(val+"\n")
-            print(val)
 
+with open("output.txt","r") as f:
+    for line in f:
+        print(line,end="")

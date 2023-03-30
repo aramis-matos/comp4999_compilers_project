@@ -1,35 +1,33 @@
-(<PALABRA_RESERVADA>,inicio,lexer.py:1.0)
-(<PALABRA_RESERVADA>,defina,lexer.py:2.0)
-(<ID>,comp1,lexer.py:2.7)
-(<PALABRA_RESERVADA>,como,lexer.py:2.13)
-(<PALABRA_RESERVADA>,modelo,lexer.py:2.18)
-(<FIN_DE_LINEA>,;,lexer.py:2.24)
-(<ID>,comp1,lexer.py:3.0)
-(<ASIGNACION>,:=,lexer.py:3.6)
-(<ELEMENTO_QUIMICO>,C,lexer.py:3.9)
-(<ELEMENTO_QUIMICO>,H,lexer.py:3.10)
-(<DIGITO>,3,lexer.py:3.11)
-(<ELEMENTO_QUIMICO>,C,lexer.py:3.12)
-(<ELEMENTO_QUIMICO>,H,lexer.py:3.13)
-(<PARENTESIS_IZQ>,(,lexer.py:3.14)
-(<ELEMENTO_QUIMICO>,C,lexer.py:3.15)
-(<ELEMENTO_QUIMICO>,H,lexer.py:3.16)
-(<DIGITO>,3,lexer.py:3.17)
-(<PARENTESIS_DER>,),lexer.py:3.18)
-(<ELEMENTO_QUIMICO>,C,lexer.py:3.19)
-(<ELEMENTO_QUIMICO>,H,lexer.py:3.20)
-(<DIGITO>,3,lexer.py:3.21)
-(<FIN_DE_LINEA>,;,lexer.py:3.22)
-(<OPERACION>,graficar2d,lexer.py:4.0)
-(<PARENTESIS_IZQ>,(,lexer.py:4.10)
-(<ID>,comp1,lexer.py:4.11)
-(<PARENTESIS_DER>,),lexer.py:4.16)
-(<ENLACE>,:,lexer.py:4.17)
-(<PALABRA_RESERVADA>,fin,lexer.py:5.0)
-
++----+-------------------+--------+-------+----------+----------+
+| N. |       Token       | Lexema | Linea | Posición | Programa |
++----+-------------------+--------+-------+----------+----------+
+| 1  | PALABRA_RESERVADA | inicio |   1   |    0     | lexer.py |
+| 2  | PALABRA_RESERVADA | defina |   1   |    7     | lexer.py |
+| 3  |         ID        |   a1   |   1   |    14    | lexer.py |
+| 4  | PALABRA_RESERVADA |  como  |   1   |    17    | lexer.py |
+| 5  | PALABRA_RESERVADA | modelo |   2   |    0     | lexer.py |
+| 6  |      COR_DER      |   ]    |   2   |    6     | lexer.py |
+| 7  |         ID        |   a1   |   3   |    0     | lexer.py |
+| 8  |       ENLACE      |   =    |   3   |    3     | lexer.py |
+| 9  |  ELEMENTO_QUIMICO |   C    |   3   |    5     | lexer.py |
+| 10 |  ELEMENTO_QUIMICO |   H    |   3   |    6     | lexer.py |
+| 11 |       DIGITO      |   3    |   3   |    7     | lexer.py |
+| 12 |  ELEMENTO_QUIMICO |   C    |   3   |    8     | lexer.py |
+| 13 |  ELEMENTO_QUIMICO |   H    |   3   |    9     | lexer.py |
+| 14 |       ERROR       |   {    |   3   |    10    | lexer.py |
+| 14 |  ELEMENTO_QUIMICO |   C    |   3   |    11    | lexer.py |
+| 15 |  ELEMENTO_QUIMICO |   H    |   3   |    12    | lexer.py |
+| 16 |       DIGITO      |   3    |   3   |    13    | lexer.py |
+| 17 |   PARENTESIS_DER  |   )    |   3   |    14    | lexer.py |
+| 18 |  ELEMENTO_QUIMICO |   C    |   3   |    15    | lexer.py |
+| 19 |  ELEMENTO_QUIMICO |   H    |   3   |    16    | lexer.py |
+| 20 |       DIGITO      |   3    |   3   |    17    | lexer.py |
+| 21 |    FIN_DE_LINEA   |   ;    |   3   |    18    | lexer.py |
+| 22 | PALABRA_RESERVADA |  fin   |   5   |    0     | lexer.py |
++----+-------------------+--------+-------+----------+----------+
 
 TABLA DE SIMBOLOS
-comp1
+a1
 
 
 PALABRAS RESERVADAS
