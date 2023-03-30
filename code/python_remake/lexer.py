@@ -15,7 +15,7 @@ with open("keywords.txt","r") as f:
 try:
     test_file = sys.argv[1]
 except IndexError:
-    test_file = "test_prog.txt"
+    test_file = "test_prog4.txt"
 
 if not (os.path.exists(test_file)):
     print(f"The file {test_file} not found, proceeding with default test_prog.txt file")
@@ -23,7 +23,7 @@ if not (os.path.exists(test_file)):
 
 tokenTable = PrettyTable()
 
-
+# enumera los nombre de todos tokens que puede reconocer 
 tokens = (
     "FIN_DE_LINEA",
     "LETRA",
@@ -50,33 +50,38 @@ tokens = (
     "PALABRA_RESERVADA",
     "COR_IZQ",
     "COR_DER",
-    "ASIGNACION"
+    "ASIGNACION",
+    "VALENCIA"
 )
 
-t_COR_IZQ = r"\["
+# definiciones de los tokens y reglas de expresiones regulares
+t_COR_IZQ = r"\["           #t_COR_IZQ y t_COR_DER definen los tokens para corchetes izquierdos y derechos [ y ]
 t_COR_DER = r'\]'
-t_PARENTESIS_IZQ = r"\("
-t_PARENTESIS_DER = r"\)"
-t_FIN_DE_LINEA = r"(:|;)"
-t_DIGITO = r"[0-9]"
-t_TIPO = r"modelo"
-t_VALENCIA = r"[1-9]"
-t_ENLACE = r"(-|=|:|::)"
-t_ignore = " \t"
 
-def t_ASIGNACION (t):
+t_PARENTESIS_IZQ = r"\("    # t_PARENTESIS_IZQ y t_PARENTESIS_DER definen los tokens para paréntesis izquierdos y derechos ( y )
+t_PARENTESIS_DER = r"\)"
+
+t_FIN_DE_LINEA = r"(:|;)"   #define el token para el final de la línea, que puede ser : o ;
+t_VALENCIA = r"[1-9]"       #define los tokens para cualquier número entero del 1 al 9
+t_DIGITO = r"[0-9]"         #define los tokens para cualquier dígito del 0 al 9
+t_TIPO = r"modelo"          #define el token para la palabra "modelo"
+t_ENLACE = r"(-|=|:|::)"    #define los tokens para diferentes tipos de enlaces químicos
+t_ignore = " \t"            #indica que se deben ignorar los espacios en blanco y tabulaciones
+
+
+def t_ASIGNACION (t):       #identifica el token ":="
     r":="
     return t
 
-def t_OPERACION(t):
+def t_OPERACION(t):         #identifica el token graficar2d, graficar3d y pesomolecular
     r"(graficar2d|graficar3d|pesomolecular)"
     return t
 
-def t_ELEMENTO_QUIMICO(t):
+def t_ELEMENTO_QUIMICO(t):  #define regla para el token elemento quimico 
     r"(H|Li|Na|K|Rb|Cs|Fr|Be|Mg|Ca|Sr|Ba|Ra|Sc|Y|Ti|Zr|Hf|Db|V|Nb|Ta|Ji|Cr|Mo|W|Rf|Mn|Tc|Re|Bh|Fe|Ru|Os|Hn|Co|Rh|Ir|Mt|Ni|Pd|Pt|Cu|Ag|Au|Zn|Cd|Hg|B|Al|Ga|In|Ti|C|Si|Ge|Sn|Pb|N|P|As|Sb|Bi|O|S|Se|Te|Po|F|Cr|Br|I|At|He|Ne|Ar|Kr|Xe|Rn)"
     return t
 
-def t_ID(t):
+def t_ID(t):                #identifica el token ID pero tambien idetifica el token de palabra reservada
     r"[A-Za-z]+\d*"
     isPR = reserved.get(t.value,"ID") 
     if isPR != "ID":
@@ -86,21 +91,25 @@ def t_ID(t):
         variables[t.value] = ""
     return t
 
-def t_newline(t):
+def t_newline(t):           # incrementa ek numero de linea 
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-def t_COMMENT(t):
+def t_COMMENT(t):           # Ignora comentarios 
     r'\#.*'
     pass
     # No return value. Token discarded
 
-def t_error(t):
+def t_error(t):             # identifica error lexico
     tokenTable.add_row([tokenNum,"ERROR",t.value[0],t.lineno,t.lexpos,test_file])
     t.lexer.skip(1)
 
 lexer = lex.lex()
 tokenTable.field_names = ["N.","Token","Lexema","Linea","Posición","Programa"]
+reservedWords = PrettyTable()
+reservedWords.field_names = ["Palabra Reservada"]
+symbolsTable = PrettyTable()
+symbolsTable.field_names = ["Variables"]
 
 tokenNum = 1
 with open(test_file, "r") as f:
@@ -116,11 +125,13 @@ with open(test_file, "r") as f:
         line = "\n\nTABLA DE SIMBOLOS"
         o.write(line+"\n")
         for val in variables:
-            o.write(val+"\n")
+            symbolsTable.add_row([val])
+        o.write(str(symbolsTable)+"\n")
         line = "\n\nPALABRAS RESERVADAS"
         o.write(line+"\n")
         for val in reserved:
-            o.write(val+"\n")
+            reservedWords.add_row([val])
+        o.write(str(reservedWords)+"\n")
 
 with open("output.txt","r") as f:
     for line in f:
