@@ -12,15 +12,7 @@
 \usepackage{float}
 \usepackage{longtable}
 \usepackage{pdflscape}
-\usepackage{listings}
-\usepackage{minted}
-\lstset{
-basicstyle=\small\ttfamily,
-columns=flexible,
-breaklines=true
-}
-
-
+\usepackage[chapter]{minted}
 
 \usetikzlibrary{positioning,arrows,automata}
 \usetikzlibrary{arrows.meta}
@@ -40,6 +32,9 @@ breaklines=true
 \renewcommand{\figurename}{Figura}
 \renewcommand{\tablename}{Tabla}
 \renewcommand{\listingscaption}{Listado}
+\renewcommand{\listtablename}{Lista de Tablas}
+\renewcommand{\listfigurename}{Lista de Figuras}
+% \renewcommand{\lstlistlistingname}{def}
 
 \maketitle
 \tableofcontents
@@ -63,6 +58,7 @@ breaklines=true
 \listoffigures
 
 \listoftables
+
 
 \bibliographystyle{apacite}
 \bibliography{References}

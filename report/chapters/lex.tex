@@ -222,7 +222,7 @@ Esto no significa que el analizador léxico espera un \textit{token} de por si, 
 \section{Implementación del Analizador Léxico}
 
 
-Como se ha mencionado anteriormente, la implementación lexica del proyecto fue inspirada por la MAPL \cite{noauthor_pl-project-lgm-yvv-amnmapl_nodate} y adaptada para la gramática de AVISMO \cite{wasti_bwastibison-example-calc-_2020}.
+Como se ha mencionado anteriormente, la implementación lexica del proyecto fue inspirada por la MAPL \cite{noauthor_pl-project-lgm-yvv-amnmapl_nodate} y adaptada para la gramática de AVISMO.
 
 Para ejecutar el analizador léxico, primero se tiene que instalar \textit{Python 3}. Luego, se ejecuta \mintinline{Bash}|pip install ply| por la línea de comando.
 Finalmente, se ejecuta \mintinline{Bash}|python lexer.py test_prog.txt|
@@ -230,7 +230,7 @@ Finalmente, se ejecuta \mintinline{Bash}|python lexer.py test_prog.txt|
 
 Al ejecutarse el comando anterior, el programa procede a leer \textbf{cada caracter} del programa e identificar si una serie de caracteres sigue un patrón que forma parte del lenguaje AVISMO. Al encontrar un patrón reconocido, tales como un identificador o modelo molecular, lo clasifica con un \textit{token} correspondiente, lo emprime en el archivo de \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/python_remake/output.txt}{\textit{output.txt}} y lo devuelve al analizador sintáctico. Note, que el patrón de identificador reconoce palabra reservadas también. Esto crea ambiguedad semántica debido a que la gramatica no tiene un mecanismo para diferenciar entre una palabra reservada y un identificador. Por esta razón, si una serie de caracteres se identifica como un lexema de categoría identificador, se compara con los valores ya existentes del diccionario \textit{variables}. Al inicializar el programa \mintinline{Bash}|lexer.py|, este se encarga de abrir el archivo de
 palabras reservadas (\href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/python remake/keywords.txt}{\textit{keywords.txt}}) y añadir las palabras reservadas antes que cualquier variable se pueda inicializar. Mas aún, a las palabras reservadas se les asigna el valor de la cadena vacía. Esto se hace con el propósito de poder diferenciar entre palabras reservadas e identificadores, ya que al nivel sintáctico, no es posible asignarle a una identificador una cadena vacía, como se puede apreciar a continuación:
-\begin{listing}[H]
+\begin{figure}[H]
 \begin{minted}[breaklines,breakanywhere]{python}
 def t_ID(t):                #identifica el token ID pero tambien idetifica el token de palabra reservada
     r"[A-Za-z]+\d*"
@@ -243,10 +243,10 @@ def t_ID(t):                #identifica el token ID pero tambien idetifica el to
     return t
 \end{minted}
 \caption{Patrón que cezga identificadores de palabras reservadas}
-\label{lst: id}
-\end{listing}
+\label{fig: id}
+\end{figure}
 Con el propósito de visualizar los lexemas generados por \mintinline{Bash}|lexer.py|, colocado en el archivo \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/python_remake/lexer.py}{\textit{lexer.py}}, se utiliza la siguiente función:
-\begin{listing}[H]
+\begin{figure}[H]
     \begin{minted}[breaklines,breakanywhere,linenos]{python}
 with open(test_file, "r") as f:
     with open("output.txt","w") as o:
@@ -259,8 +259,8 @@ with open(test_file, "r") as f:
         line = "\n\nTABLA DE SIMBOLOS"
         o.write(line+"\n")
         for val in variables:
-            symbolsTable.add_row([val])
-        o.write(str(symbolsTable)+"\n")
+            symbofigable.add_row([val])
+        o.write(str(symbofigable)+"\n")
         line = "\n\nPALABRAS RESERVADAS"
         o.write(line+"\n")
         for val in reserved:
@@ -268,33 +268,41 @@ with open(test_file, "r") as f:
         o.write(str(reservedWords)+"\n")
 \end{minted}
     \caption{Código para imprimir los \textit{tokens} encontrados}
-    \label{lst: scanner}
-\end{listing}
+    \label{fig: scanner}
+\end{figure}
 Esto imprime el \textit{token} resultante en el archivo \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/python_remake/output.txt}{\textit{output.txt}}. En el caso de un error léxico, se ejecuta el siguiente código:
+\begin{figure}
 \begin{minted}[breaklines,breakanywhere]{python}
 def t_error(t):             # identifica error lexico
     tokenTable.add_row([tokenNum,"ERROR",t.value[0],t.lineno,t.lexpos,test_file])
     t.lexer.skip(1)
 \end{minted}
-Los patrones que se utilizan están en \mintinline{Bash}|lexer.py| (líneas 58-103) son una adaptación de la gramática en la tabla \ref{table:lexTable}. Note la tupla \textit{tokens}.
+\caption{Gestión de errores}
+\label{fig: errores}
+\end{figure}
+Cuando se encuentra un error léxico, no se retorna al analizador sintáctico. Los patrones que se utilizan están en \mintinline{Bash}|lexer.py| (líneas 58-103) son una adaptación de la gramática en la tabla \ref{table:lexTable}. Note la tupla \textit{tokens}.
 Esta contiene todos los \textit{tokens} del lenguaje AVISMO. Sin embargo, no todos están definidos a el nivel léxico. La mayoría de los \textit{tokens} se construyen en la etapa sintáctica, particularmente los que tienen que ver con compuestos quimicos y modelos moleculares.
-Mas aún, note el objeto \textit{tok} en la línea 5 de el listado \ref{lst: scanner}. Este contiene los atributos \textit{type}, \textit{value}, \textit{lineno} y \textit{lexpos}. Estos devuelven, respectivamente, el tipo, lexema, en que línea del archivo se encuentra y la posición del primer caracter de el \textit{token} llamado \text{tok}. Otro detalle importante de la implementación léxica es el orden de aplicación de los patrones. Los patrones en forma de variables, como en el listado \ref{lst: patronVariable}, tienen que estar escrito antes que los patrones escritos en forma de funciones, como en el listado \ref{lst: id} y \ref{lst: patronFuncion}
+Mas aún, note el objeto \textit{tok} en la línea 5 de el listado \ref{fig: scanner}.
+Este contiene los atributos \textit{type}, \textit{value}, \textit{lineno} y \textit{lexpos}.
+Estos devuelven, respectivamente, el tipo, lexema, en que línea del archivo se encuentra y la posición del primer caracter de el \textit{token} llamado \text{tok}. 
+Otro detalle importante de la implementación léxica es el orden de aplicación de los patrones. 
+Los patrones en forma de variables, como en el listado \ref{fig: patronVariable}, tienen que estar escrito antes que los patrones escritos en forma de funciones, como en el listado \ref{fig: id} y \ref{fig: patronFuncion}
 
-\begin{listing}[H]
+\begin{figure}[H]
 \begin{minted}[breaklines,breakanywhere]{python}
     t_ENLACE = r"(-|=|:|::)" #define los tokens para diferentes tipos de enlaces quimicos
 \end{minted}
     \caption{Patrón en forma de variable}
-    \label{lst: patronVariable}
-\end{listing}
+    \label{fig: patronVariable}
+\end{figure}
 
-\begin{listing}[H]
+\begin{figure}[H]
     \begin{minted}[breaklines,breakanywhere]{python}
 def t_ELEMENTO_QUIMICO(t):  #define regla para el token elemento quimico 
     r"(H|Li|Na|K|Rb|Cs|Fr|Be|Mg|Ca|Sr|Ba|Ra|Sc|Y|Ti|Zr|Hf|Db|V|Nb|Ta|Ji|Cr|Mo|W|Rf|Mn|Tc|Re|Bh|Fe|Ru|Os|Hn|Co|Rh|Ir|Mt|Ni|Pd|Pt|Cu|Ag|Au|Zn|Cd|Hg|B|Al|Ga|In|Ti|C|Si|Ge|Sn|Pb|N|P|As|Sb|Bi|O|S|Se|Te|Po|F|Cr|Br|I|At|He|Ne|Ar|Kr|Xe|Rn)"
     return t
 \end{minted}
     \caption{Patrón en forma de función}
-    \label{lst: patronFuncion}
-\end{listing}
+    \label{fig: patronFuncion}
+\end{figure}
 
