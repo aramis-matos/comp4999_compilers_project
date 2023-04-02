@@ -3,6 +3,7 @@ import sys
 import os
 from prettytable import PrettyTable
 
+
 reserved = {}
 
 variables = {}

@@ -12,31 +12,39 @@
 | 8  |       ENLACE      |   =    |   3   |    3     | test_prog3.txt |
 | 9  |  ELEMENTO_QUIMICO |   C    |   3   |    5     | test_prog3.txt |
 | 10 |  ELEMENTO_QUIMICO |   H    |   3   |    6     | test_prog3.txt |
-| 11 |       DIGITO      |   3    |   3   |    7     | test_prog3.txt |
+| 11 |      VALENCIA     |   3    |   3   |    7     | test_prog3.txt |
 | 12 |  ELEMENTO_QUIMICO |   C    |   3   |    8     | test_prog3.txt |
 | 13 |  ELEMENTO_QUIMICO |   H    |   3   |    9     | test_prog3.txt |
 | 14 |       ERROR       |   {    |   3   |    10    | test_prog3.txt |
 | 14 |  ELEMENTO_QUIMICO |   C    |   3   |    11    | test_prog3.txt |
 | 15 |  ELEMENTO_QUIMICO |   H    |   3   |    12    | test_prog3.txt |
-| 16 |       DIGITO      |   3    |   3   |    13    | test_prog3.txt |
+| 16 |      VALENCIA     |   3    |   3   |    13    | test_prog3.txt |
 | 17 |   PARENTESIS_DER  |   )    |   3   |    14    | test_prog3.txt |
 | 18 |  ELEMENTO_QUIMICO |   C    |   3   |    15    | test_prog3.txt |
 | 19 |  ELEMENTO_QUIMICO |   H    |   3   |    16    | test_prog3.txt |
-| 20 |       DIGITO      |   3    |   3   |    17    | test_prog3.txt |
+| 20 |      VALENCIA     |   3    |   3   |    17    | test_prog3.txt |
 | 21 |    FIN_DE_LINEA   |   ;    |   3   |    18    | test_prog3.txt |
 | 22 | PALABRA_RESERVADA |  fin   |   5   |    0     | test_prog3.txt |
 +----+-------------------+--------+-------+----------+----------------+
 
 TABLA DE SIMBOLOS
-a1
++-----------+
+| Variables |
++-----------+
+|     a1    |
++-----------+
 
 
 PALABRAS RESERVADAS
-defina
-inicio
-como
-graficar2d
-graficar3d
-pesomolecular
-modelo
-fin
++-------------------+
+| Palabra Reservada |
++-------------------+
+|       defina      |
+|       inicio      |
+|        como       |
+|     graficar2d    |
+|     graficar3d    |
+|   pesomolecular   |
+|       modelo      |
+|        fin        |
++-------------------+
