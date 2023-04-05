@@ -16,7 +16,7 @@ with open("keywords.txt", "r") as f:
 try:
     test_file = sys.argv[1]
 except IndexError:
-    test_file = "test_prog4.txt"
+    test_file = "test_prog.txt"
 
 if not (os.path.exists(test_file)):
     print(
@@ -27,35 +27,37 @@ if not (os.path.exists(test_file)):
 tokenTable = PrettyTable()
 
 # enumera los nombre de todos tokens que puede reconocer
-tokens = (
+tokens = [
     "FIN_DE_LINEA",
-    "LETRA",
-    "DIGITO",
+    # "LETRA",
+    # "DIGITO",
     "OPERACION",
     "VALENCIA",
     "ENLACE",
-    "IDCONT",
+    # "IDCONT",
     "ID",
     "ELEMENTO_QUIMICO",
-    "MODELO_MOLECULAR",
-    "COMPUESTO",
-    "COMPUESTOS",
-    "ELEMENTO",
-    "GRUPO_FUNCIONAL",
-    "GRUPO_FUNCIONAL_INFERIOR",
-    "GRUPO_FUNCIONAL_SUPERIOR",
-    "MODELO_GRUPO_FUNCIONAL",
-    "SENTENCIA",
-    "SENTENCIAS",
+    # "MODELO_MOLECULAR",
+    # "COMPUESTO",
+    # "COMPUESTOS",
+    # "ELEMENTO",
+    # "GRUPO_FUNCIONAL",
+    # "GRUPO_FUNCIONAL_INFERIOR",
+    # "GRUPO_FUNCIONAL_SUPERIOR",
+    # "MODELO_GRUPO_FUNCIONAL",
+    # "SENTENCIA",
+    # "SENTENCIAS",
     "PARENTESIS_IZQ",
     "PARENTESIS_DER",
     "TIPO",
-    "PALABRA_RESERVADA",
+    # "PALABRA_RESERVADA",
     "COR_IZQ",
     "COR_DER",
     "ASIGNACION",
-    "VALENCIA"
-)
+]
+
+tokens = tokens + list(reserved.values())
+
 
 # definiciones de los tokens y reglas de expresiones regulares
 # t_COR_IZQ y t_COR_DER definen los tokens para corchetes izquierdos y
@@ -72,7 +74,7 @@ t_PARENTESIS_DER = r"\)"
 t_FIN_DE_LINEA = r"(:|;)"
 # define los tokens para cualquier número entero del 1 al 9
 t_VALENCIA = r"[1-9]"
-t_DIGITO = r"[0-9]"  # define los tokens para cualquier dígito del 0 al 9
+# t_DIGITO = r"[0-9]"  # define los tokens para cualquier dígito del 0 al 9
 t_TIPO = r"modelo"  # define el token para la palabra "modelo"
 # define los tokens para diferentes tipos de enlaces químicos
 t_ENLACE = r"(-|=|:|::)"
@@ -105,10 +107,16 @@ def t_ELEMENTO_QUIMICO(t):  # define regla para el token elemento quimico
 def t_ID(t):
     r"[A-Za-z]+\d*"
     isPR = reserved.get(t.value, "ID")
-    if isPR != "ID":
-        t.type = "PALABRA_RESERVADA"
-    else:
+    # if isPR != "ID":
+    #     t.type = "PALABRA_RESERVADA"
+    # else:
+    #     t.type = isPR
+    #     variables[t.value] = ""
+    if isPR != "MODELO":
         t.type = isPR
+    elif isPR == "MODELO":
+        t.type = "TIPO"
+    if isPR == "ID":
         variables[t.value] = ""
     return t
 
@@ -131,37 +139,39 @@ def t_error(t):             # identifica error lexico
 
 
 lexer = lex.lex()
-tokenTable.field_names = ["N.", "Token",
-                          "Lexema", "Linea", "Posición", "Programa"]
-reservedWords = PrettyTable()
-reservedWords.field_names = ["Palabra Reservada"]
-symbolsTable = PrettyTable()
-symbolsTable.field_names = ["Variables"]
 
-tokenNum = 1
-with open(test_file, "r") as f:
-    with open("output.txt", "w") as o:
-        for data in f:
-            # data = input("Input data: ")
-            lexer.input(data)
-            for tok in lexer:
-                tokenTable.add_row(
-                    [tokenNum, tok.type, tok.value, tok.lineno, tok.lexpos,
-                     test_file])
-                tokenNum += 1
-                # o.write(line+"\n")
-        o.write(str(tokenTable))
-        line = "\n\nTABLA DE SIMBOLOS"
-        o.write(line+"\n")
-        for val in variables:
-            symbolsTable.add_row([val])
-        o.write(str(symbolsTable)+"\n")
-        line = "\n\nPALABRAS RESERVADAS"
-        o.write(line+"\n")
-        for val in reserved:
-            reservedWords.add_row([val])
-        o.write(str(reservedWords)+"\n")
+if __name__ == "__main__":
+    tokenTable.field_names = ["N.", "Token",
+                              "Lexema", "Linea", "Posición", "Programa"]
+    reservedWords = PrettyTable()
+    reservedWords.field_names = ["Palabra Reservada"]
+    symbolsTable = PrettyTable()
+    symbolsTable.field_names = ["Variables"]
 
-with open("output.txt", "r") as f:
-    for line in f:
-        print(line, end="")
+    tokenNum = 1
+    with open(test_file, "r") as f:
+        with open("output.txt", "w") as o:
+            for data in f:
+                # data = input("Input data: ")
+                lexer.input(data)
+                for tok in lexer:
+                    tokenTable.add_row(
+                        [tokenNum, tok.type, tok.value, tok.lineno, tok.lexpos,
+                         test_file])
+                    tokenNum += 1
+                    # o.write(line+"\n")
+            o.write(str(tokenTable))
+            line = "\n\nTABLA DE SIMBOLOS"
+            o.write(line+"\n")
+            for val in variables:
+                symbolsTable.add_row([val])
+            o.write(str(symbolsTable)+"\n")
+            line = "\n\nPALABRAS RESERVADAS"
+            o.write(line+"\n")
+            for val in reserved:
+                reservedWords.add_row([val])
+            o.write(str(reservedWords)+"\n")
+
+    with open("output.txt", "r") as f:
+        for line in f:
+            print(line, end="")

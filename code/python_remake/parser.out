@@ -1,0 +1,952 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    GRAFICAR2D
+    GRAFICAR3D
+    MODELO
+    PESOMOLECULAR
+
+Grammar
+
+Rule 0     S' -> s
+Rule 1     s -> INICIO sentencias FIN
+Rule 2     sentencias -> sentencia FIN_DE_LINEA sentencias
+Rule 3     sentencias -> sentencia FIN_DE_LINEA
+Rule 4     sentencia -> DEFINA ID COMO TIPO
+Rule 5     sentencia -> ID ASIGNACION modelo_molecular
+Rule 6     sentencia -> OPERACION PARENTESIS_IZQ ID PARENTESIS_DER
+Rule 7     modelo_molecular -> ELEMENTO_QUIMICO
+Rule 8     modelo_molecular -> ELEMENTO_QUIMICO VALENCIA
+Rule 9     modelo_molecular -> elemento grupo_funcional
+Rule 10    modelo_molecular -> compuesto elemento
+Rule 11    modelo_molecular -> compuesto elemento grupo_funcional
+Rule 12    modelo_molecular -> compuesto compuesto compuestos
+Rule 13    compuesto -> ELEMENTO_QUIMICO
+Rule 14    compuesto -> ELEMENTO_QUIMICO VALENCIA
+Rule 15    compuesto -> elemento grupo_funcional
+Rule 16    compuesto -> elemento grupo_funcional ENLACE
+Rule 17    compuesto -> elemento ENLACE
+Rule 18    compuestos -> compuesto compuestos
+Rule 19    compuestos -> compuesto
+Rule 20    elemento -> ELEMENTO_QUIMICO
+Rule 21    elemento -> ELEMENTO_QUIMICO VALENCIA
+Rule 22    grupo_funcional -> grupo_funcional_inferior grupo_funcional_superior
+Rule 23    grupo_funcional -> grupo_funcional_superior grupo_funcional_inferior
+Rule 24    grupo_funcional -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+Rule 25    grupo_funcional -> COR_IZQ modelo_grupo_funcional COR_DER
+Rule 26    grupo_funcional_inferior -> COR_IZQ modelo_grupo_funcional COR_DER
+Rule 27    grupo_funcional_superior -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+Rule 28    modelo_grupo_funcional -> ENLACE modelo_molecular
+Rule 29    modelo_grupo_funcional -> ELEMENTO_QUIMICO
+Rule 30    modelo_grupo_funcional -> ELEMENTO_QUIMICO VALENCIA
+Rule 31    modelo_grupo_funcional -> elemento grupo_funcional
+Rule 32    modelo_grupo_funcional -> compuesto elemento
+Rule 33    modelo_grupo_funcional -> compuesto elemento grupo_funcional
+Rule 34    modelo_grupo_funcional -> compuesto compuesto compuestos
+
+Terminals, with rules where they appear
+
+ASIGNACION           : 5
+COMO                 : 4
+COR_DER              : 25 26
+COR_IZQ              : 25 26
+DEFINA               : 4
+ELEMENTO_QUIMICO     : 7 8 13 14 20 21 29 30
+ENLACE               : 16 17 28
+FIN                  : 1
+FIN_DE_LINEA         : 2 3
+GRAFICAR2D           : 
+GRAFICAR3D           : 
+ID                   : 4 5 6
+INICIO               : 1
+MODELO               : 
+OPERACION            : 6
+PARENTESIS_DER       : 6 24 27
+PARENTESIS_IZQ       : 6 24 27
+PESOMOLECULAR        : 
+TIPO                 : 4
+VALENCIA             : 8 14 21 30
+error                : 
+
+Nonterminals, with rules where they appear
+
+compuesto            : 10 11 12 12 18 19 32 33 34 34
+compuestos           : 12 18 34
+elemento             : 9 10 11 15 16 17 31 32 33
+grupo_funcional      : 9 11 15 16 31 33
+grupo_funcional_inferior : 22 23
+grupo_funcional_superior : 22 23
+modelo_grupo_funcional : 24 25 26 27
+modelo_molecular     : 5 28
+s                    : 0
+sentencia            : 2 3
+sentencias           : 1 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . s
+    (1) s -> . INICIO sentencias FIN
+
+    INICIO          shift and go to state 2
+
+    s                              shift and go to state 1
+
+state 1
+
+    (0) S' -> s .
+
+
+
+state 2
+
+    (1) s -> INICIO . sentencias FIN
+    (2) sentencias -> . sentencia FIN_DE_LINEA sentencias
+    (3) sentencias -> . sentencia FIN_DE_LINEA
+    (4) sentencia -> . DEFINA ID COMO TIPO
+    (5) sentencia -> . ID ASIGNACION modelo_molecular
+    (6) sentencia -> . OPERACION PARENTESIS_IZQ ID PARENTESIS_DER
+
+    DEFINA          shift and go to state 5
+    ID              shift and go to state 6
+    OPERACION       shift and go to state 7
+
+    sentencias                     shift and go to state 3
+    sentencia                      shift and go to state 4
+
+state 3
+
+    (1) s -> INICIO sentencias . FIN
+
+    FIN             shift and go to state 8
+
+
+state 4
+
+    (2) sentencias -> sentencia . FIN_DE_LINEA sentencias
+    (3) sentencias -> sentencia . FIN_DE_LINEA
+
+    FIN_DE_LINEA    shift and go to state 9
+
+
+state 5
+
+    (4) sentencia -> DEFINA . ID COMO TIPO
+
+    ID              shift and go to state 10
+
+
+state 6
+
+    (5) sentencia -> ID . ASIGNACION modelo_molecular
+
+    ASIGNACION      shift and go to state 11
+
+
+state 7
+
+    (6) sentencia -> OPERACION . PARENTESIS_IZQ ID PARENTESIS_DER
+
+    PARENTESIS_IZQ  shift and go to state 12
+
+
+state 8
+
+    (1) s -> INICIO sentencias FIN .
+
+    $end            reduce using rule 1 (s -> INICIO sentencias FIN .)
+
+
+state 9
+
+    (2) sentencias -> sentencia FIN_DE_LINEA . sentencias
+    (3) sentencias -> sentencia FIN_DE_LINEA .
+    (2) sentencias -> . sentencia FIN_DE_LINEA sentencias
+    (3) sentencias -> . sentencia FIN_DE_LINEA
+    (4) sentencia -> . DEFINA ID COMO TIPO
+    (5) sentencia -> . ID ASIGNACION modelo_molecular
+    (6) sentencia -> . OPERACION PARENTESIS_IZQ ID PARENTESIS_DER
+
+    FIN             reduce using rule 3 (sentencias -> sentencia FIN_DE_LINEA .)
+    DEFINA          shift and go to state 5
+    ID              shift and go to state 6
+    OPERACION       shift and go to state 7
+
+    sentencia                      shift and go to state 4
+    sentencias                     shift and go to state 13
+
+state 10
+
+    (4) sentencia -> DEFINA ID . COMO TIPO
+
+    COMO            shift and go to state 14
+
+
+state 11
+
+    (5) sentencia -> ID ASIGNACION . modelo_molecular
+    (7) modelo_molecular -> . ELEMENTO_QUIMICO
+    (8) modelo_molecular -> . ELEMENTO_QUIMICO VALENCIA
+    (9) modelo_molecular -> . elemento grupo_funcional
+    (10) modelo_molecular -> . compuesto elemento
+    (11) modelo_molecular -> . compuesto elemento grupo_funcional
+    (12) modelo_molecular -> . compuesto compuesto compuestos
+    (20) elemento -> . ELEMENTO_QUIMICO
+    (21) elemento -> . ELEMENTO_QUIMICO VALENCIA
+    (13) compuesto -> . ELEMENTO_QUIMICO
+    (14) compuesto -> . ELEMENTO_QUIMICO VALENCIA
+    (15) compuesto -> . elemento grupo_funcional
+    (16) compuesto -> . elemento grupo_funcional ENLACE
+    (17) compuesto -> . elemento ENLACE
+
+    ELEMENTO_QUIMICO shift and go to state 16
+
+    modelo_molecular               shift and go to state 15
+    elemento                       shift and go to state 17
+    compuesto                      shift and go to state 18
+
+state 12
+
+    (6) sentencia -> OPERACION PARENTESIS_IZQ . ID PARENTESIS_DER
+
+    ID              shift and go to state 19
+
+
+state 13
+
+    (2) sentencias -> sentencia FIN_DE_LINEA sentencias .
+
+    FIN             reduce using rule 2 (sentencias -> sentencia FIN_DE_LINEA sentencias .)
+
+
+state 14
+
+    (4) sentencia -> DEFINA ID COMO . TIPO
+
+    TIPO            shift and go to state 20
+
+
+state 15
+
+    (5) sentencia -> ID ASIGNACION modelo_molecular .
+
+    FIN_DE_LINEA    reduce using rule 5 (sentencia -> ID ASIGNACION modelo_molecular .)
+
+
+state 16
+
+    (7) modelo_molecular -> ELEMENTO_QUIMICO .
+    (8) modelo_molecular -> ELEMENTO_QUIMICO . VALENCIA
+    (20) elemento -> ELEMENTO_QUIMICO .
+    (21) elemento -> ELEMENTO_QUIMICO . VALENCIA
+    (13) compuesto -> ELEMENTO_QUIMICO .
+    (14) compuesto -> ELEMENTO_QUIMICO . VALENCIA
+
+    FIN_DE_LINEA    reduce using rule 7 (modelo_molecular -> ELEMENTO_QUIMICO .)
+    PARENTESIS_DER  reduce using rule 7 (modelo_molecular -> ELEMENTO_QUIMICO .)
+    COR_DER         reduce using rule 7 (modelo_molecular -> ELEMENTO_QUIMICO .)
+    VALENCIA        shift and go to state 21
+    ENLACE          reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    PARENTESIS_IZQ  reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    COR_IZQ         reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    ELEMENTO_QUIMICO reduce using rule 13 (compuesto -> ELEMENTO_QUIMICO .)
+
+
+state 17
+
+    (9) modelo_molecular -> elemento . grupo_funcional
+    (15) compuesto -> elemento . grupo_funcional
+    (16) compuesto -> elemento . grupo_funcional ENLACE
+    (17) compuesto -> elemento . ENLACE
+    (22) grupo_funcional -> . grupo_funcional_inferior grupo_funcional_superior
+    (23) grupo_funcional -> . grupo_funcional_superior grupo_funcional_inferior
+    (24) grupo_funcional -> . PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+    (25) grupo_funcional -> . COR_IZQ modelo_grupo_funcional COR_DER
+    (26) grupo_funcional_inferior -> . COR_IZQ modelo_grupo_funcional COR_DER
+    (27) grupo_funcional_superior -> . PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+
+    ENLACE          shift and go to state 23
+    PARENTESIS_IZQ  shift and go to state 26
+    COR_IZQ         shift and go to state 27
+
+    grupo_funcional                shift and go to state 22
+    grupo_funcional_inferior       shift and go to state 24
+    grupo_funcional_superior       shift and go to state 25
+
+state 18
+
+    (10) modelo_molecular -> compuesto . elemento
+    (11) modelo_molecular -> compuesto . elemento grupo_funcional
+    (12) modelo_molecular -> compuesto . compuesto compuestos
+    (20) elemento -> . ELEMENTO_QUIMICO
+    (21) elemento -> . ELEMENTO_QUIMICO VALENCIA
+    (13) compuesto -> . ELEMENTO_QUIMICO
+    (14) compuesto -> . ELEMENTO_QUIMICO VALENCIA
+    (15) compuesto -> . elemento grupo_funcional
+    (16) compuesto -> . elemento grupo_funcional ENLACE
+    (17) compuesto -> . elemento ENLACE
+
+    ELEMENTO_QUIMICO shift and go to state 30
+
+    compuesto                      shift and go to state 28
+    elemento                       shift and go to state 29
+
+state 19
+
+    (6) sentencia -> OPERACION PARENTESIS_IZQ ID . PARENTESIS_DER
+
+    PARENTESIS_DER  shift and go to state 31
+
+
+state 20
+
+    (4) sentencia -> DEFINA ID COMO TIPO .
+
+    FIN_DE_LINEA    reduce using rule 4 (sentencia -> DEFINA ID COMO TIPO .)
+
+
+state 21
+
+    (8) modelo_molecular -> ELEMENTO_QUIMICO VALENCIA .
+    (21) elemento -> ELEMENTO_QUIMICO VALENCIA .
+    (14) compuesto -> ELEMENTO_QUIMICO VALENCIA .
+
+    FIN_DE_LINEA    reduce using rule 8 (modelo_molecular -> ELEMENTO_QUIMICO VALENCIA .)
+    PARENTESIS_DER  reduce using rule 8 (modelo_molecular -> ELEMENTO_QUIMICO VALENCIA .)
+    COR_DER         reduce using rule 8 (modelo_molecular -> ELEMENTO_QUIMICO VALENCIA .)
+    ENLACE          reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    PARENTESIS_IZQ  reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    COR_IZQ         reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    ELEMENTO_QUIMICO reduce using rule 14 (compuesto -> ELEMENTO_QUIMICO VALENCIA .)
+
+
+state 22
+
+    (9) modelo_molecular -> elemento grupo_funcional .
+    (15) compuesto -> elemento grupo_funcional .
+    (16) compuesto -> elemento grupo_funcional . ENLACE
+
+    FIN_DE_LINEA    reduce using rule 9 (modelo_molecular -> elemento grupo_funcional .)
+    PARENTESIS_DER  reduce using rule 9 (modelo_molecular -> elemento grupo_funcional .)
+    COR_DER         reduce using rule 9 (modelo_molecular -> elemento grupo_funcional .)
+    ELEMENTO_QUIMICO reduce using rule 15 (compuesto -> elemento grupo_funcional .)
+    ENLACE          shift and go to state 32
+
+
+state 23
+
+    (17) compuesto -> elemento ENLACE .
+
+    ELEMENTO_QUIMICO reduce using rule 17 (compuesto -> elemento ENLACE .)
+    FIN_DE_LINEA    reduce using rule 17 (compuesto -> elemento ENLACE .)
+    PARENTESIS_DER  reduce using rule 17 (compuesto -> elemento ENLACE .)
+    COR_DER         reduce using rule 17 (compuesto -> elemento ENLACE .)
+
+
+state 24
+
+    (22) grupo_funcional -> grupo_funcional_inferior . grupo_funcional_superior
+    (27) grupo_funcional_superior -> . PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+
+    PARENTESIS_IZQ  shift and go to state 34
+
+    grupo_funcional_superior       shift and go to state 33
+
+state 25
+
+    (23) grupo_funcional -> grupo_funcional_superior . grupo_funcional_inferior
+    (26) grupo_funcional_inferior -> . COR_IZQ modelo_grupo_funcional COR_DER
+
+    COR_IZQ         shift and go to state 36
+
+    grupo_funcional_inferior       shift and go to state 35
+
+state 26
+
+    (24) grupo_funcional -> PARENTESIS_IZQ . modelo_grupo_funcional PARENTESIS_DER
+    (27) grupo_funcional_superior -> PARENTESIS_IZQ . modelo_grupo_funcional PARENTESIS_DER
+    (28) modelo_grupo_funcional -> . ENLACE modelo_molecular
+    (29) modelo_grupo_funcional -> . ELEMENTO_QUIMICO
+    (30) modelo_grupo_funcional -> . ELEMENTO_QUIMICO VALENCIA
+    (31) modelo_grupo_funcional -> . elemento grupo_funcional
+    (32) modelo_grupo_funcional -> . compuesto elemento
+    (33) modelo_grupo_funcional -> . compuesto elemento grupo_funcional
+    (34) modelo_grupo_funcional -> . compuesto compuesto compuestos
+    (20) elemento -> . ELEMENTO_QUIMICO
+    (21) elemento -> . ELEMENTO_QUIMICO VALENCIA
+    (13) compuesto -> . ELEMENTO_QUIMICO
+    (14) compuesto -> . ELEMENTO_QUIMICO VALENCIA
+    (15) compuesto -> . elemento grupo_funcional
+    (16) compuesto -> . elemento grupo_funcional ENLACE
+    (17) compuesto -> . elemento ENLACE
+
+    ENLACE          shift and go to state 38
+    ELEMENTO_QUIMICO shift and go to state 39
+
+    modelo_grupo_funcional         shift and go to state 37
+    elemento                       shift and go to state 40
+    compuesto                      shift and go to state 41
+
+state 27
+
+    (25) grupo_funcional -> COR_IZQ . modelo_grupo_funcional COR_DER
+    (26) grupo_funcional_inferior -> COR_IZQ . modelo_grupo_funcional COR_DER
+    (28) modelo_grupo_funcional -> . ENLACE modelo_molecular
+    (29) modelo_grupo_funcional -> . ELEMENTO_QUIMICO
+    (30) modelo_grupo_funcional -> . ELEMENTO_QUIMICO VALENCIA
+    (31) modelo_grupo_funcional -> . elemento grupo_funcional
+    (32) modelo_grupo_funcional -> . compuesto elemento
+    (33) modelo_grupo_funcional -> . compuesto elemento grupo_funcional
+    (34) modelo_grupo_funcional -> . compuesto compuesto compuestos
+    (20) elemento -> . ELEMENTO_QUIMICO
+    (21) elemento -> . ELEMENTO_QUIMICO VALENCIA
+    (13) compuesto -> . ELEMENTO_QUIMICO
+    (14) compuesto -> . ELEMENTO_QUIMICO VALENCIA
+    (15) compuesto -> . elemento grupo_funcional
+    (16) compuesto -> . elemento grupo_funcional ENLACE
+    (17) compuesto -> . elemento ENLACE
+
+    ENLACE          shift and go to state 38
+    ELEMENTO_QUIMICO shift and go to state 39
+
+    modelo_grupo_funcional         shift and go to state 42
+    elemento                       shift and go to state 40
+    compuesto                      shift and go to state 41
+
+state 28
+
+    (12) modelo_molecular -> compuesto compuesto . compuestos
+    (18) compuestos -> . compuesto compuestos
+    (19) compuestos -> . compuesto
+    (13) compuesto -> . ELEMENTO_QUIMICO
+    (14) compuesto -> . ELEMENTO_QUIMICO VALENCIA
+    (15) compuesto -> . elemento grupo_funcional
+    (16) compuesto -> . elemento grupo_funcional ENLACE
+    (17) compuesto -> . elemento ENLACE
+    (20) elemento -> . ELEMENTO_QUIMICO
+    (21) elemento -> . ELEMENTO_QUIMICO VALENCIA
+
+    ELEMENTO_QUIMICO shift and go to state 45
+
+    compuesto                      shift and go to state 43
+    compuestos                     shift and go to state 44
+    elemento                       shift and go to state 46
+
+state 29
+
+    (10) modelo_molecular -> compuesto elemento .
+    (11) modelo_molecular -> compuesto elemento . grupo_funcional
+    (15) compuesto -> elemento . grupo_funcional
+    (16) compuesto -> elemento . grupo_funcional ENLACE
+    (17) compuesto -> elemento . ENLACE
+    (22) grupo_funcional -> . grupo_funcional_inferior grupo_funcional_superior
+    (23) grupo_funcional -> . grupo_funcional_superior grupo_funcional_inferior
+    (24) grupo_funcional -> . PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+    (25) grupo_funcional -> . COR_IZQ modelo_grupo_funcional COR_DER
+    (26) grupo_funcional_inferior -> . COR_IZQ modelo_grupo_funcional COR_DER
+    (27) grupo_funcional_superior -> . PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+
+    FIN_DE_LINEA    reduce using rule 10 (modelo_molecular -> compuesto elemento .)
+    PARENTESIS_DER  reduce using rule 10 (modelo_molecular -> compuesto elemento .)
+    COR_DER         reduce using rule 10 (modelo_molecular -> compuesto elemento .)
+    ENLACE          shift and go to state 23
+    PARENTESIS_IZQ  shift and go to state 26
+    COR_IZQ         shift and go to state 27
+
+    grupo_funcional                shift and go to state 47
+    grupo_funcional_inferior       shift and go to state 24
+    grupo_funcional_superior       shift and go to state 25
+
+state 30
+
+    (20) elemento -> ELEMENTO_QUIMICO .
+    (21) elemento -> ELEMENTO_QUIMICO . VALENCIA
+    (13) compuesto -> ELEMENTO_QUIMICO .
+    (14) compuesto -> ELEMENTO_QUIMICO . VALENCIA
+
+    ENLACE          reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    PARENTESIS_IZQ  reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    COR_IZQ         reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    FIN_DE_LINEA    reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    PARENTESIS_DER  reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    COR_DER         reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    VALENCIA        shift and go to state 48
+    ELEMENTO_QUIMICO reduce using rule 13 (compuesto -> ELEMENTO_QUIMICO .)
+
+
+state 31
+
+    (6) sentencia -> OPERACION PARENTESIS_IZQ ID PARENTESIS_DER .
+
+    FIN_DE_LINEA    reduce using rule 6 (sentencia -> OPERACION PARENTESIS_IZQ ID PARENTESIS_DER .)
+
+
+state 32
+
+    (16) compuesto -> elemento grupo_funcional ENLACE .
+
+    ELEMENTO_QUIMICO reduce using rule 16 (compuesto -> elemento grupo_funcional ENLACE .)
+    FIN_DE_LINEA    reduce using rule 16 (compuesto -> elemento grupo_funcional ENLACE .)
+    PARENTESIS_DER  reduce using rule 16 (compuesto -> elemento grupo_funcional ENLACE .)
+    COR_DER         reduce using rule 16 (compuesto -> elemento grupo_funcional ENLACE .)
+
+
+state 33
+
+    (22) grupo_funcional -> grupo_funcional_inferior grupo_funcional_superior .
+
+    ENLACE          reduce using rule 22 (grupo_funcional -> grupo_funcional_inferior grupo_funcional_superior .)
+    FIN_DE_LINEA    reduce using rule 22 (grupo_funcional -> grupo_funcional_inferior grupo_funcional_superior .)
+    ELEMENTO_QUIMICO reduce using rule 22 (grupo_funcional -> grupo_funcional_inferior grupo_funcional_superior .)
+    PARENTESIS_DER  reduce using rule 22 (grupo_funcional -> grupo_funcional_inferior grupo_funcional_superior .)
+    COR_DER         reduce using rule 22 (grupo_funcional -> grupo_funcional_inferior grupo_funcional_superior .)
+
+
+state 34
+
+    (27) grupo_funcional_superior -> PARENTESIS_IZQ . modelo_grupo_funcional PARENTESIS_DER
+    (28) modelo_grupo_funcional -> . ENLACE modelo_molecular
+    (29) modelo_grupo_funcional -> . ELEMENTO_QUIMICO
+    (30) modelo_grupo_funcional -> . ELEMENTO_QUIMICO VALENCIA
+    (31) modelo_grupo_funcional -> . elemento grupo_funcional
+    (32) modelo_grupo_funcional -> . compuesto elemento
+    (33) modelo_grupo_funcional -> . compuesto elemento grupo_funcional
+    (34) modelo_grupo_funcional -> . compuesto compuesto compuestos
+    (20) elemento -> . ELEMENTO_QUIMICO
+    (21) elemento -> . ELEMENTO_QUIMICO VALENCIA
+    (13) compuesto -> . ELEMENTO_QUIMICO
+    (14) compuesto -> . ELEMENTO_QUIMICO VALENCIA
+    (15) compuesto -> . elemento grupo_funcional
+    (16) compuesto -> . elemento grupo_funcional ENLACE
+    (17) compuesto -> . elemento ENLACE
+
+    ENLACE          shift and go to state 38
+    ELEMENTO_QUIMICO shift and go to state 39
+
+    modelo_grupo_funcional         shift and go to state 49
+    elemento                       shift and go to state 40
+    compuesto                      shift and go to state 41
+
+state 35
+
+    (23) grupo_funcional -> grupo_funcional_superior grupo_funcional_inferior .
+
+    ENLACE          reduce using rule 23 (grupo_funcional -> grupo_funcional_superior grupo_funcional_inferior .)
+    FIN_DE_LINEA    reduce using rule 23 (grupo_funcional -> grupo_funcional_superior grupo_funcional_inferior .)
+    ELEMENTO_QUIMICO reduce using rule 23 (grupo_funcional -> grupo_funcional_superior grupo_funcional_inferior .)
+    PARENTESIS_DER  reduce using rule 23 (grupo_funcional -> grupo_funcional_superior grupo_funcional_inferior .)
+    COR_DER         reduce using rule 23 (grupo_funcional -> grupo_funcional_superior grupo_funcional_inferior .)
+
+
+state 36
+
+    (26) grupo_funcional_inferior -> COR_IZQ . modelo_grupo_funcional COR_DER
+    (28) modelo_grupo_funcional -> . ENLACE modelo_molecular
+    (29) modelo_grupo_funcional -> . ELEMENTO_QUIMICO
+    (30) modelo_grupo_funcional -> . ELEMENTO_QUIMICO VALENCIA
+    (31) modelo_grupo_funcional -> . elemento grupo_funcional
+    (32) modelo_grupo_funcional -> . compuesto elemento
+    (33) modelo_grupo_funcional -> . compuesto elemento grupo_funcional
+    (34) modelo_grupo_funcional -> . compuesto compuesto compuestos
+    (20) elemento -> . ELEMENTO_QUIMICO
+    (21) elemento -> . ELEMENTO_QUIMICO VALENCIA
+    (13) compuesto -> . ELEMENTO_QUIMICO
+    (14) compuesto -> . ELEMENTO_QUIMICO VALENCIA
+    (15) compuesto -> . elemento grupo_funcional
+    (16) compuesto -> . elemento grupo_funcional ENLACE
+    (17) compuesto -> . elemento ENLACE
+
+    ENLACE          shift and go to state 38
+    ELEMENTO_QUIMICO shift and go to state 39
+
+    modelo_grupo_funcional         shift and go to state 50
+    elemento                       shift and go to state 40
+    compuesto                      shift and go to state 41
+
+state 37
+
+    (24) grupo_funcional -> PARENTESIS_IZQ modelo_grupo_funcional . PARENTESIS_DER
+    (27) grupo_funcional_superior -> PARENTESIS_IZQ modelo_grupo_funcional . PARENTESIS_DER
+
+    PARENTESIS_DER  shift and go to state 51
+
+
+state 38
+
+    (28) modelo_grupo_funcional -> ENLACE . modelo_molecular
+    (7) modelo_molecular -> . ELEMENTO_QUIMICO
+    (8) modelo_molecular -> . ELEMENTO_QUIMICO VALENCIA
+    (9) modelo_molecular -> . elemento grupo_funcional
+    (10) modelo_molecular -> . compuesto elemento
+    (11) modelo_molecular -> . compuesto elemento grupo_funcional
+    (12) modelo_molecular -> . compuesto compuesto compuestos
+    (20) elemento -> . ELEMENTO_QUIMICO
+    (21) elemento -> . ELEMENTO_QUIMICO VALENCIA
+    (13) compuesto -> . ELEMENTO_QUIMICO
+    (14) compuesto -> . ELEMENTO_QUIMICO VALENCIA
+    (15) compuesto -> . elemento grupo_funcional
+    (16) compuesto -> . elemento grupo_funcional ENLACE
+    (17) compuesto -> . elemento ENLACE
+
+    ELEMENTO_QUIMICO shift and go to state 16
+
+    modelo_molecular               shift and go to state 52
+    elemento                       shift and go to state 17
+    compuesto                      shift and go to state 18
+
+state 39
+
+    (29) modelo_grupo_funcional -> ELEMENTO_QUIMICO .
+    (30) modelo_grupo_funcional -> ELEMENTO_QUIMICO . VALENCIA
+    (20) elemento -> ELEMENTO_QUIMICO .
+    (21) elemento -> ELEMENTO_QUIMICO . VALENCIA
+    (13) compuesto -> ELEMENTO_QUIMICO .
+    (14) compuesto -> ELEMENTO_QUIMICO . VALENCIA
+
+    PARENTESIS_DER  reduce using rule 29 (modelo_grupo_funcional -> ELEMENTO_QUIMICO .)
+    COR_DER         reduce using rule 29 (modelo_grupo_funcional -> ELEMENTO_QUIMICO .)
+    VALENCIA        shift and go to state 53
+    ENLACE          reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    PARENTESIS_IZQ  reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    COR_IZQ         reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    ELEMENTO_QUIMICO reduce using rule 13 (compuesto -> ELEMENTO_QUIMICO .)
+
+
+state 40
+
+    (31) modelo_grupo_funcional -> elemento . grupo_funcional
+    (15) compuesto -> elemento . grupo_funcional
+    (16) compuesto -> elemento . grupo_funcional ENLACE
+    (17) compuesto -> elemento . ENLACE
+    (22) grupo_funcional -> . grupo_funcional_inferior grupo_funcional_superior
+    (23) grupo_funcional -> . grupo_funcional_superior grupo_funcional_inferior
+    (24) grupo_funcional -> . PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+    (25) grupo_funcional -> . COR_IZQ modelo_grupo_funcional COR_DER
+    (26) grupo_funcional_inferior -> . COR_IZQ modelo_grupo_funcional COR_DER
+    (27) grupo_funcional_superior -> . PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+
+    ENLACE          shift and go to state 23
+    PARENTESIS_IZQ  shift and go to state 26
+    COR_IZQ         shift and go to state 27
+
+    grupo_funcional                shift and go to state 54
+    grupo_funcional_inferior       shift and go to state 24
+    grupo_funcional_superior       shift and go to state 25
+
+state 41
+
+    (32) modelo_grupo_funcional -> compuesto . elemento
+    (33) modelo_grupo_funcional -> compuesto . elemento grupo_funcional
+    (34) modelo_grupo_funcional -> compuesto . compuesto compuestos
+    (20) elemento -> . ELEMENTO_QUIMICO
+    (21) elemento -> . ELEMENTO_QUIMICO VALENCIA
+    (13) compuesto -> . ELEMENTO_QUIMICO
+    (14) compuesto -> . ELEMENTO_QUIMICO VALENCIA
+    (15) compuesto -> . elemento grupo_funcional
+    (16) compuesto -> . elemento grupo_funcional ENLACE
+    (17) compuesto -> . elemento ENLACE
+
+    ELEMENTO_QUIMICO shift and go to state 30
+
+    compuesto                      shift and go to state 55
+    elemento                       shift and go to state 56
+
+state 42
+
+    (25) grupo_funcional -> COR_IZQ modelo_grupo_funcional . COR_DER
+    (26) grupo_funcional_inferior -> COR_IZQ modelo_grupo_funcional . COR_DER
+
+    COR_DER         shift and go to state 57
+
+
+state 43
+
+    (18) compuestos -> compuesto . compuestos
+    (19) compuestos -> compuesto .
+    (18) compuestos -> . compuesto compuestos
+    (19) compuestos -> . compuesto
+    (13) compuesto -> . ELEMENTO_QUIMICO
+    (14) compuesto -> . ELEMENTO_QUIMICO VALENCIA
+    (15) compuesto -> . elemento grupo_funcional
+    (16) compuesto -> . elemento grupo_funcional ENLACE
+    (17) compuesto -> . elemento ENLACE
+    (20) elemento -> . ELEMENTO_QUIMICO
+    (21) elemento -> . ELEMENTO_QUIMICO VALENCIA
+
+    FIN_DE_LINEA    reduce using rule 19 (compuestos -> compuesto .)
+    PARENTESIS_DER  reduce using rule 19 (compuestos -> compuesto .)
+    COR_DER         reduce using rule 19 (compuestos -> compuesto .)
+    ELEMENTO_QUIMICO shift and go to state 45
+
+    compuesto                      shift and go to state 43
+    compuestos                     shift and go to state 58
+    elemento                       shift and go to state 46
+
+state 44
+
+    (12) modelo_molecular -> compuesto compuesto compuestos .
+
+    FIN_DE_LINEA    reduce using rule 12 (modelo_molecular -> compuesto compuesto compuestos .)
+    PARENTESIS_DER  reduce using rule 12 (modelo_molecular -> compuesto compuesto compuestos .)
+    COR_DER         reduce using rule 12 (modelo_molecular -> compuesto compuesto compuestos .)
+
+
+state 45
+
+    (13) compuesto -> ELEMENTO_QUIMICO .
+    (14) compuesto -> ELEMENTO_QUIMICO . VALENCIA
+    (20) elemento -> ELEMENTO_QUIMICO .
+    (21) elemento -> ELEMENTO_QUIMICO . VALENCIA
+
+    ELEMENTO_QUIMICO reduce using rule 13 (compuesto -> ELEMENTO_QUIMICO .)
+    FIN_DE_LINEA    reduce using rule 13 (compuesto -> ELEMENTO_QUIMICO .)
+    PARENTESIS_DER  reduce using rule 13 (compuesto -> ELEMENTO_QUIMICO .)
+    COR_DER         reduce using rule 13 (compuesto -> ELEMENTO_QUIMICO .)
+    VALENCIA        shift and go to state 59
+    ENLACE          reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    PARENTESIS_IZQ  reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+    COR_IZQ         reduce using rule 20 (elemento -> ELEMENTO_QUIMICO .)
+
+
+state 46
+
+    (15) compuesto -> elemento . grupo_funcional
+    (16) compuesto -> elemento . grupo_funcional ENLACE
+    (17) compuesto -> elemento . ENLACE
+    (22) grupo_funcional -> . grupo_funcional_inferior grupo_funcional_superior
+    (23) grupo_funcional -> . grupo_funcional_superior grupo_funcional_inferior
+    (24) grupo_funcional -> . PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+    (25) grupo_funcional -> . COR_IZQ modelo_grupo_funcional COR_DER
+    (26) grupo_funcional_inferior -> . COR_IZQ modelo_grupo_funcional COR_DER
+    (27) grupo_funcional_superior -> . PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+
+    ENLACE          shift and go to state 23
+    PARENTESIS_IZQ  shift and go to state 26
+    COR_IZQ         shift and go to state 27
+
+    grupo_funcional                shift and go to state 60
+    grupo_funcional_inferior       shift and go to state 24
+    grupo_funcional_superior       shift and go to state 25
+
+state 47
+
+    (11) modelo_molecular -> compuesto elemento grupo_funcional .
+    (15) compuesto -> elemento grupo_funcional .
+    (16) compuesto -> elemento grupo_funcional . ENLACE
+
+    FIN_DE_LINEA    reduce using rule 11 (modelo_molecular -> compuesto elemento grupo_funcional .)
+    PARENTESIS_DER  reduce using rule 11 (modelo_molecular -> compuesto elemento grupo_funcional .)
+    COR_DER         reduce using rule 11 (modelo_molecular -> compuesto elemento grupo_funcional .)
+    ELEMENTO_QUIMICO reduce using rule 15 (compuesto -> elemento grupo_funcional .)
+    ENLACE          shift and go to state 32
+
+
+state 48
+
+    (21) elemento -> ELEMENTO_QUIMICO VALENCIA .
+    (14) compuesto -> ELEMENTO_QUIMICO VALENCIA .
+
+    ENLACE          reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    PARENTESIS_IZQ  reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    COR_IZQ         reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    FIN_DE_LINEA    reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    PARENTESIS_DER  reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    COR_DER         reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    ELEMENTO_QUIMICO reduce using rule 14 (compuesto -> ELEMENTO_QUIMICO VALENCIA .)
+
+
+state 49
+
+    (27) grupo_funcional_superior -> PARENTESIS_IZQ modelo_grupo_funcional . PARENTESIS_DER
+
+    PARENTESIS_DER  shift and go to state 61
+
+
+state 50
+
+    (26) grupo_funcional_inferior -> COR_IZQ modelo_grupo_funcional . COR_DER
+
+    COR_DER         shift and go to state 62
+
+
+state 51
+
+    (24) grupo_funcional -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .
+    (27) grupo_funcional_superior -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .
+
+    ENLACE          reduce using rule 24 (grupo_funcional -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .)
+    FIN_DE_LINEA    reduce using rule 24 (grupo_funcional -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .)
+    ELEMENTO_QUIMICO reduce using rule 24 (grupo_funcional -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .)
+    PARENTESIS_DER  reduce using rule 24 (grupo_funcional -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .)
+    COR_DER         reduce using rule 24 (grupo_funcional -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .)
+    COR_IZQ         reduce using rule 27 (grupo_funcional_superior -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .)
+
+
+state 52
+
+    (28) modelo_grupo_funcional -> ENLACE modelo_molecular .
+
+    PARENTESIS_DER  reduce using rule 28 (modelo_grupo_funcional -> ENLACE modelo_molecular .)
+    COR_DER         reduce using rule 28 (modelo_grupo_funcional -> ENLACE modelo_molecular .)
+
+
+state 53
+
+    (30) modelo_grupo_funcional -> ELEMENTO_QUIMICO VALENCIA .
+    (21) elemento -> ELEMENTO_QUIMICO VALENCIA .
+    (14) compuesto -> ELEMENTO_QUIMICO VALENCIA .
+
+    PARENTESIS_DER  reduce using rule 30 (modelo_grupo_funcional -> ELEMENTO_QUIMICO VALENCIA .)
+    COR_DER         reduce using rule 30 (modelo_grupo_funcional -> ELEMENTO_QUIMICO VALENCIA .)
+    ENLACE          reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    PARENTESIS_IZQ  reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    COR_IZQ         reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    ELEMENTO_QUIMICO reduce using rule 14 (compuesto -> ELEMENTO_QUIMICO VALENCIA .)
+
+
+state 54
+
+    (31) modelo_grupo_funcional -> elemento grupo_funcional .
+    (15) compuesto -> elemento grupo_funcional .
+    (16) compuesto -> elemento grupo_funcional . ENLACE
+
+    PARENTESIS_DER  reduce using rule 31 (modelo_grupo_funcional -> elemento grupo_funcional .)
+    COR_DER         reduce using rule 31 (modelo_grupo_funcional -> elemento grupo_funcional .)
+    ELEMENTO_QUIMICO reduce using rule 15 (compuesto -> elemento grupo_funcional .)
+    ENLACE          shift and go to state 32
+
+
+state 55
+
+    (34) modelo_grupo_funcional -> compuesto compuesto . compuestos
+    (18) compuestos -> . compuesto compuestos
+    (19) compuestos -> . compuesto
+    (13) compuesto -> . ELEMENTO_QUIMICO
+    (14) compuesto -> . ELEMENTO_QUIMICO VALENCIA
+    (15) compuesto -> . elemento grupo_funcional
+    (16) compuesto -> . elemento grupo_funcional ENLACE
+    (17) compuesto -> . elemento ENLACE
+    (20) elemento -> . ELEMENTO_QUIMICO
+    (21) elemento -> . ELEMENTO_QUIMICO VALENCIA
+
+    ELEMENTO_QUIMICO shift and go to state 45
+
+    compuesto                      shift and go to state 43
+    compuestos                     shift and go to state 63
+    elemento                       shift and go to state 46
+
+state 56
+
+    (32) modelo_grupo_funcional -> compuesto elemento .
+    (33) modelo_grupo_funcional -> compuesto elemento . grupo_funcional
+    (15) compuesto -> elemento . grupo_funcional
+    (16) compuesto -> elemento . grupo_funcional ENLACE
+    (17) compuesto -> elemento . ENLACE
+    (22) grupo_funcional -> . grupo_funcional_inferior grupo_funcional_superior
+    (23) grupo_funcional -> . grupo_funcional_superior grupo_funcional_inferior
+    (24) grupo_funcional -> . PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+    (25) grupo_funcional -> . COR_IZQ modelo_grupo_funcional COR_DER
+    (26) grupo_funcional_inferior -> . COR_IZQ modelo_grupo_funcional COR_DER
+    (27) grupo_funcional_superior -> . PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+
+    PARENTESIS_DER  reduce using rule 32 (modelo_grupo_funcional -> compuesto elemento .)
+    COR_DER         reduce using rule 32 (modelo_grupo_funcional -> compuesto elemento .)
+    ENLACE          shift and go to state 23
+    PARENTESIS_IZQ  shift and go to state 26
+    COR_IZQ         shift and go to state 27
+
+    grupo_funcional                shift and go to state 64
+    grupo_funcional_inferior       shift and go to state 24
+    grupo_funcional_superior       shift and go to state 25
+
+state 57
+
+    (25) grupo_funcional -> COR_IZQ modelo_grupo_funcional COR_DER .
+    (26) grupo_funcional_inferior -> COR_IZQ modelo_grupo_funcional COR_DER .
+
+    ENLACE          reduce using rule 25 (grupo_funcional -> COR_IZQ modelo_grupo_funcional COR_DER .)
+    FIN_DE_LINEA    reduce using rule 25 (grupo_funcional -> COR_IZQ modelo_grupo_funcional COR_DER .)
+    ELEMENTO_QUIMICO reduce using rule 25 (grupo_funcional -> COR_IZQ modelo_grupo_funcional COR_DER .)
+    PARENTESIS_DER  reduce using rule 25 (grupo_funcional -> COR_IZQ modelo_grupo_funcional COR_DER .)
+    COR_DER         reduce using rule 25 (grupo_funcional -> COR_IZQ modelo_grupo_funcional COR_DER .)
+    PARENTESIS_IZQ  reduce using rule 26 (grupo_funcional_inferior -> COR_IZQ modelo_grupo_funcional COR_DER .)
+
+
+state 58
+
+    (18) compuestos -> compuesto compuestos .
+
+    FIN_DE_LINEA    reduce using rule 18 (compuestos -> compuesto compuestos .)
+    PARENTESIS_DER  reduce using rule 18 (compuestos -> compuesto compuestos .)
+    COR_DER         reduce using rule 18 (compuestos -> compuesto compuestos .)
+
+
+state 59
+
+    (14) compuesto -> ELEMENTO_QUIMICO VALENCIA .
+    (21) elemento -> ELEMENTO_QUIMICO VALENCIA .
+
+    ELEMENTO_QUIMICO reduce using rule 14 (compuesto -> ELEMENTO_QUIMICO VALENCIA .)
+    FIN_DE_LINEA    reduce using rule 14 (compuesto -> ELEMENTO_QUIMICO VALENCIA .)
+    PARENTESIS_DER  reduce using rule 14 (compuesto -> ELEMENTO_QUIMICO VALENCIA .)
+    COR_DER         reduce using rule 14 (compuesto -> ELEMENTO_QUIMICO VALENCIA .)
+    ENLACE          reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    PARENTESIS_IZQ  reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+    COR_IZQ         reduce using rule 21 (elemento -> ELEMENTO_QUIMICO VALENCIA .)
+
+
+state 60
+
+    (15) compuesto -> elemento grupo_funcional .
+    (16) compuesto -> elemento grupo_funcional . ENLACE
+
+    ELEMENTO_QUIMICO reduce using rule 15 (compuesto -> elemento grupo_funcional .)
+    FIN_DE_LINEA    reduce using rule 15 (compuesto -> elemento grupo_funcional .)
+    PARENTESIS_DER  reduce using rule 15 (compuesto -> elemento grupo_funcional .)
+    COR_DER         reduce using rule 15 (compuesto -> elemento grupo_funcional .)
+    ENLACE          shift and go to state 32
+
+
+state 61
+
+    (27) grupo_funcional_superior -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .
+
+    ENLACE          reduce using rule 27 (grupo_funcional_superior -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .)
+    FIN_DE_LINEA    reduce using rule 27 (grupo_funcional_superior -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .)
+    ELEMENTO_QUIMICO reduce using rule 27 (grupo_funcional_superior -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .)
+    PARENTESIS_DER  reduce using rule 27 (grupo_funcional_superior -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .)
+    COR_DER         reduce using rule 27 (grupo_funcional_superior -> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER .)
+
+
+state 62
+
+    (26) grupo_funcional_inferior -> COR_IZQ modelo_grupo_funcional COR_DER .
+
+    ENLACE          reduce using rule 26 (grupo_funcional_inferior -> COR_IZQ modelo_grupo_funcional COR_DER .)
+    FIN_DE_LINEA    reduce using rule 26 (grupo_funcional_inferior -> COR_IZQ modelo_grupo_funcional COR_DER .)
+    ELEMENTO_QUIMICO reduce using rule 26 (grupo_funcional_inferior -> COR_IZQ modelo_grupo_funcional COR_DER .)
+    PARENTESIS_DER  reduce using rule 26 (grupo_funcional_inferior -> COR_IZQ modelo_grupo_funcional COR_DER .)
+    COR_DER         reduce using rule 26 (grupo_funcional_inferior -> COR_IZQ modelo_grupo_funcional COR_DER .)
+
+
+state 63
+
+    (34) modelo_grupo_funcional -> compuesto compuesto compuestos .
+
+    PARENTESIS_DER  reduce using rule 34 (modelo_grupo_funcional -> compuesto compuesto compuestos .)
+    COR_DER         reduce using rule 34 (modelo_grupo_funcional -> compuesto compuesto compuestos .)
+
+
+state 64
+
+    (33) modelo_grupo_funcional -> compuesto elemento grupo_funcional .
+    (15) compuesto -> elemento grupo_funcional .
+    (16) compuesto -> elemento grupo_funcional . ENLACE
+
+    PARENTESIS_DER  reduce using rule 33 (modelo_grupo_funcional -> compuesto elemento grupo_funcional .)
+    COR_DER         reduce using rule 33 (modelo_grupo_funcional -> compuesto elemento grupo_funcional .)
+    ELEMENTO_QUIMICO reduce using rule 15 (compuesto -> elemento grupo_funcional .)
+    ENLACE          shift and go to state 32
+
