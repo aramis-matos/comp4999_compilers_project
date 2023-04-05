@@ -1,5 +1,5 @@
 inicio 
 defina comp1 como modelo;
-comp1 := CH3CH(CH3)CH3;
+comp1 := CH3CH(CH3)CH3;;
 graficar2d(comp1);
 fin

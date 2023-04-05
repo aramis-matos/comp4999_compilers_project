@@ -1,8 +1,8 @@
-import lexer
-import parser
-import re
+import grammar
 
 with open("test_prog.txt", 'r') as f:
     contents = f.read().replace("\n", "")
-    print(contents)
-    parser.parser.parse(contents)
+    # print(contents)
+    grammar.parser.parse(contents)
+for val in grammar.variables.values():
+    print(val)
