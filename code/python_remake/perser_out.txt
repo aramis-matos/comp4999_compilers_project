@@ -1,0 +1,27 @@
++---------------------------------------------------------------------------+
+| Regla                                                                     |
++---------------------------------------------------------------------------+
+| sentencia --> DEFINA ID COMO TIPO                                         |
+| compuesto --> ELEMENTO_QUIMICO                                            |
+| compuesto --> ELEMENTO_QUIMICO VALENCIA                                   |
+| compuesto --> ELEMENTO_QUIMICO                                            |
+| elemento --> ELEMENTO_QUIMICO                                             |
+| compuesto --> ELEMENTO_QUIMICO                                            |
+| elemento --> ELEMENTO_QUIMICO VALENCIA                                    |
+| modelo_grupo_funcional --> compuesto elemento                             |
+| grupo_funcional --> PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER  |
+| compuesto --> elemento grupo_funcional                                    |
+| compuesto --> ELEMENTO_QUIMICO                                            |
+| compuesto --> ELEMENTO_QUIMICO VALENCIA                                   |
+| compuestos --> compuesto                                                  |
+| compuestos --> compuesto compuestos                                       |
+| compuestos --> compuesto compuestos                                       |
+| compuestos --> compuesto compuestos                                       |
+| modelo_molecular --> compuesto compuesto compuestos                       |
+| sentencia --> ID ASIGNACION modelo_molecular                              |
+| sentencia --> OPERACION PARENTESIS_IZQ ID PARENTESIS_DER                  |
+| sentencias --> sentencia FIN_DE_LINEA                                     |
+| sentencias --> sentencia FIN_DE_LINEA sentencias                          |
+| sentencias --> sentencia FIN_DE_LINEA sentencias                          |
+| s --> INICIO sentencias FIN                                               |
++---------------------------------------------------------------------------+

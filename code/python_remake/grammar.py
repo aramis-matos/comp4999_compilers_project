@@ -1,31 +1,22 @@
 from ply import yacc
 from lexer import tokens, variables
-from colorama import Fore, Back, Style
-from prettytable import PrettyTable
 
-parser_table = PrettyTable()
-parser_table.field_names = ["Regla"]
-parser_table.align["Regla"] = "l"
-
-def elem(text):
-    if text.isupper():
-        return f"{Fore.YELLOW}{text}{Style.RESET_ALL}"
-    else:
-        return f"{Fore.RED}{text}{Style.RESET_ALL}"
+rules = []
 
 
 def format_expr(p):
-    types = [elem(x.type) for x in p.slice]
-    rule = f"{types[0]}: "
+    types = [x.type for x in p.slice]
+    rule = f"{types[0]} --> "
     for val in types[1:]:
         rule += f"{val} "
-    parser_table.add_row([rule])
+    rules.append([rule])
+
 
 start = "s"
 
 
 def p_s(p):
-    's : INICIO sentencias FIN'
+    '''s : INICIO sentencias FIN'''
     # p[0] = p[2]
     format_expr(p)
 
@@ -114,7 +105,10 @@ def p_modelo_grupo_funcional(p):
 
 
 def p_error(p):
-    print(f"Syntax Error at line {p.lineno}, column {p.lexpos} by {p.type}")
+    err = f"Syntax Error at line {p.lineno}, column {p.lexpos} by {p.type}\n"
+    with open("parser_err_out.txt", "w") as f:
+        f.write(err)
+    print(err)
 
 
 parser = yacc.yacc(debug=True)

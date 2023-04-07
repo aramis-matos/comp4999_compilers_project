@@ -1,0 +1,1 @@
+Syntax Error at line 1, column 76 by FIN_DE_LINEA
