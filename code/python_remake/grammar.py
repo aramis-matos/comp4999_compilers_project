@@ -1,14 +1,25 @@
 from ply import yacc
 from lexer import tokens, variables
+from colorama import Fore, Back, Style
+from prettytable import PrettyTable
+
+parser_table = PrettyTable()
+parser_table.field_names = ["Regla"]
+parser_table.align["Regla"] = "l"
+
+def elem(text):
+    if text.isupper():
+        return f"{Fore.YELLOW}{text}{Style.RESET_ALL}"
+    else:
+        return f"{Fore.RED}{text}{Style.RESET_ALL}"
 
 
 def format_expr(p):
-    types = [x.type for x in p.slice]
-    print(f"Regla: {types[0]}: ", end="")
+    types = [elem(x.type) for x in p.slice]
+    rule = f"{types[0]}: "
     for val in types[1:]:
-        print(f"{val} ", end="")
-    print()
-
+        rule += f"{val} "
+    parser_table.add_row([rule])
 
 start = "s"
 

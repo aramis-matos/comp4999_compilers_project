@@ -1,0 +1,27 @@
++------------------------------------------------------------------------+
+| Regla                                                                  |
++------------------------------------------------------------------------+
+| [31msentencia[0m: [33mDEFINA[0m [33mID[0m [33mCOMO[0m [33mTIPO[0m                                         |
+| [31mcompuesto[0m: [33mELEMENTO_QUIMICO[0m                                            |
+| [31mcompuesto[0m: [33mELEMENTO_QUIMICO[0m [33mVALENCIA[0m                                   |
+| [31mcompuesto[0m: [33mELEMENTO_QUIMICO[0m                                            |
+| [31melemento[0m: [33mELEMENTO_QUIMICO[0m                                             |
+| [31mcompuesto[0m: [33mELEMENTO_QUIMICO[0m                                            |
+| [31melemento[0m: [33mELEMENTO_QUIMICO[0m [33mVALENCIA[0m                                    |
+| [31mmodelo_grupo_funcional[0m: [31mcompuesto[0m [31melemento[0m                             |
+| [31mgrupo_funcional[0m: [33mPARENTESIS_IZQ[0m [31mmodelo_grupo_funcional[0m [33mPARENTESIS_DER[0m  |
+| [31mcompuesto[0m: [31melemento[0m [31mgrupo_funcional[0m                                    |
+| [31mcompuesto[0m: [33mELEMENTO_QUIMICO[0m                                            |
+| [31mcompuesto[0m: [33mELEMENTO_QUIMICO[0m [33mVALENCIA[0m                                   |
+| [31mcompuestos[0m: [31mcompuesto[0m                                                  |
+| [31mcompuestos[0m: [31mcompuesto[0m [31mcompuestos[0m                                       |
+| [31mcompuestos[0m: [31mcompuesto[0m [31mcompuestos[0m                                       |
+| [31mcompuestos[0m: [31mcompuesto[0m [31mcompuestos[0m                                       |
+| [31mmodelo_molecular[0m: [31mcompuesto[0m [31mcompuesto[0m [31mcompuestos[0m                       |
+| [31msentencia[0m: [33mID[0m [33mASIGNACION[0m [31mmodelo_molecular[0m                              |
+| [31msentencia[0m: [33mOPERACION[0m [33mPARENTESIS_IZQ[0m [33mID[0m [33mPARENTESIS_DER[0m                  |
+| [31msentencias[0m: [31msentencia[0m [33mFIN_DE_LINEA[0m                                     |
+| [31msentencias[0m: [31msentencia[0m [33mFIN_DE_LINEA[0m [31msentencias[0m                          |
+| [31msentencias[0m: [31msentencia[0m [33mFIN_DE_LINEA[0m [31msentencias[0m                          |
+| [31ms[0m: [33mINICIO[0m [31msentencias[0m [33mFIN[0m                                               |
++------------------------------------------------------------------------+

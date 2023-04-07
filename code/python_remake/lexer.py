@@ -140,6 +140,7 @@ def t_error(t):             # identifica error lexico
 
 lexer = lex.lex()
 
+tokenNum = 1
 if __name__ == "__main__":
     tokenTable.field_names = ["N.", "Token",
                               "Lexema", "Linea", "Posición", "Programa"]
@@ -148,7 +149,6 @@ if __name__ == "__main__":
     symbolsTable = PrettyTable()
     symbolsTable.field_names = ["Variables"]
 
-    tokenNum = 1
     with open(test_file, "r") as f:
         with open("output.txt", "w") as o:
             for data in f:
