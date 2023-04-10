@@ -1,3 +1,0 @@
-Error sintactico en la linea 1, columna 38        por ENLACE
-Error sintactico en la linea 1, columna 64        por ENLACE
-Error sintactico en la linea 1, columna 86        por FIN_DE_LINEA

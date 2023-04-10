@@ -29,9 +29,9 @@ if not (os.path.exists(test_file)):
     test_file = "test_prog.txt"
 
 with open(test_file, 'r') as f:
-    contents = f.read().replace("\n", "")
+    contents = f.read()#.replace("\n", "")
     # print(contents)
-    grammar.parser.parse(contents)
+    grammar.parser.parse(contents,tracking=True)
 # for val in grammar.variables.values():
 #     print(val)
 parser_table = PrettyTable()

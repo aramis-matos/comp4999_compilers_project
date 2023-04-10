@@ -11,7 +11,7 @@ def format_expr(p):
     for val in types[1:]:
         rule += f"{val} "
     rules.append([rule])
-
+    # print(p.lexspan(1))
 
 start = "s"
 
