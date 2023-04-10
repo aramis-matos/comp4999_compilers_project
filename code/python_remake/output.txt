@@ -1,36 +1,41 @@
-+----+------------------+--------+-------+----------+----------------+
-| N. |      Token       | Lexema | Linea | Posición |    Programa    |
-+----+------------------+--------+-------+----------+----------------+
-| 1  |      INICIO      | inicio |   1   |    0     | test_prog2.txt |
-| 2  |      DEFINA      | defina |   2   |    0     | test_prog2.txt |
-| 3  |        ID        |   a1   |   2   |    7     | test_prog2.txt |
-| 4  |       COMO       |  como  |   2   |    10    | test_prog2.txt |
-| 5  |       TIPO       | modelo |   2   |    15    | test_prog2.txt |
-| 6  |   FIN_DE_LINEA   |   ;    |   2   |    21    | test_prog2.txt |
-| 7  |        ID        |   a1   |   3   |    0     | test_prog2.txt |
-| 8  |    ASIGNACION    |   :=   |   3   |    3     | test_prog2.txt |
-| 9  | ELEMENTO_QUIMICO |   C    |   3   |    6     | test_prog2.txt |
-| 10 | ELEMENTO_QUIMICO |   H    |   3   |    7     | test_prog2.txt |
-| 11 |     VALENCIA     |   3    |   3   |    8     | test_prog2.txt |
-| 12 | ELEMENTO_QUIMICO |   C    |   3   |    9     | test_prog2.txt |
-| 13 | ELEMENTO_QUIMICO |   H    |   3   |    10    | test_prog2.txt |
-| 14 |  PARENTESIS_IZQ  |   (    |   3   |    11    | test_prog2.txt |
-| 15 | ELEMENTO_QUIMICO |   C    |   3   |    12    | test_prog2.txt |
-| 16 | ELEMENTO_QUIMICO |   H    |   3   |    13    | test_prog2.txt |
-| 17 |     VALENCIA     |   3    |   3   |    14    | test_prog2.txt |
-| 18 |  PARENTESIS_DER  |   )    |   3   |    15    | test_prog2.txt |
-| 19 | ELEMENTO_QUIMICO |   C    |   3   |    16    | test_prog2.txt |
-| 20 | ELEMENTO_QUIMICO |   H    |   3   |    17    | test_prog2.txt |
-| 21 |     VALENCIA     |   3    |   3   |    18    | test_prog2.txt |
-| 22 |   FIN_DE_LINEA   |   ;    |   3   |    19    | test_prog2.txt |
-| 23 |       FIN        |  fin   |   4   |    0     | test_prog2.txt |
-+----+------------------+--------+-------+----------+----------------+
++----+------------------+------------+-------+----------+---------------+
+| N. |      Token       |   Lexema   | Linea | Posición |    Programa   |
++----+------------------+------------+-------+----------+---------------+
+| 1  |      INICIO      |   inicio   |   1   |    0     | test_prog.txt |
+| 2  |      DEFINA      |   defina   |   2   |    0     | test_prog.txt |
+| 3  |        ID        |   comp1    |   2   |    7     | test_prog.txt |
+| 4  |       COMO       |    como    |   2   |    13    | test_prog.txt |
+| 5  |       TIPO       |   modelo   |   2   |    18    | test_prog.txt |
+| 6  |   FIN_DE_LINEA   |     ;      |   2   |    24    | test_prog.txt |
+| 7  |        ID        |   comp1    |   3   |    0     | test_prog.txt |
+| 8  |    ASIGNACION    |     :=     |   3   |    6     | test_prog.txt |
+| 9  | ELEMENTO_QUIMICO |     C      |   3   |    9     | test_prog.txt |
+| 10 | ELEMENTO_QUIMICO |     H      |   3   |    10    | test_prog.txt |
+| 11 |     VALENCIA     |     3      |   3   |    11    | test_prog.txt |
+| 12 | ELEMENTO_QUIMICO |     C      |   3   |    12    | test_prog.txt |
+| 13 | ELEMENTO_QUIMICO |     H      |   3   |    13    | test_prog.txt |
+| 14 |  PARENTESIS_IZQ  |     (      |   3   |    14    | test_prog.txt |
+| 15 | ELEMENTO_QUIMICO |     Cl     |   3   |    15    | test_prog.txt |
+| 16 |     VALENCIA     |     2      |   3   |    17    | test_prog.txt |
+| 17 |  PARENTESIS_DER  |     )      |   3   |    18    | test_prog.txt |
+| 18 | ELEMENTO_QUIMICO |     C      |   3   |    19    | test_prog.txt |
+| 19 | ELEMENTO_QUIMICO |     H      |   3   |    20    | test_prog.txt |
+| 20 |     VALENCIA     |     3      |   3   |    21    | test_prog.txt |
+| 21 |   FIN_DE_LINEA   |     ;      |   3   |    22    | test_prog.txt |
+| 22 |    OPERACION     | graficar2d |   4   |    0     | test_prog.txt |
+| 23 |  PARENTESIS_IZQ  |     (      |   4   |    10    | test_prog.txt |
+| 24 |        ID        |   comp1    |   4   |    11    | test_prog.txt |
+| 25 |  PARENTESIS_DER  |     )      |   4   |    16    | test_prog.txt |
+| 26 |   FIN_DE_LINEA   |     ;      |   4   |    17    | test_prog.txt |
+| 27 |       FIN        |    fin     |   5   |    0     | test_prog.txt |
+| 28 |   FIN_DE_LINEA   |     ;      |   5   |    3     | test_prog.txt |
++----+------------------+------------+-------+----------+---------------+
 
 TABLA DE SIMBOLOS
 +-----------+
 | Variables |
 +-----------+
-|     a1    |
+|   comp1   |
 +-----------+
 
 

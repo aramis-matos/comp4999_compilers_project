@@ -1,5 +1,6 @@
+from lexer import tokens
+from lexer import variables
 from ply import yacc
-from lexer import tokens, variables
 
 rules = []
 
@@ -105,10 +106,15 @@ def p_modelo_grupo_funcional(p):
 
 
 def p_error(p):
-    err = f"Syntax Error at line {p.lineno}, column {p.lexpos} by {p.type}\n"
-    with open("parser_err_out.txt", "w") as f:
-        f.write(err)
-    print(err)
+    if p:
+        err = f"Error sintactico en la linea {p.lineno}, columna {p.lexpos}\
+        por {p.type}\n"
+        with open("parser_err_out.txt", "a") as f:
+            f.write(err)
+        print(err)
+        parser.errok()
+    else:
+        print("Error Sintactico en el final del archivo")
 
 
 parser = yacc.yacc(debug=True)

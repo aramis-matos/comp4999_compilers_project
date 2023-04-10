@@ -1,6 +1,7 @@
-import ply.lex as lex
-import sys
 import os
+import sys
+
+import ply.lex as lex
 from prettytable import PrettyTable
 
 
@@ -97,7 +98,7 @@ def t_OPERACION(t):
 def t_ELEMENTO_QUIMICO(t):  # define regla para el token elemento quimico
     r"(H|Li|Na|K|Rb|Cs|Fr|Be|Mg|Ca|Sr|Ba|Ra|Sc|Y|Ti|Zr|Hf|Db|V|Nb|Ta|Ji|Cr|Mo\
         |W|Rf|Mn|Tc|Re|Bh|Fe|Ru|Os|Hn|Co|Rh|Ir|Mt|Ni|Pd|Pt|Cu|Ag|Au|Zn|Cd|Hg|B\
-        |Al|Ga|In|Ti|C|Si|Ge|Sn|Pb|N|P|As|Sb|Bi|O|S|Se|Te|Po|F|Cr|Br|I|At|He|\
+        |Al|Ga|In|Ti|Cl|Si|Ge|Sn|Pb|N|P|As|Sb|Bi|O|S|Se|Te|Po|F|C|Br|I|At|He|\
         Ne|Ar|Kr|Xe|Rn)"
     return t
 

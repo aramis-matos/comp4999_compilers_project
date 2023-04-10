@@ -1,4 +1,5 @@
 inicio 
-defina a1 como modelo;
-a1 := CH3CH(CH3)CH3;
-fin
+defina comp1 como modelo;
+comp1 = := C:H3CH(Cl2)[KP7]=CH3;=
+graficar2d(comp1);
+fin;
