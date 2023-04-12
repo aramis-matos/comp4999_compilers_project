@@ -1,6 +1,7 @@
 from lexer import tokens
 from lexer import variables
 from ply import yacc
+import sys
 
 rules = []
 
@@ -105,9 +106,20 @@ def p_modelo_grupo_funcional(p):
     format_expr(p)
 
 
+def find_column(input, token):
+    line_start = input.rfind('\n', 0, token.lexpos) + 1
+    return(token.lexpos - line_start) + 1
+
+try:
+    test_file = sys.argv[1]
+except IndexError:
+    test_file = "test_prog.txt"
+
 def p_error(p):
     if p:
-        err = f"Error sintactico en la linea {p.lineno}, columna {p.lexpos}\
+        with open(test_file, "r") as f:
+            line = f.read()
+        err = f"Error sintactico en la linea {p.lineno}, columna {find_column(line, p)}\
         por {p.type}\n"
         with open("parser_err_out.txt", "a") as f:
             f.write(err)
