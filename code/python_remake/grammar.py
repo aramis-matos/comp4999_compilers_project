@@ -14,6 +14,7 @@ def format_expr(p):
     rules.append([rule])
     # print(p.lexspan(1))
 
+
 start = "s"
 
 
@@ -108,12 +109,14 @@ def p_modelo_grupo_funcional(p):
 
 def find_column(input, token):
     line_start = input.rfind('\n', token.lineno, token.lexpos) + 1
-    return(token.lexpos - line_start) + 1
+    return (token.lexpos - line_start) + 1
+
 
 try:
     test_file = sys.argv[1]
 except IndexError:
     test_file = "test_prog.txt"
+
 
 def p_error(p):
     if p:
