@@ -1,0 +1,61 @@
+\section{\textit{grammar.py}}
+Un código fuente pasa por al menos dos fases:
+\begin{enumerate}
+	\item Análisis léxico
+	\item Análisis sintáctico
+\end{enumerate}
+
+Como se ha mencionado antes, en esta primera fase se evalua el código fuente caracter a caracter.
+Este se tokeniza, es decir se le otorga una categoría sintáctica, y se devuelve al analizador sintáctico.
+Ahora, la cuestión es, cuál es el propósito del analizador sintáctico?
+El analizador sintáctico recibe una lista de \textit{tokens} del analizador léxico y las convierte, atravez de reglas de producción, en sentencias gramaticales del lenguaje en cuestión.
+Relas de producción tienen la siguiente forma: (\textbf{Regla} : \textit{Definición}) donde \textbf{Regla} es un no terminal y \textit{Definición} es una serie de 0 o mas terminales o no terminales.
+Un terminal se define como un \textit{token} y un no terminal es un una regla gramatical en si.
+
+Se utiliza PLY \cite{noauthor_ply_nodate} para el análisis sintáctico. En particular, su implementación de \textit{yacc} \cite{noauthor_man_nodate}.
+En el archivo \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/python_remake/grammar.py}{\textit{grammar.py}} se puede apreciar que la todas de las reglas del lenguaje AVISMO, con la exepción de relas que fueron utilizadas en analizador léxico, fueron adaptadas.
+En PLY, una regla gramatical se define como una función en Python cuyo nombre es \textbf{p\_} seguido del nombre de la regla de producción, por ejemplo:
+\begin{figure}[H]
+	\begin{minted}[breaklines,breakanywhere,linenos,escapeinside=!!]{python}
+def p_s(p):
+'''s : INICIO sentencias FIN''' !\label{rule}!
+	\end{minted}
+	\caption{Ejemplo de una regla de producción en PLY}
+	\label{fig: grammarRuleExample}
+\end{figure}
+Note que el argumento \textit{p} es una lista que contiene objetos \textit{LexToken}.
+Los terminales tienen una variable de valor asignada mientras que los no terminales no.
+Cada objeto \textit{LexToken} tiene una posición léxica (como una variable miembro llamada \textit{lexpos}) y la línea dentro del código fuente  (como una variable miembro llamada \textit{lineno}).
+La manera de definir la regla de producción se puede ver en la figura \ref{fig: grammarRuleExample}, linea \ref{rule}.
+Esta sigue el formato previamente establecido pero con un detalle importante.
+Los no terminales están escritos en letras minúsculas y los terminales en mayúsculas.
+Esto se hizo con el motivo de clarificar en que categoría, si terminal o no terminal, es clasificada cada item en la regla de producción.
+Más aún, la documentación de \textit{PLY} sugiere esta convención.
+
+Toda gramática parte desde un axioma y \textit{PLY} sigue este principio.
+Por defacto, \textit{PLY} asume que la primera regla que se define en el archivo de \textit{grammar.py} es el axioma del la gramatica.
+Sin embargo, es preferible que se defina un axioma explícito.
+En \textit{PLY}, si se le asigna a la variable \textit{start} el nombre de la regla de producción como una cadena de caracteres, como se hace a continuación, \mintinline{python}{start = "s"}, \textit{PLY} explícitamente comienza la derivación desde esa regla. Declarar el axioma explícitamente tiene dos ventajas:
+\begin{itemize}
+	\item Claridad en el código
+	\item Eliminación de errores por tokens no utilizados
+\end{itemize}
+
+Debido a que no se está implementando la funcionalidad del lenguaje AVISMO, las reglas de producción no tienen código relevante. Sin embargo, todas las reglas de producción en \textit{grammar.py} ejecutan una función llamda \textit{format\_expr} que guarda información acerca de la regla gramatical que se utilizó en la derivación del código fuente.
+Esto se hace con intenciones pedagógicas.
+El código de \textit{format\_expr} se presenta a continuación:
+\begin{figure}[H]
+	\begin{minted}[breaklines,breakanywhere,linenos]{python}
+def format_expr(p):
+    types = [x.type for x in p.slice]
+    rule = f"{types[0]} --> "
+    for val in types[1:]:
+        rule += f"{val} "
+    rules.append([rule])
+\end{minted}
+	\caption{Código para guardar información acerca de las derivaciones}
+	\label{fig: formatExpr}
+\end{figure}
+
+\section{\textit{tester.py}}
+
