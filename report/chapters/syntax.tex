@@ -5,15 +5,15 @@ Un código fuente pasa por al menos dos fases:
 	\item Análisis sintáctico
 \end{enumerate}
 
-Como se ha mencionado antes, en esta primera fase se evalua el código fuente caracter a caracter.
+Como se ha mencionado antes, en esta primera fase se evalúa el código fuente carácter a carácter.
 Este se tokeniza, es decir se le otorga una categoría sintáctica, y se devuelve al analizador sintáctico.
 Ahora, la cuestión es, cuál es el propósito del analizador sintáctico?
-El analizador sintáctico recibe una lista de \textit{tokens} del analizador léxico y las convierte, atravez de reglas de producción, en sentencias gramaticales del lenguaje en cuestión.
-Relas de producción tienen la siguiente forma: (\textbf{Regla} : \textit{Definición}) donde \textbf{Regla} es un no terminal y \textit{Definición} es una serie de 0 o mas terminales o no terminales.
+El analizador sintáctico recibe una lista de \textit{tokens} del analizador léxico y las convierte, a traves de reglas de producción, en sentencias gramaticales del lenguaje en cuestión.
+Reglas de producción tienen la siguiente forma: (\textbf{Regla} : \textit{Definición}) donde \textbf{Regla} es un no terminal y \textit{Definición} es una serie de 0 o mas terminales o no terminales.
 Un terminal se define como un \textit{token} y un no terminal es un una regla gramatical en si.
 
 Se utiliza PLY \cite{noauthor_ply_nodate} para el análisis sintáctico. En particular, su implementación de \textit{yacc} \cite{noauthor_man_nodate}.
-En el archivo \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/python_remake/grammar.py}{\textit{grammar.py}} se puede apreciar que la todas de las reglas del lenguaje AVISMO, con la exepción de relas que fueron utilizadas en analizador léxico, fueron adaptadas.
+En el archivo \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/python_remake/grammar.py}{\textit{grammar.py}} se puede apreciar que la todas de las reglas del lenguaje AVISMO, con la exención de reglas que fueron utilizadas en analizador léxico, fueron adaptadas.
 En PLY, una regla gramatical se define como una función en Python cuyo nombre es \textbf{p\_} seguido del nombre de la regla de producción, por ejemplo:
 \begin{figure}[H]
 	\begin{minted}[breaklines,breakanywhere,linenos,escapeinside=!!]{python}
@@ -33,7 +33,7 @@ Esto se hizo con el motivo de clarificar en que categoría, si terminal o no ter
 Más aún, la documentación de \textit{PLY} sugiere esta convención.
 
 Toda gramática parte desde un axioma y \textit{PLY} sigue este principio.
-Por defacto, \textit{PLY} asume que la primera regla que se define en el archivo de \textit{grammar.py} es el axioma del la gramatica.
+Por defacto, \textit{PLY} asume que la primera regla que se define en el archivo de \textit{grammar.py} es el axioma del la gramática.
 Sin embargo, es preferible que se defina un axioma explícito.
 En \textit{PLY}, si se le asigna a la variable \textit{start} el nombre de la regla de producción como una cadena de caracteres, como se hace a continuación, \mintinline{python}{start = "s"}, \textit{PLY} explícitamente comienza la derivación desde esa regla. Declarar el axioma explícitamente tiene dos ventajas:
 \begin{itemize}
@@ -41,7 +41,7 @@ En \textit{PLY}, si se le asigna a la variable \textit{start} el nombre de la re
 	\item Eliminación de errores por tokens no utilizados
 \end{itemize}
 
-Debido a que no se está implementando la funcionalidad del lenguaje AVISMO, las reglas de producción no tienen código relevante. Sin embargo, todas las reglas de producción en \textit{grammar.py} ejecutan una función llamda \textit{format\_expr} que guarda información acerca de la regla gramatical que se utilizó en la derivación del código fuente.
+Debido a que no se está implementando la funcionalidad del lenguaje AVISMO, las reglas de producción no tienen código relevante. Sin embargo, todas las reglas de producción en \textit{grammar.py} ejecutan una función llamada \textit{format\_expr} que guarda información acerca de la regla gramatical que se utilizó en la derivación del código fuente.
 Esto se hace con intenciones pedagógicas.
 El código de \textit{format\_expr} se presenta a continuación:
 \begin{figure}[H]
@@ -60,11 +60,45 @@ def format_expr(p):
 \section{\textit{tester.py}}
 
 Para poder correr \textit(grammar.py) en un archivo escrito en AVISMO, es necesario invocar de correr el programa \textit{tester.py} de la siguiente manera:
-
-\begin{minted}{Bash}[breaklines,Breakanywhere]
-	python3 tester.py archivo 
+\begin{minted}{Bash}
+	python3 tester.py archivo
 \end{minted}
+donde archivo es un programa de AVISMO. Al invocar el comando anterior, se presenta la derivación \textit{LALR} del código fuente. Por ejemplo, el código AVISMO en la figura \ref{fig: avismoProg} se deriva de la manera que se presenta en la figura
 
+\begin{figure}
 
+	\begin{verbatim}
+inicio 
+defina a1 como modelo;
+a1 := CH3CH(CH3)CH3;
+fin
+\end{verbatim}
+	\caption{Ejemplo de un programa AVISMO}
+	\label{fig: avismoProg}
+\end{figure}
+
+\begin{lstlisting}
+sentencia > DEFINA ID COMO TIPO                                         
+compuesto > ELEMENTO_QUIMICO                                            
+compuesto > ELEMENTO_QUIMICO VALENCIA                                   
+compuesto > ELEMENTO_QUIMICO                                            
+elemento > ELEMENTO_QUIMICO                                             
+compuesto > ELEMENTO_QUIMICO                                            
+elemento > ELEMENTO_QUIMICO VALENCIA                                    
+modelo_grupo_funcional > compuesto elemento                             
+grupo_funcional > PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER  
+compuesto > elemento grupo_funcional                                    
+compuesto > ELEMENTO_QUIMICO                                            
+compuesto > ELEMENTO_QUIMICO VALENCIA                                   
+compuestos > compuesto                                                  
+compuestos > compuesto compuestos                                       
+compuestos > compuesto compuestos                                       
+compuestos > compuesto compuestos                                       
+modelo_molecular > compuesto compuesto compuestos                       
+sentencia > ID ASIGNACION modelo_molecular                              
+sentencias > sentencia FIN_DE_LINEA                                     
+sentencias > sentencia FIN_DE_LINEA sentencias                          
+s > INICIO sentencias FIN                                               
+\end{lstlisting}
 
 
