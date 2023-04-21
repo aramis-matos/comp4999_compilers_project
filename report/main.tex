@@ -19,6 +19,10 @@ basicstyle=\small\ttfamily,
 columns=flexible,
 breaklines=true
 }
+\newcommand {\scaledimage}[1] {
+
+    \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{#1}
+}
 
 \usetikzlibrary{positioning,arrows,automata}
 \usetikzlibrary{arrows.meta}
@@ -28,7 +32,7 @@ breaklines=true
 
 \setabbreviationstyle[acronym]{long-short}
 \makeglossaries
-\title{Diseño e Implementación de un Analizador Léxico y Analizador Semántico para el Lenguaje AVISMO}
+\title{Diseño e Implementación de un Analizador Léxico y Analizador Sintáctico para el Lenguaje AVISMO}
 \author{Aramis E. Matos \\ Lenier Gerena \\ Angel Berrios Pellot}
 \date{Segundo Semestre, 2022-2023}
 \begin{document}
@@ -54,13 +58,17 @@ breaklines=true
 
 \input{chapters/lex.tex}
 
-\chapter{Implementación del Analizador Sintáctico}
+\chapter{Analizador Sintáctico}
 
 \input{chapters/syntax.tex}
 
 \chapter{Conclusiones y Recomendaciones}
 
 \input{chapters/conclusion.tex}
+
+\appendix
+
+\include{chapters/appendix.tex}
 
 \listoffigures
 

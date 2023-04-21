@@ -1,0 +1,377 @@
+\chapter{Código de Analizador Léxico}
+
+\begin{minted}[breaklines,breakanywhere,linenos,escapeinside=!!]{python}
+import os
+import sys
+
+import ply.lex as lex
+from prettytable import PrettyTable
+
+
+reserved = {}
+
+variables = {}
+
+with open("keywords.txt", "r") as f:
+    for line in f:
+        val = line.strip()
+        reserved[val] = val.upper()
+
+try:
+    test_file = sys.argv[1]
+except IndexError:
+    test_file = "test_prog.txt"
+
+if not (os.path.exists(test_file)):
+    print(
+        f"The file {test_file} not found, proceeding with default\
+    test_prog.txt file")
+    test_file = "test_prog.txt"
+
+tokenTable = PrettyTable()
+
+# enumera los nombre de todos tokens que puede reconocer
+tokens = [
+    "FIN_DE_LINEA",
+    # "LETRA",
+    # "DIGITO",
+    "OPERACION",
+    "VALENCIA",
+    "ENLACE",
+    # "IDCONT",
+    "ID",
+    "ELEMENTO_QUIMICO",
+    # "MODELO_MOLECULAR",
+    # "COMPUESTO",
+    # "COMPUESTOS",
+    # "ELEMENTO",
+    # "GRUPO_FUNCIONAL",
+    # "GRUPO_FUNCIONAL_INFERIOR",
+    # "GRUPO_FUNCIONAL_SUPERIOR",
+    # "MODELO_GRUPO_FUNCIONAL",
+    # "SENTENCIA",
+    # "SENTENCIAS",
+    "PARENTESIS_IZQ",
+    "PARENTESIS_DER",
+    "TIPO",
+    # "PALABRA_RESERVADA",
+    "COR_IZQ",
+    "COR_DER",
+    "ASIGNACION",
+]
+
+tokens = tokens + list(reserved.values())
+
+
+# definiciones de los tokens y reglas de expresiones regulares
+# t_COR_IZQ y t_COR_DER definen los tokens para corchetes izquierdos y
+# derechos [ y ]
+t_COR_IZQ = r"\["
+t_COR_DER = r'\]'
+# t_PARENTESIS_IZQ y t_PARENTESIS_DER definen los tokens para parentesis
+
+# izquierdos y derechos ( y )
+t_PARENTESIS_IZQ = r"\("
+t_PARENTESIS_DER = r"\)"
+
+# define el token para el final de la linea, que puede ser : o ;
+t_FIN_DE_LINEA = r"(:|;)"
+# define los tokens para cualquier numero entero del 1 al 9
+t_VALENCIA = r"[1-9]"
+# t_DIGITO = r"[0-9]"  # define los tokens para cualquier digito del 0 al 9
+t_TIPO = r"modelo"  # define el token para la palabra "modelo"
+# define los tokens para diferentes tipos de enlaces quimicos
+t_ENLACE = r"(-|=|:|::)"
+t_ignore = " \t"  # indica que se deben ignorar los espacios en blanco y
+# tabulaciones
+
+
+def t_ASIGNACION(t):  # identifica el token ":="
+    r":="
+    return t
+
+# identifica el token graficar2d, graficar3d y pesomolecular
+
+
+def t_OPERACION(t):
+    r"(graficar2d|graficar3d|pesomolecular)"
+    return t
+
+
+def t_ELEMENTO_QUIMICO(t):  # define regla para el token elemento quimico
+    r"(H|Li|Na|K|Rb|Cs|Fr|Be|Mg|Ca|Sr|Ba|Ra|Sc|Y|Ti|Zr|Hf|Db|V|Nb|Ta|Ji|Cr|Mo\
+        |W|Rf|Mn|Tc|Re|Bh|Fe|Ru|Os|Hn|Co|Rh|Ir|Mt|Ni|Pd|Pt|Cu|Ag|Au|Zn|Cd|Hg|B\
+        |Al|Ga|In|Ti|Cl|Si|Ge|Sn|Pb|N|P|As|Sb|Bi|O|S|Se|Te|Po|F|C|Br|I|At|He|\
+        Ne|Ar|Kr|Xe|Rn)"
+    return t
+
+# identifica el token ID pero tambien idetifica el token de palabra reservada
+
+
+def t_ID(t):
+    r"[A-Za-z]+\d*"
+    isPR = reserved.get(t.value, "ID")
+    # if isPR != "ID":
+    #     t.type = "PALABRA_RESERVADA"
+    # else:
+    #     t.type = isPR
+    #     variables[t.value] = ""
+    if isPR != "MODELO":
+        t.type = isPR
+    elif isPR == "MODELO":
+        t.type = "TIPO"
+    if isPR == "ID":
+        variables[t.value] = ""
+    return t
+
+
+def t_newline(t):           # incrementa ek numero de linea
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+
+def t_COMMENT(t):           # Ignora comentarios
+    r'\#.*'
+    pass
+    # No return value. Token discarded
+
+
+def t_error(t):             # identifica error lexico
+    tokenTable.add_row([tokenNum, "ERROR", t.value[0],
+                       t.lineno, t.lexpos, test_file])
+    t.lexer.skip(1)
+
+
+lexer = lex.lex()
+
+tokenNum = 1
+if __name__ == "__main__":
+    tokenTable.field_names = ["N.", "Token",
+                              "Lexema", "Linea", "Posicion", "Programa"]
+    reservedWords = PrettyTable()
+    reservedWords.field_names = ["Palabra Reservada"]
+    symbolsTable = PrettyTable()
+    symbolsTable.field_names = ["Variables"]
+
+    with open(test_file, "r") as f:
+        with open("output.txt", "w") as o:
+            for data in f:
+                # data = input("Input data: ")
+                lexer.input(data)
+                for tok in lexer:
+                    tokenTable.add_row(
+                        [tokenNum, tok.type, tok.value, tok.lineno, tok.lexpos,
+                         test_file])
+                    tokenNum += 1
+                    # o.write(line+"\n")
+            o.write(str(tokenTable))
+            line = "\n\nTABLA DE SIMBOLOS"
+            o.write(line+"\n")
+            for val in variables:
+                symbolsTable.add_row([val])
+            o.write(str(symbolsTable)+"\n")
+            line = "\n\nPALABRAS RESERVADAS"
+            o.write(line+"\n")
+            for val in reserved:
+                reservedWords.add_row([val])
+            o.write(str(reservedWords)+"\n")
+
+    with open("output.txt", "r") as f:
+        for line in f:
+            print(line, end="")
+\end{minted}
+
+\label{apendixA}
+
+
+\chapter{Código de Analizador Sintáctico}
+
+\begin{minted}[breaklines,breakanywhere,linenos,escapeinside=!!]{python}
+from lexer import tokens
+from lexer import variables
+from ply import yacc
+import sys
+
+rules = []
+
+
+def format_expr(p):
+    types = [x.type for x in p.slice]
+    rule = f"{types[0]} --> "
+    for val in types[1:]:
+        rule += f"{val} "
+    rules.append([rule])
+    # print(p.lexspan(1))
+
+
+start = "s"
+
+
+def p_s(p):
+    '''s : INICIO sentencias FIN'''
+    # p[0] = p[2]
+    format_expr(p)
+
+
+def p_sentencias(p):
+    '''sentencias : sentencia FIN_DE_LINEA sentencias
+                  | sentencia FIN_DE_LINEA'''
+    # if (len(p) == 4):
+    #     p[0] = p[1] + p[3]
+    # elif (len(p) == 3):
+    #     p[0] = p[1]
+    format_expr(p)
+
+
+def p_sentencia(p):
+    '''sentencia : DEFINA ID COMO TIPO
+                  | ID ASIGNACION modelo_molecular
+                  | OPERACION PARENTESIS_IZQ ID PARENTESIS_DER'''
+    # type1 = p[1].type
+    # print(type1)
+    format_expr(p)
+    # if (len(p) == 4):
+    #     print(p[1])
+    #     print(p[3])
+    #     variables[p[1]] = p[3]
+
+
+def p_modelo_molecular(p):
+    '''modelo_molecular : ELEMENTO_QUIMICO
+                        | ELEMENTO_QUIMICO VALENCIA
+                        | elemento grupo_funcional
+                        | compuesto elemento
+                        | compuesto elemento grupo_funcional
+                        | compuesto compuesto compuestos'''
+    format_expr(p)
+
+
+def p_compuesto(p):
+    '''compuesto : ELEMENTO_QUIMICO
+                 | ELEMENTO_QUIMICO VALENCIA
+                 | elemento grupo_funcional
+                 | elemento grupo_funcional ENLACE
+                 | elemento ENLACE'''
+    format_expr(p)
+
+
+def p_compuestos(p):
+    '''compuestos : compuesto compuestos
+                  | compuesto'''
+    format_expr(p)
+
+
+def p_elemento(p):
+    '''elemento : ELEMENTO_QUIMICO
+                | ELEMENTO_QUIMICO VALENCIA'''
+    format_expr(p)
+
+
+def p_grupo_funcional(p):
+    '''grupo_funcional : grupo_funcional_inferior grupo_funcional_superior
+                       | grupo_funcional_superior grupo_funcional_inferior
+                       | PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER
+                       | COR_IZQ modelo_grupo_funcional COR_DER'''
+    format_expr(p)
+
+
+def p_grupo_funcional_inferior(p):
+    '''grupo_funcional_inferior : COR_IZQ modelo_grupo_funcional COR_DER'''
+    format_expr(p)
+
+
+def p_grupo_funcional_superior(p):
+    '''grupo_funcional_superior : PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER'''
+    format_expr(p)
+
+
+def p_modelo_grupo_funcional(p):
+    '''modelo_grupo_funcional : ENLACE modelo_molecular
+                              | ELEMENTO_QUIMICO
+                              | ELEMENTO_QUIMICO VALENCIA
+                              | elemento grupo_funcional
+                              | compuesto elemento
+                              | compuesto elemento grupo_funcional
+                              | compuesto compuesto compuestos'''
+    format_expr(p)
+
+
+def find_column(input, token):
+    line_start = input.rfind('\n', token.lineno, token.lexpos) + 1
+    return (token.lexpos - line_start) + 1
+
+
+try:
+    test_file = sys.argv[1]
+except IndexError:
+    test_file = "test_prog.txt"
+
+
+def p_error(p):
+    if p:
+        with open(test_file, "r") as f:
+            line = f.read()
+        err = f"Error sintactico en la linea {p.lineno}, columna {find_column(line, p)}\
+        por {p.type}\n"
+        with open("parser_err_out.txt", "a") as f:
+            f.write(err)
+        print(err)
+        parser.errok()
+    else:
+        print("Error Sintactico en el final del archivo")
+
+
+parser = yacc.yacc(debug=True)
+if __name__ == "__main__":
+    while True:
+        try:
+            s = input('calc > ')
+        except EOFError:
+            break
+        if not s:
+            continue
+        parser.parse(s)
+
+\end{minted}
+
+\label{apendixB}
+
+\chapter{Casos de Prueba}
+
+\begin{figure}
+    \scaledimage{images/corr1.png}
+    \caption{Ejemplo de Programa Correcto}
+    \label{fig: corr1}
+\end{figure}
+
+\begin{figure}
+    \scaledimage{images/corr2.png}
+    \caption{Ejemplo de Programa Correcto}
+    \label{fig: corr2}
+\end{figure}
+
+\begin{figure}
+    \scaledimage{images/corr3.png}
+    \caption{Ejemplo de Programa Correcto}
+    \label{fig: corr3}
+\end{figure}
+
+\begin{figure}
+    \scaledimage{images/incorr1.png}
+    \caption{Ejemplo de Programa Incorrecto}
+    \label{fig: incorr1}
+\end{figure}
+
+\begin{figure}
+    \scaledimage{images/incorr2.png}
+    \caption{Ejemplo de Programa Incorrecto}
+    \label{fig: incorr2}
+\end{figure}
+
+\begin{figure}
+    \scaledimage{images/incorr3.png}
+    \caption{Ejemplo de Programa Incorrecto}
+    \label{fig: incorr3}
+\end{figure}
+
+\label{appendixC}

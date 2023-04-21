@@ -63,42 +63,6 @@ Para poder correr \textit(grammar.py) en un archivo escrito en AVISMO, es necesa
 \begin{minted}{Bash}
 	python3 tester.py archivo
 \end{minted}
-donde archivo es un programa de AVISMO. Al invocar el comando anterior, se presenta la derivación \textit{LALR} del código fuente. Por ejemplo, el código AVISMO en la figura \ref{fig: avismoProg} se deriva de la manera que se presenta en la figura
-
-\begin{figure}
-
-	\begin{verbatim}
-inicio 
-defina a1 como modelo;
-a1 := CH3CH(CH3)CH3;
-fin
-\end{verbatim}
-	\caption{Ejemplo de un programa AVISMO}
-	\label{fig: avismoProg}
-\end{figure}
-
-\begin{lstlisting}
-sentencia > DEFINA ID COMO TIPO                                         
-compuesto > ELEMENTO_QUIMICO                                            
-compuesto > ELEMENTO_QUIMICO VALENCIA                                   
-compuesto > ELEMENTO_QUIMICO                                            
-elemento > ELEMENTO_QUIMICO                                             
-compuesto > ELEMENTO_QUIMICO                                            
-elemento > ELEMENTO_QUIMICO VALENCIA                                    
-modelo_grupo_funcional > compuesto elemento                             
-grupo_funcional > PARENTESIS_IZQ modelo_grupo_funcional PARENTESIS_DER  
-compuesto > elemento grupo_funcional                                    
-compuesto > ELEMENTO_QUIMICO                                            
-compuesto > ELEMENTO_QUIMICO VALENCIA                                   
-compuestos > compuesto                                                  
-compuestos > compuesto compuestos                                       
-compuestos > compuesto compuestos                                       
-compuestos > compuesto compuestos                                       
-modelo_molecular > compuesto compuesto compuestos                       
-sentencia > ID ASIGNACION modelo_molecular                              
-sentencias > sentencia FIN_DE_LINEA                                     
-sentencias > sentencia FIN_DE_LINEA sentencias                          
-s > INICIO sentencias FIN                                               
-\end{lstlisting}
+donde archivo es un programa de AVISMO. Al invocar el comando anterior, se presenta la derivación \textit{LALR} del código fuente. Para un ejemplo, vease el código AVISMO en las figuras en el apéndice \ref{appendixC}.
 
 

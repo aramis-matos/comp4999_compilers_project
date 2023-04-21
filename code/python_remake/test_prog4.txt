@@ -1,0 +1,5 @@
+inicio 
+defina id como modelo;
+pesomolecular(id);
+graficar2d(id);
+fin
