@@ -9,7 +9,7 @@ Como se ha mencionado antes, en esta primera fase se evalúa el código fuente c
 Este se tokeniza, es decir se le otorga una categoría sintáctica, y se devuelve al analizador sintáctico.
 Ahora, la cuestión es, cuál es el propósito del analizador sintáctico?
 El analizador sintáctico recibe una lista de \textit{tokens} del analizador léxico y las convierte, a traves de reglas de producción, en sentencias gramaticales del lenguaje en cuestión.
-Reglas de producción tienen la siguiente forma: (\textbf{Regla} : \textit{Definición}) donde \textbf{Regla} es un no terminal y \textit{Definición} es una serie de 0 o mas terminales o no terminales.
+Reglas de producción tienen la siguiente forma: (\textbf{Regla} : \textit{Definición}) donde \textbf{Regla} es un no terminal y \textit{Definición} es una serie de 0 o más terminales o no terminales.
 Un terminal se define como un \textit{token} y un no terminal es un una regla gramatical en si.
 
 Se utiliza PLY \cite{noauthor_ply_nodate} para el análisis sintáctico. En particular, su implementación de \textit{yacc} \cite{noauthor_man_nodate}.
@@ -30,12 +30,12 @@ La manera de definir la regla de producción se puede ver en la figura \ref{fig:
 Esta sigue el formato previamente establecido pero con un detalle importante.
 Los no terminales están escritos en letras minúsculas y los terminales en mayúsculas.
 Esto se hizo con el motivo de clarificar en que categoría, si terminal o no terminal, es clasificada cada item en la regla de producción.
-Más aún, la documentación de \textit{PLY} sugiere esta convención.
+Más aún, la documentación de PLY sugiere esta convención.
 
-Toda gramática parte desde un axioma y \textit{PLY} sigue este principio.
-Por defacto, \textit{PLY} asume que la primera regla que se define en el archivo de \textit{grammar.py} es el axioma del la gramática.
+Toda gramática parte desde un axioma y PLY sigue este principio.
+Por defacto, PLY asume que la primera regla que se define en el archivo de \textit{grammar.py} es el axioma del la gramática.
 Sin embargo, es preferible que se defina un axioma explícito.
-En \textit{PLY}, si se le asigna a la variable \textit{start} el nombre de la regla de producción como una cadena de caracteres, como se hace a continuación, \mintinline{python}{start = "s"}, \textit{PLY} explícitamente comienza la derivación desde esa regla. Declarar el axioma explícitamente tiene dos ventajas:
+En PLY, si se le asigna a la variable \textit{start} el nombre de la regla de producción como una cadena de caracteres, como se hace a continuación, \mintinline{python}{start = "s"}, PLY explícitamente comienza la derivación desde esa regla. Declarar el axioma explícitamente tiene dos ventajas:
 \begin{itemize}
 	\item Claridad en el código
 	\item Eliminación de errores por tokens no utilizados
@@ -59,17 +59,17 @@ def format_expr(p):
 
 \section{\textit{tester.py}}
 
-Para poder correr \textit(grammar.py) en un archivo escrito en AVISMO, es necesario invocar de correr el programa \textit{tester.py} de la siguiente manera:
+Para poder correr \textit(grammar.py) en un archivo escrito en AVISMO, es necesario invocar el programa \textit{tester.py} de la siguiente manera:
 \begin{minted}{Bash}
 	python3 tester.py archivo
 \end{minted}
 donde archivo es un programa de AVISMO.
-Al invocar el comando anterior, se presenta la derivación \textit{LALR} del código fuente.
+Al invocar el comando anterior, se presenta la derivación LALR del código fuente.
 Para unos ejemplos, vease los códigos AVISMO en las figuras en el apéndice \ref{sec:syntaxTest}.
 
 
 
-\section{Casos de prueba para el analizador sintactico}
+\section{Casos de prueba para el analizador sintáctico}
 \label{sec:syntaxTest}
 
 \subsection{Tres programas sintácticamente correctos}

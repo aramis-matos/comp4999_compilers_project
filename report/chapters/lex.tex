@@ -13,7 +13,7 @@ Esto no significa que el analizador léxico espera un \textit{token} de por si, 
     \begin{longtable}{| p{0.2\textheight} | p{0.75\textheight} | p{0.2\textheight} | p{0.25\textheight} |}
         \hline
         \textit{Token}                 & Patrón                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       & Lexema        & Atributos                                                              \\\hline
-        <FIN\_DE\_LINEA>               & ; | :                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        & :             & Simbolo reservado                                                      \\\hline
+        <FIN\_DE\_LINEA>               & ; | :                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        & :             & Símbolo reservado                                                      \\\hline
         <PALABRA \_RESERVADA>          & defina | como                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                & defina        & Palabra reservada                                                      \\\hline
         <ID>                           & [A-Za-z][A-Za-z0-9]*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         & var1          & Modelo molecular asociado                                              \\\hline
         <IDCONT>                       & \textit{[A-Za-z0-9]+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        & 1ar           & ID asociado                                                            \\\hline
@@ -37,7 +37,7 @@ Esto no significa que el analizador léxico espera un \textit{token} de por si, 
     \end{longtable}
 \end{landscape}
 
-\section{Diseño del del Analizador Léxico}
+\section{Diseño del Analizador Léxico}
 
 \subsection{Autómatas Finitos Deterministas}
 
@@ -57,7 +57,7 @@ Esto no significa que el analizador léxico espera un \textit{token} de por si, 
             \end{tikzpicture}
             \label{fig: finDeLineaAutomata}
         \end{mdframed}
-        \caption{Automata del patrón para el token <FIN\_DE\_LINEA>}
+        \caption{Autómata del patrón para el token <FIN\_DE\_LINEA>}
     \end{minipage}\hspace{1cm}
     \begin{minipage}{0.5\textwidth}
         \centering
@@ -73,7 +73,7 @@ Esto no significa que el analizador léxico espera un \textit{token} de por si, 
             \end{tikzpicture}
         \end{mdframed}
         \label{fig: palabraReservada}
-        \captionof{figure}{Automata del patrón para el token <PALABRAS\_RESERVADA>}
+        \captionof{figure}{Autómata del patrón para el token <PALABRAS\_RESERVADA>}
     \end{minipage}
 \end{figure}
 
@@ -95,7 +95,7 @@ Esto no significa que el analizador léxico espera un \textit{token} de por si, 
             \end{tikzpicture}
         \end{mdframed}
         \label{fig: idAutomata}
-        \caption{Automata del patrón para el token <ID>}
+        \caption{Autómata del patrón para el token <ID>}
     \end{minipage}\hspace{1cm}
     \begin{minipage}{0.5\textwidth}
         \begin{mdframed}
@@ -119,7 +119,7 @@ Esto no significa que el analizador léxico espera un \textit{token} de por si, 
             \end{tikzpicture}
         \end{mdframed}
         \label{fig: idContAutomata}
-        \caption{Automata del patrón para el token <IDCONT>}
+        \caption{Autómata del patrón para el token <IDCONT>}
     \end{minipage}
 \end{figure}
 
@@ -136,7 +136,7 @@ Esto no significa que el analizador léxico espera un \textit{token} de por si, 
             \end{tikzpicture}
         \end{mdframed}
         \label{fig: asigAutomata}
-        \caption{Automata del patrón para el token <ASIGNACION>}
+        \caption{Autómata del patrón para el token <ASIGNACION>}
     \end{minipage}\hspace{1cm}
     \begin{minipage}{0.5\linewidth}
         \begin{mdframed}
@@ -149,7 +149,7 @@ Esto no significa que el analizador léxico espera un \textit{token} de por si, 
             \end{tikzpicture}
         \end{mdframed}
         \label{fig: letraAutomata}
-        \caption{Automata del patrón para el token <LETRA>}
+        \caption{Autómata del patrón para el token <LETRA>}
     \end{minipage}
 \end{figure}
 
@@ -166,7 +166,7 @@ Esto no significa que el analizador léxico espera un \textit{token} de por si, 
             \end{tikzpicture}
         \end{mdframed}
         \label{fig: digitoAutomata}
-        \caption{Automata del patrón para el token <DIGITO>}
+        \caption{Autómata del patrón para el token <DIGITO>}
     \end{figure}
 \end{center}
 
@@ -203,11 +203,11 @@ Esto no significa que el analizador léxico espera un \textit{token} de por si, 
 Como se ha mencionado anteriormente, la implementación lexica del proyecto fue inspirada por la MAPL \cite{noauthor_pl-project-lgm-yvv-amnmapl_nodate} y adaptada para la gramática de AVISMO.
 
 Para ejecutar el analizador léxico, primero se tiene que instalar \textit{Python 3}. Luego, se ejecuta \mintinline{Bash}|pip install ply| por la línea de comando.
-Finalmente, se ejecuta \mintinline{Bash}|python lexer.py test_prog.txt|
+Finalmente, se ejecuta \mintinline{Bash}|python lexer.py test_prog.txt|, donde \mintinline{Bash}|test_prog| es el archivo de entrada escrito en AVISMO.
 
 
-Al ejecutarse el comando anterior, el programa procede a leer \textbf{cada caracter} del programa e identificar si una serie de caracteres sigue un patrón que forma parte del lenguaje AVISMO. Al encontrar un patrón reconocido, tales como un identificador o modelo molecular, lo clasifica con un \textit{token} correspondiente, lo emprime en el archivo de \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/python_remake/output.txt}{\textit{output.txt}} y lo devuelve al analizador sintáctico. Note, que el patrón de identificador reconoce palabra reservadas también. Esto crea ambiguedad semántica debido a que la gramatica no tiene un mecanismo para diferenciar entre una palabra reservada y un identificador. Por esta razón, si una serie de caracteres se identifica como un lexema de categoría identificador, se compara con los valores ya existentes del diccionario \textit{variables}. Al inicializar el programa \mintinline{Bash}|lexer.py|, este se encarga de abrir el archivo de
-palabras reservadas (\href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/python remake/keywords.txt}{\textit{keywords.txt}}) y añadir las palabras reservadas antes que cualquier variable se pueda inicializar. Mas aún, a las palabras reservadas se les asigna el valor de la cadena vacía. Esto se hace con el propósito de poder diferenciar entre palabras reservadas e identificadores, ya que al nivel sintáctico, no es posible asignarle a una identificador una cadena vacía, como se puede apreciar a continuación:
+Al ejecutarse el comando anterior, el programa procede a leer \textbf{cada caracter} del programa e identificar si una serie de caracteres sigue un patrón que forma parte del lenguaje AVISMO. Al encontrar un patrón reconocido, tales como un identificador o modelo molecular, lo clasifica con un \textit{token} correspondiente, lo emprime en el archivo de \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/python_remake/output.txt}{\textit{output.txt}} y lo devuelve al analizador sintáctico. Note, que el patrón de identificador reconoce palabra reservadas también. Esto crea ambigüedad semántica debido a que la gramatica no tiene un mecanismo para diferenciar entre una palabra reservada y un identificador. Por esta razón, si una serie de caracteres se identifica como un lexema de categoría identificador, se compara con los valores ya existentes del diccionario \textit{variables}. Al inicializar el programa \mintinline{Bash}|lexer.py|, este se encarga de abrir el archivo de
+palabras reservadas (\href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/python remake/keywords.txt}{\textit{keywords.txt}}) y añadir las palabras reservadas antes que cualquier variable se pueda inicializar. Más aún, a las palabras reservadas se les asigna el valor de la cadena vacía. Esto se hace con el propósito de poder diferenciar entre palabras reservadas e identificadores, ya que al nivel sintáctico, no es posible asignarle a una identificador una cadena vacía, como se puede apreciar a continuación:
 \begin{figure}[H]
 \begin{minted}[breaklines,breakanywhere]{python}
 def t_ID(t):                #identifica el token ID pero tambien idetifica el token de palabra reservada
@@ -249,7 +249,7 @@ with open(test_file, "r") as f:
     \label{fig: scanner}
 \end{figure}
 Esto imprime el \textit{token} resultante en el archivo \href{https://github.com/aramis-matos/comp4999_compilers_project/blob/master/code/python_remake/output.txt}{\textit{output.txt}}. En el caso de un error léxico, se ejecuta el siguiente código:
-\begin{figure}
+\begin{figure}[H]
 \begin{minted}[breaklines,breakanywhere]{python}
 def t_error(t):             # identifica error lexico
     tokenTable.add_row([tokenNum,"ERROR",t.value[0],t.lineno,t.lexpos,test_file])
@@ -259,12 +259,12 @@ def t_error(t):             # identifica error lexico
 \label{fig: errores}
 \end{figure}
 Cuando se encuentra un error léxico, no se retorna al analizador sintáctico. Los patrones que se utilizan están en \mintinline{Bash}|lexer.py| (líneas 58-103) son una adaptación de la gramática en la tabla \ref{table:lexTable}. Note la tupla \textit{tokens}.
-Esta contiene todos los \textit{tokens} del lenguaje AVISMO. Sin embargo, no todos están definidos a el nivel léxico. La mayoría de los \textit{tokens} se construyen en la etapa sintáctica, particularmente los que tienen que ver con compuestos quimicos y modelos moleculares.
-Mas aún, note el objeto \textit{tok} en la línea 5 de el listado \ref{fig: scanner}.
+Esta contiene todos los \textit{tokens} del lenguaje AVISMO. Sin embargo, no todos están definidos a el nivel léxico. La mayoría de los \textit{tokens} se construyen en la etapa sintáctica, particularmente los que tienen que ver con compuestos químicos y modelos moleculares.
+Más aún, note el objeto \textit{tok} en la línea 5 de el figura \ref{fig: scanner}.
 Este contiene los atributos \textit{type}, \textit{value}, \textit{lineno} y \textit{lexpos}.
-Estos devuelven, respectivamente, el tipo, lexema, en que línea del archivo se encuentra y la posición del primer caracter de el \textit{token} llamado \text{tok}. 
+Estos devuelven, respectivamente, el tipo, lexema, en que línea del archivo se encuentra y la posición del primer caracter de el \textit{token} llamado \textit{tok}. 
 Otro detalle importante de la implementación léxica es el orden de aplicación de los patrones. 
-Los patrones en forma de variables, como en el listado \ref{fig: patronVariable}, tienen que estar escrito antes que los patrones escritos en forma de funciones, como en el listado \ref{fig: id} y \ref{fig: patronFuncion}
+Los patrones en forma de variables, como en el figura \ref{fig: patronVariable}, tienen que estar escrito antes que los patrones escritos en forma de funciones, como en el figura \ref{fig: id} y \ref{fig: patronFuncion}.
 
 \begin{figure}[H]
 \begin{minted}[breaklines,breakanywhere]{python}
