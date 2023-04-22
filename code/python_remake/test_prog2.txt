@@ -1,4 +1,4 @@
 inicio  
-defina a1 como modelo;
-a1 := CH3CH(CH3)CH3;
+defina @a|1_ como modelo;
+a1 := CH3C\@!H(CH3)CH3;
 fin

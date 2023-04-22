@@ -3,7 +3,10 @@
 En la tabla \ref{table:lexTable}, en la columna de patrones, note que cuando dice $\left\{\textit{TOKEN}\right\}$ donde \textit{TOKEN} se refiere a el patrón asociado a \textit{token}.
 Por ejemplo, si un patrón dice $\left\{\textit{ELEMENTO\_QUIMICO}\right\}$, esto significa que inserta el patrón asociado al \textit{token} \textit{ELEMENTO\_QUIMICO}.
 Esto no significa que el analizador léxico espera un \textit{token} de por si, sencillamente se hizo con el propósito de evitar redundancias.
+
 \newpage
+
+\section{Especificación del analizador léxico}
 
 \begin{landscape}
     \footnotesize
@@ -281,3 +284,49 @@ def t_ELEMENTO_QUIMICO(t):  #define regla para el token elemento quimico
     \label{fig: patronFuncion}
 \end{figure}
 
+\newpage
+
+\section{Casos de prueba para el analizador léxico}
+\label{sec:lexerTest}
+
+\subsection{Tres programas léxicamente correctos}
+\label{subsec: lexerCorr}
+\begin{figure}[H]
+    \scaledimage{images/lexcorr1.png}
+    \caption{Ejemplo de Programa Correcto}
+    \label{fig: lexcorr1}
+\end{figure}
+
+\begin{figure}[H]
+    \scaledimage{images/lexcorr2.png}
+    \caption{Ejemplo de Programa Correcto}
+    \label{fig: lexcorr2}
+\end{figure}
+
+\begin{figure}[H]
+    \scaledimage{images/lexcorr3.png}
+    \caption{Ejemplo de Programa Correcto}
+    \label{fig: lexcorr3}
+\end{figure}
+
+\newpage
+\subsection{Tres programas léxicamente incorrectos}
+
+\label{subsec: lexerIncorr}
+\begin{figure}[H]
+    \scaledimage{images/lexincorr1.png}
+    \caption{Ejemplo de Programa Incorrecto}
+    \label{fig: lexincorr1}
+\end{figure}
+
+\begin{figure}[H]
+    \scaledimage{images/lexincorr2.png}
+    \caption{Ejemplo de Programa Incorrecto}
+    \label{fig: lexincorr2}
+\end{figure}
+
+\begin{figure}[H]
+    \scaledimage{images/lexincorr3.png}
+    \caption{Ejemplo de Programa Incorrecto}
+    \label{fig: lexincorr3}
+\end{figure}

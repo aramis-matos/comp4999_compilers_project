@@ -1,47 +1,30 @@
-+----+------------------+------------+-------+----------+---------------+
-| N. |      Token       |   Lexema   | Linea | Posición |    Programa   |
-+----+------------------+------------+-------+----------+---------------+
-| 1  |      INICIO      |   inicio   |   1   |    0     | test_prog.txt |
-| 2  |      DEFINA      |   defina   |   2   |    0     | test_prog.txt |
-| 3  |        ID        |   comp1    |   2   |    7     | test_prog.txt |
-| 4  |       COMO       |    como    |   2   |    13    | test_prog.txt |
-| 5  |       TIPO       |   modelo   |   2   |    18    | test_prog.txt |
-| 6  |   FIN_DE_LINEA   |     ;      |   2   |    24    | test_prog.txt |
-| 7  |        ID        |   comp1    |   3   |    0     | test_prog.txt |
-| 8  |    ASIGNACION    |     :=     |   3   |    6     | test_prog.txt |
-| 9  | ELEMENTO_QUIMICO |     C      |   3   |    9     | test_prog.txt |
-| 10 |      ENLACE      |     :      |   3   |    10    | test_prog.txt |
-| 11 | ELEMENTO_QUIMICO |     H      |   3   |    11    | test_prog.txt |
-| 12 |     VALENCIA     |     3      |   3   |    12    | test_prog.txt |
-| 13 | ELEMENTO_QUIMICO |     C      |   3   |    13    | test_prog.txt |
-| 14 | ELEMENTO_QUIMICO |     H      |   3   |    14    | test_prog.txt |
-| 15 |  PARENTESIS_IZQ  |     (      |   3   |    15    | test_prog.txt |
-| 16 | ELEMENTO_QUIMICO |     Cl     |   3   |    16    | test_prog.txt |
-| 17 |     VALENCIA     |     2      |   3   |    18    | test_prog.txt |
-| 18 |  PARENTESIS_DER  |     )      |   3   |    19    | test_prog.txt |
-| 19 |     COR_IZQ      |     [      |   3   |    20    | test_prog.txt |
-| 20 | ELEMENTO_QUIMICO |     K      |   3   |    21    | test_prog.txt |
-| 21 | ELEMENTO_QUIMICO |     P      |   3   |    22    | test_prog.txt |
-| 22 |     VALENCIA     |     7      |   3   |    23    | test_prog.txt |
-| 23 |     COR_DER      |     ]      |   3   |    24    | test_prog.txt |
-| 24 |      ENLACE      |     =      |   3   |    25    | test_prog.txt |
-| 25 | ELEMENTO_QUIMICO |     C      |   3   |    26    | test_prog.txt |
-| 26 | ELEMENTO_QUIMICO |     H      |   3   |    27    | test_prog.txt |
-| 27 |     VALENCIA     |     3      |   3   |    28    | test_prog.txt |
-| 28 |   FIN_DE_LINEA   |     ;      |   3   |    29    | test_prog.txt |
-| 29 |    OPERACION     | graficar2d |   4   |    0     | test_prog.txt |
-| 30 |  PARENTESIS_IZQ  |     (      |   4   |    10    | test_prog.txt |
-| 31 |        ID        |   comp1    |   4   |    11    | test_prog.txt |
-| 32 |  PARENTESIS_DER  |     )      |   4   |    16    | test_prog.txt |
-| 33 |   FIN_DE_LINEA   |     ;      |   4   |    17    | test_prog.txt |
-| 34 |       FIN        |    fin     |   5   |    0     | test_prog.txt |
-+----+------------------+------------+-------+----------+---------------+
++----+----------------+---------------+-------+----------+----------------+
+| N. |     Token      |     Lexema    | Linea | Posición |    Programa    |
++----+----------------+---------------+-------+----------+----------------+
+| 1  |     INICIO     |     inicio    |   1   |    0     | test_prog4.txt |
+| 2  |     DEFINA     |     defina    |   2   |    0     | test_prog4.txt |
+| 3  |       ID       |       id      |   2   |    7     | test_prog4.txt |
+| 4  |      COMO      |      como     |   2   |    10    | test_prog4.txt |
+| 5  |      TIPO      |     modelo    |   2   |    15    | test_prog4.txt |
+| 6  |  FIN_DE_LINEA  |       ;       |   2   |    21    | test_prog4.txt |
+| 7  |   OPERACION    | pesomolecular |   3   |    0     | test_prog4.txt |
+| 8  | PARENTESIS_IZQ |       (       |   3   |    13    | test_prog4.txt |
+| 9  |       ID       |       id      |   3   |    14    | test_prog4.txt |
+| 10 | PARENTESIS_DER |       )       |   3   |    16    | test_prog4.txt |
+| 11 |  FIN_DE_LINEA  |       ;       |   3   |    17    | test_prog4.txt |
+| 12 |   OPERACION    |   graficar2d  |   4   |    0     | test_prog4.txt |
+| 13 | PARENTESIS_IZQ |       (       |   4   |    10    | test_prog4.txt |
+| 14 |       ID       |       id      |   4   |    11    | test_prog4.txt |
+| 15 | PARENTESIS_DER |       )       |   4   |    13    | test_prog4.txt |
+| 16 |  FIN_DE_LINEA  |       ;       |   4   |    14    | test_prog4.txt |
+| 17 |      FIN       |      fin      |   5   |    0     | test_prog4.txt |
++----+----------------+---------------+-------+----------+----------------+
 
 TABLA DE SIMBOLOS
 +-----------+
 | Variables |
 +-----------+
-|   comp1   |
+|     id    |
 +-----------+
 
 

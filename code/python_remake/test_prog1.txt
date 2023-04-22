@@ -2,4 +2,4 @@ inicio
 defina comp1 como modelo;
 comp1 = := C:H3CH(Cl2)[KP7]=CH3;=
 graficar2d(comp1);
-fin;
+fi%~@n
