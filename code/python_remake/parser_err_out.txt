@@ -1,4 +1,0 @@
-Error sintactico en la linea 1, columna 8        por ELEMENTO_QUIMICO
-Error sintactico en la linea 1, columna 9        por ELEMENTO_QUIMICO
-Error sintactico en la linea 1, columna 10        por ELEMENTO_QUIMICO
-Error sintactico en la linea 1, columna 11        por FIN_DE_LINEA
