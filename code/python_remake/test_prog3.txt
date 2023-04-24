@@ -1,4 +1,4 @@
 inicio 
-defina c|+omp\}$1 co(><)mo modelo;
-comp1 = CH3CH(ClPH3)=[CH]:3;
+defina comp1 como modelo;
+comp1 =:= CH3CH(ClPH3)[CH]=PH4;
 fin
